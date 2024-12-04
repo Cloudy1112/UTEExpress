@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @Table(name ="rates")
 public class Rate {
+	@Id
 	public String IDrate;
 	
 	//Anh xa IDShipper anh xa Shipper

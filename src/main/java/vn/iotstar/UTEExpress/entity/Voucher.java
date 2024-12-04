@@ -32,7 +32,7 @@ public class Voucher {
 	//IDTransport anh xa bang Transport
 	@ManyToOne
 	@JoinColumn(name="IDTransport")
-	private Goods transport;
+	private Transport transport;
 	//IDGood anh xa toi Goods
 	@ManyToOne
 	@JoinColumn(name="IDGoods")

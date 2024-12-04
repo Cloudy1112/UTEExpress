@@ -1,5 +1,7 @@
 package vn.iotstar.UTEExpress.entity;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,6 +23,6 @@ public class Transport {
 	private Order order;
 	
 	@OneToMany(mappedBy = "transport", cascade = CascadeType.ALL)
-	private Transport transport;
+	private List<Voucher> transport;
 }
 
