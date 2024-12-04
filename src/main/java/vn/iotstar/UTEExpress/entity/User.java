@@ -1,6 +1,7 @@
 package vn.iotstar.UTEExpress.entity;
 
 import java.sql.Date;
+import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,5 +34,15 @@ public class User {
 	public String password;
 	
 	public Boolean IsEmailActive;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Rate> rates;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Order> orders;
+	
+	@ManyToOne
+	@JoinColumn(name="IDManager")
+	private Manager manager;
 
 }

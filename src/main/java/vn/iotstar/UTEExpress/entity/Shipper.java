@@ -1,6 +1,9 @@
 package vn.iotstar.UTEExpress.entity;
 
 import java.sql.Date;
+import java.util.List;
+
+import org.aspectj.weaver.ast.Or;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,5 +37,20 @@ public class Shipper {
 	public Boolean statusShipper;
 	
 	//Anh xa IDrate anh xa toi Rate
+	@OneToMany(mappedBy = "shipper", cascade = CascadeType.ALL)
+	private List<Rate> rates;
+	
+	//Anh xa IDPost toi Post
+	@ManyToOne
+	@JoinColumn(name="IDPost")
+	private Post post;
+	
+	@OneToMany(mappedBy = "shipper", cascade = CascadeType.ALL)
+	private List<Order> orders;
+	
+	@ManyToOne
+	@JoinColumn(name="IDManager")
+	private Manager manager;
+	
 	
 }

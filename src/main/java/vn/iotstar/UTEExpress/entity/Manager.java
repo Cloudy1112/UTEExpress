@@ -1,5 +1,7 @@
 package vn.iotstar.UTEExpress.entity;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,4 +19,17 @@ public class Manager {
 	public String password;
 	@Column(columnDefinition = "nvarchar(10) not null")
 	public String phone;
+	
+	@OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
+	private List<Voucher> vouchers;
+	
+	@OneToOne
+	@JoinColumn(name="IDPost")
+	private Post post;
+	
+	@OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
+	private List<Shipper> shippers;
+	
+	@OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
+	private List<User> users;
 }

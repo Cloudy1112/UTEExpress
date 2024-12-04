@@ -32,12 +32,38 @@ public class Order {
 	public int height;
 	public int weigth;
 	
+	//thêm date time các thứ
+	private Integer status;
 	/// Thuoc tinh anh xa
 		//IDTransport anh xa voi Transport
 		//IDGoods anh xa voi Goods
 		//IDVoucher anh xa voi Voucher
 		//IDShipper anh xa voi Shipper
-		
+		//IDUser anh xa voi User
+		//IDPost anh xa voi User
 	
+	@OneToOne
+    @JoinColumn(name = "IDGoods") //tên column tham chiếu trong database
+	private Goods good;
+	
+	@OneToOne
+	@JoinColumn(name="IDTransport")
+	private Transport transport;
+	
+	@ManyToOne
+	@JoinColumn(name="IDUser")
+	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name="IDVoucher")
+	private Voucher voucher;
+	
+	@ManyToOne
+	@JoinColumn(name="IDShipper")
+	private Shipper shipper;
+	
+	@ManyToOne
+	@JoinColumn(name="IDPost")
+	private Post postOffice;
 	
 }
