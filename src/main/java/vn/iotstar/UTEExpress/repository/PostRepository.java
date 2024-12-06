@@ -18,4 +18,6 @@ public interface PostRepository extends JpaRepository<Post, String> {
 	
 	Page<Post> getAllPost(String id, Pageable pageable);
 	
+	
+	
 }

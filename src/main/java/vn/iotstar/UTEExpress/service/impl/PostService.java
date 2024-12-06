@@ -5,11 +5,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import vn.iotstar.UTEExpress.entity.Post;
 import vn.iotstar.UTEExpress.repository.PostRepository;
 import vn.iotstar.UTEExpress.service.interfaces.IPostService;
 
+@Service
 public class PostService implements IPostService {
 
 	@Autowired
@@ -38,9 +40,10 @@ public class PostService implements IPostService {
 	}
 
 	@Override
-	public void updatePost(String id) {
-		Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post" + id + "not found"));
-		postRepository.save(post);
+	public void updatePost(String id, Post post) {
+		Post postBefore = postRepository.findById(id).orElseThrow();
+		postBefore.setNamePost(post.getNamePost());
+		postRepository.save(postBefore);
 		
 	}
 
@@ -54,5 +57,12 @@ public class PostService implements IPostService {
 		postRepository.save(post);
 		
 	}
+
+	@Override
+	public Long coutPost() {
+		return postRepository.countPost();
+	}
+	
+	
 
 }

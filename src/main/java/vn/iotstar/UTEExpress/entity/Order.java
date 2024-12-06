@@ -1,6 +1,7 @@
 package vn.iotstar.UTEExpress.entity;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -37,6 +38,8 @@ public class Order implements Serializable {
 	public int width;
 	public int height;
 	public int weigth;
+	
+	public Date orderDate;
 	
 	//thêm date time các thứ
 	private Integer status;
