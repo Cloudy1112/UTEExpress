@@ -9,5 +9,4 @@ public class UteExpressApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(UteExpressApplication.class, args);
 	}
-
 }

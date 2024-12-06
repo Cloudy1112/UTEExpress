@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <!-- Các thẻ meta, CSS, hoặc JS có thể nằm ở đây -->
+</head>
+<body>
+    <header class="row">
+        <div class="col">
+            <div th:replace="~{guest/fragments/header :: header}"></div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="row">
+            <div class="col">
+                <div th:replace="~{guest/fragments/nav :: nav}"></div>
+            </div>
+        </div>
+        <section class="row mt-4">
+            <div class="col mt-5 mb-5">
+                <div layout:fragment="content"></div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="row">
+        <div class="col">
+            <div th:replace="~{guest/fragments/footer :: footer}"></div>
+        </div>
+    </footer>
+</body>
+</html>
