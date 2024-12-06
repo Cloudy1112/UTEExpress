@@ -1,5 +1,7 @@
 package vn.iotstar.UTEExpress.entity;
 
+import java.io.Serializable;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,8 +10,12 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name ="rates")
-public class Rate {
+public class Rate implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
 	public String IDrate;
 	
 	//Anh xa IDShipper anh xa Shipper

@@ -1,5 +1,6 @@
 package vn.iotstar.UTEExpress.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -11,8 +12,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name ="vouchers")
-public class Voucher {
+public class Voucher implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
 	public String IDVoucher;
 	
 	public String vouchername;
