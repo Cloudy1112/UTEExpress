@@ -1,5 +1,6 @@
 package vn.iotstar.UTEExpress.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -13,8 +14,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name ="shippers")
-public class Shipper {
+public class Shipper implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
 	public String IDShipper;
 	public String cccd;
 	public String phone;

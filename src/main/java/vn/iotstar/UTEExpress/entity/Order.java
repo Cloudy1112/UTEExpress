@@ -1,5 +1,8 @@
 package vn.iotstar.UTEExpress.entity;
 
+import java.io.Serializable;
+import java.sql.Date;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,8 +12,12 @@ import lombok.*;
 @AllArgsConstructor
 @Table(name ="orders")
 
-public class Order {
+public class Order implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
 	public String IDOrder;
 	
 	public float shipFee;
@@ -31,6 +38,8 @@ public class Order {
 	public int width;
 	public int height;
 	public int weigth;
+	
+	public Date orderDate;
 	
 	//thêm date time các thứ
 	private Integer status;
