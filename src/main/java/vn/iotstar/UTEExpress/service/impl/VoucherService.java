@@ -26,7 +26,7 @@ public class VoucherService implements IVoucherService{
 	@Override
 	public Optional<Voucher> findByName(String name) {
 		// TODO Auto-generated method stub
-		return voucherRepository.findByName(name);
+		return voucherRepository.findByVouchername(name);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class VoucherService implements IVoucherService{
 	public Page<Voucher> getAllVoucher(String id, Pageable pageable) {  
 		/// Này sẽ lấy toàn bộ Voucher (kể cả hết hạn)
 		//Dùng cho ADMIN, Manager
-		return voucherRepository.getAllVoucher(id, pageable); 
+		return voucherRepository.findByIDVoucher(id, pageable); 
 	}
 	
 	@Override

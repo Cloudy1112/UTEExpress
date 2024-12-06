@@ -1,5 +1,6 @@
 package vn.iotstar.UTEExpress.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -12,12 +13,11 @@ import vn.iotstar.UTEExpress.entity.Post;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, String> {
-	Optional <Post> findByName (String name);
+	Optional <Post> findBynamePost (String namePost);
 	
-	Long countPost();
+	Page<Post> findByIDPost(String id, Pageable pageable);
 	
-	Page<Post> getAllPost(String id, Pageable pageable);
-	
+	List<Post> findAll();
 	
 	
 }

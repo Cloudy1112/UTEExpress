@@ -1,5 +1,6 @@
 package vn.iotstar.UTEExpress.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,10 @@ public class PostService implements IPostService {
 	}
 
 	@Override
-	public Optional<Post> findByName(String name) {
+	public Optional<Post> findByName(String namePost) {
 		// TODO Auto-generated method stub
-		return postRepository.findByName(name);
+		return postRepository.findBynamePost(namePost);
+		//return postRepository.f
 	}
 
 	@Override
@@ -48,8 +50,13 @@ public class PostService implements IPostService {
 	}
 
 	@Override
-	public Page<Post> getAllPost(String id, Pageable pageable) {
-		return postRepository.getAllPost(id, pageable);
+	public Page<Post> getPost(String id, Pageable pageable) {
+		return postRepository.findByIDPost(id, pageable);
+	}
+	
+	@Override
+	public Page<Post> getAllPost(Pageable pageable) {
+		return postRepository.findAll(pageable);
 	}
 
 	@Override
@@ -60,7 +67,13 @@ public class PostService implements IPostService {
 
 	@Override
 	public Long coutPost() {
-		return postRepository.countPost();
+		return postRepository.count();
+	}
+
+	@Override
+	public List<Post> findAllPost() {
+		// TODO Auto-generated method stub
+		return postRepository.findAll();
 	}
 	
 	
