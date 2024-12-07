@@ -17,61 +17,58 @@ public class UserService implements IUserService {
 
 	@Override
 	public List<User> findAll() {
-		return userRepository.findAll();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public User findById(String id) {
-		 Optional<User> user = userRepository.findById(id);
-	        return user.orElse(null);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public User create(User user) {
-		 return userRepository.save(user);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public User update(String id, User user) {
-		if (userRepository.existsById(id)) {
-            user.setIDUser(id); // Giữ nguyên ID khi cập nhật
-            return userRepository.save(user);
-        }
-        return null;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public void delete(String id) {
-		  userRepository.deleteById(id);
-    
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public List<User> search(String keyword) {
-		 return userRepository.searchByKeyword(keyword);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public boolean activateEmail(String id) {
-		Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()) {
-            User existingUser = user.get();
-            existingUser.setIsEmailActive(true);
-            userRepository.save(existingUser);
-            return true;
-        }
-        return false;
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
 	public boolean isEmailActive(String id) {
-		 User user = findById(id);
-	        return user != null && Boolean.TRUE.equals(user.getIsEmailActive());
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
 	public User findByPhone(String phone) {
-	      return userRepository.findByPhone(phone);
-	    }
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 	}
 
