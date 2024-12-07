@@ -16,9 +16,13 @@ public class Post implements Serializable  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	
+	@Column(name = "idPost")
 	public String IDPost; 
 	
-	@Column(columnDefinition = "nvarchar(100)")
+	
+	
+	@Column(name = "namePost", columnDefinition = "nvarchar(100)")
 	public String namePost;
 	
 	// một post có nhiều shipper

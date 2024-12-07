@@ -20,8 +20,9 @@ public interface IPostService {
 	
 	void savePost(Post post);
 	
-	Long coutPost();
+	Long countPost();
 
 	void updatePost(String id, Post post);
+
 	
 }

@@ -20,7 +20,7 @@ public class Transport implements Serializable  {
 	public String IDTransport;
 	
 	@Column(columnDefinition = "nvarchar(100)")
-	public String TransportType;
+	public String type;
 	
 	public float TransportFee;
 	

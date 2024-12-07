@@ -12,11 +12,15 @@ import vn.iotstar.UTEExpress.entity.Post;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, String> {
-	Optional <Post> findByName (String name);
+	Optional <Post> findByNamePost (String namePost);
 	
-	Long countPost();
+	// Đếm tất cả các Post
+    long count();
+
+    // Đếm các Post theo tên
+    Long countByNamePost(String namePost);
 	
-	Page<Post> getAllPost(String id, Pageable pageable);
+//	Page<Post> getAllPost(String id, Pageable pageable);
 	
 	
 	

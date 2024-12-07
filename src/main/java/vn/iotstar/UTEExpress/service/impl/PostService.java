@@ -26,7 +26,7 @@ public class PostService implements IPostService {
 	@Override
 	public Optional<Post> findByName(String name) {
 		// TODO Auto-generated method stub
-		return postRepository.findByName(name);
+		return postRepository.findByNamePost(name);
 	}
 
 	@Override
@@ -47,10 +47,10 @@ public class PostService implements IPostService {
 		
 	}
 
-	@Override
-	public Page<Post> getAllPost(String id, Pageable pageable) {
-		return postRepository.getAllPost(id, pageable);
-	}
+//	@Override
+//	public Page<Post> getAllPost(String id, Pageable pageable) {
+//		return postRepository.getAllPost(id, pageable);
+//	}
 
 	@Override
 	public void savePost(Post post) {
@@ -59,10 +59,24 @@ public class PostService implements IPostService {
 	}
 
 	@Override
-	public Long coutPost() {
-		return postRepository.countPost();
+	public Long countPost() {
+		return postRepository.count();
+	}
+
+	@Override
+	public Page<Post> getAllPost(String id, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
+	public Long countAllPosts() {
+        return postRepository.count();
+    }
 	
+	 public Long countPostsByName(String namePost) {
+	        return postRepository.countByNamePost(namePost);
+	    }
+	 
+	 
 
 }

@@ -26,4 +26,6 @@ public interface IVoucherService {
 	public Page<Voucher> getSuitableVoucher(String IdVoucher, String IdOrder, Pageable pageable);
 	
 	Long countVoucher();
+
+//	Page<Voucher> getAllVoucher(Pageable pageable);
 }
