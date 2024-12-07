@@ -16,10 +16,10 @@ public class Post implements Serializable  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	public String IDPost; 
+	private String IDPost; 
 	
 	@Column(columnDefinition = "nvarchar(100)")
-	public String namePost;
+	private String namePost;
 	
 	// một post có nhiều shipper
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)

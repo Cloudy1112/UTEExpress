@@ -17,12 +17,12 @@ public class Transport implements Serializable  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	public String IDTransport;
+	private String IDTransport;
 	
 	@Column(columnDefinition = "nvarchar(100)")
-	public String TransportType;
+	private String TransportType;
 	
-	public float TransportFee;
+	private float TransportFee;
 	
 	@OneToOne(mappedBy = "transport", cascade = CascadeType.ALL)
 	private Order order;

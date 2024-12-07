@@ -1,6 +1,7 @@
 package vn.iotstar.UTEExpress.repository;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -8,13 +9,21 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.NativeQuery;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import vn.iotstar.UTEExpress.entity.Voucher;
 
+@Repository
 public interface VoucherRepository extends JpaRepository<Voucher, String> {
     
     // Find voucher by transport ID (correct method name)
     Optional<Voucher> findByTransport_IDTransport(String IdTransport);
+    
+    
+    //Optional<Voucher> findByIDGoodsAndIDTransport(String IDGoods, String IDTransport);
+    
+ // Tìm Voucher có ngày bắt đầu trong khoảng
+    List<Voucher> findByDayStartBetween(Date startDate, Date endDate);
     
     // Find voucher by goods ID (correct method name)
     Optional<Voucher> findByGoods_IDGoods(String IdGoods);
@@ -27,6 +36,8 @@ public interface VoucherRepository extends JpaRepository<Voucher, String> {
     
     // Find voucher by voucher name
     Optional<Voucher> findByVouchername(String namevoucher);
+    
+    List<Voucher> findAll();
     
     // Find voucher by voucher ID (correct method name)
     Page<Voucher> findByIDVoucher(String IDVoucher, Pageable pageable);

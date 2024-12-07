@@ -16,7 +16,7 @@ public class Rate implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	public String IDrate;
+	private String IDrate;
 	
 	//Anh xa IDShipper anh xa Shipper
 	@ManyToOne
@@ -27,6 +27,6 @@ public class Rate implements Serializable {
 	@JoinColumn(name="IDUser")
 	private User user;
 	
-	public String feedback;
-	public int star;
+	private String feedback;
+	private int star;
 }

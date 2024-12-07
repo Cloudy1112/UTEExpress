@@ -1,6 +1,7 @@
 package vn.iotstar.UTEExpress.service.impl;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,11 @@ import vn.iotstar.UTEExpress.repository.VoucherRepository;
 import vn.iotstar.UTEExpress.service.interfaces.IVoucherService;
 
 @Service
-public class VoucherService implements IVoucherService{
+public class VoucherService implements IVoucherService {
 
 	@Autowired
 	VoucherRepository voucherRepository;
-	
+
 	@Override
 	public Optional<Voucher> findById(String id) {
 		// TODO Auto-generated method stub
@@ -34,29 +35,27 @@ public class VoucherService implements IVoucherService{
 		voucherRepository.deleteById(id);
 	}
 
-
 	@Override
-	public Page<Voucher> getAllVoucher(String id, Pageable pageable) {  
+	public Page<Voucher> getAllVoucher(String id, Pageable pageable) {
 		/// Này sẽ lấy toàn bộ Voucher (kể cả hết hạn)
-		//Dùng cho ADMIN, Manager
-		return voucherRepository.findByIDVoucher(id, pageable); 
-	}
-	
-	@Override
-	public Page<Voucher> getValidVoucher(String id, Date currentday, Pageable pageable) { 
-		///Này sẽ trả về Voucher có thể dùng được (trong khoảng ngày valid)
-		//Dùng cho ADMIN, Manager
-		return voucherRepository.getValidVouchersByDate(id,currentday,pageable);
+		// Dùng cho ADMIN, Manager
+		return voucherRepository.findByIDVoucher(id, pageable);
 	}
 
+	@Override
+	public Page<Voucher> getValidVoucher(String id, Date currentday, Pageable pageable) {
+		/// Này sẽ trả về Voucher có thể dùng được (trong khoảng ngày valid)
+		// Dùng cho ADMIN, Manager
+		return voucherRepository.getValidVouchersByDate(id, currentday, pageable);
+	}
 
 	@Override
 	public Page<Voucher> getSuitableVoucher(String IdVoucher, String IdOrder, Pageable pageable) {
-		///Này sẽ trả về Voucher có thể dùng được (trong khoảng ngày valid, lọc theo goods và transport)
-		//Dùng cho User
-		return voucherRepository.getSuitableVoucher(IdVoucher, IdOrder, pageable) ;
+		/// Này sẽ trả về Voucher có thể dùng được (trong khoảng ngày valid, lọc theo
+		/// goods và transport)
+		// Dùng cho User
+		return voucherRepository.getSuitableVoucher(IdVoucher, IdOrder, pageable);
 	}
-
 
 	@Override
 	public Long countVoucher() {
@@ -67,7 +66,7 @@ public class VoucherService implements IVoucherService{
 	@Override
 	public void updateVoucher(String id, Voucher voucher) {
 		Voucher voucherBefore = voucherRepository.findById(id).orElseThrow();
-		
+
 		voucherBefore.setAmount(voucher.getAmount());
 		voucherBefore.setDayEnd(voucher.getDayEnd());
 		voucherBefore.setDayStart(voucher.getDayStart());
@@ -75,18 +74,41 @@ public class VoucherService implements IVoucherService{
 		voucherBefore.setDescription(voucher.getDescription());
 		voucherBefore.setGoods(voucher.getGoods());
 		voucherBefore.setTransport(voucher.getTransport());
-		
+
 		voucherRepository.save(voucherBefore);
-		
+
 	}
 
 	@Override
 	public void addVoucher(Voucher voucher) {
 		voucherRepository.save(voucher);
-		
+
 	}
 
-	
+	@Override
+	public List<Voucher> findAll() {
+		// TODO Auto-generated method stub
+		return voucherRepository.findAll();
+	}
 
+	@Override
+	public List<Voucher> findByDayStartBetween(Date startDate, Date endDate) {
+		// TODO Auto-generated method stub
+		return voucherRepository.findByDayStartBetween(startDate, endDate);
+	}
+
+	@Override
+	public void reduceVoucher(Voucher voucher) {
+		voucher.setAmount(voucher.getAmount() - 1);
+
+		voucherRepository.save(voucher);
+	}
+
+	@Override
+	public void increaseVoucher(Voucher voucher) {
+		voucher.setAmount(voucher.getAmount() + 1);
+
+		voucherRepository.save(voucher);
+	}
 
 }

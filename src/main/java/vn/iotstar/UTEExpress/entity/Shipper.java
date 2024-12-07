@@ -18,26 +18,26 @@ public class Shipper implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	public String IDShipper;
-	public String cccd;
-	public String phone;
-	public String name;
-	public Boolean gender;
-	public Date birth;
+	private String IDShipper;
+	private String cccd;
+	private String phone;
+	private String name;
+	private Boolean gender;
+	private Date birth;
 	
 	@Column(columnDefinition = "nvarchar(100)")
-	public String address;
+	private String address;
 	
 	@Column(columnDefinition = "nvarchar(50)")
-	public String city;
+	private String city;
 	
 	@Column(columnDefinition = "nvarchar(300)")
-	public String picture;
+	private String picture;
 	
 	@Column(columnDefinition = "nvarchar(50) not null")
-	public String password;
+	private String password;
 	
-	public Boolean statusShipper;
+	private Boolean statusShipper;
 	
 	//Anh xa IDrate anh xa toi Rate
 	@OneToMany(mappedBy = "shipper", cascade = CascadeType.ALL)

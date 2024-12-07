@@ -16,12 +16,12 @@ public class Goods implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	public String IDGoods;
+	private String IDGoods;
 	
 	@Column(columnDefinition = "nvarchar(100)")
-	public String GoodsType;
+	private String GoodsType;
 	
-	public float GoodsFee;
+	private float GoodsFee;
 	
 	//one to one với bảng order
 	@OneToOne(mappedBy = "good", cascade = CascadeType.ALL)

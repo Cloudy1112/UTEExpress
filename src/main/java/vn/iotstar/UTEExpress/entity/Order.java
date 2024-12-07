@@ -18,28 +18,28 @@ public class Order implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	public String IDOrder;
+	private String IDOrder;
 	
-	public float shipFee;
-	public float codFee;
-	
-	@Column(columnDefinition = "nvarchar(100)")
-	public String source;
+	private float shipFee;
+	private float codFee;
 	
 	@Column(columnDefinition = "nvarchar(100)")
-	public String sourceCity;
+	private String source;
 	
 	@Column(columnDefinition = "nvarchar(100)")
-	public String dest;
+	private String sourceCity;
 	
 	@Column(columnDefinition = "nvarchar(100)")
-	public String destCity;
+	private String dest;
 	
-	public int width;
-	public int height;
-	public int weigth;
+	@Column(columnDefinition = "nvarchar(100)")
+	private String destCity;
 	
-	public Date orderDate;
+	private int width;
+	private int height;
+	private int weigth;
+	
+	private Date orderDate;
 	
 	//thêm date time các thứ
 	private Integer status;
