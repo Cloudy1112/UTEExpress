@@ -1,5 +1,6 @@
 package vn.iotstar.UTEExpress.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -10,8 +11,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name ="posts")
-public class Post {
+public class Post implements Serializable  {
+	private static final long serialVersionUID = 1L;
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
 	public String IDPost; 
 	
 	@Column(columnDefinition = "nvarchar(100)")

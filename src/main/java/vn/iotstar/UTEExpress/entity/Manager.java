@@ -1,5 +1,6 @@
 package vn.iotstar.UTEExpress.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -10,8 +11,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name ="managers")
-public class Manager {
+public class Manager implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
 	public String IDManager;
 	@Column(columnDefinition = "nvarchar(50) not null")
 	public String username;
