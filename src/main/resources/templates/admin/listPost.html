@@ -13,6 +13,11 @@
     <div th:replace="admin/fragments/header :: header"></div>
 
     <h1>Post Details</h1>
+    
+    <!-- Hiển thị thông báo nếu có -->
+    <div th:if="${message}" class="alert alert-success">
+        <p th:text="${message}"></p>
+    </div>
 
     <!-- Displaying the Post information -->
     <table border="1">
