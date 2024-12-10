@@ -1,17 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Search Categories</title>
+</head>
 <body>
-   			<div th:fragment="footer">
-   			<div class="container-fluid bg-dark text-white p-3">
-   			
-   			footer
-   			
-   			</div>
-   			
-   			</div>
-   		
-   
+	<div th:replace="layout-shipper :: content">
+		<h2>Search Categories</h2>
+		<form th:action="@{/shipper/categories/search}" method="get">
+			<div class="form-group">
+				<input type="text" name="keyword" class="form-control"
+					placeholder="Enter keyword">
+			</div>
+			<button type="submit" class="btn btn-primary">Search</button>
+		</form>
+		<div th:if="${categories != null}">
+			<h3>Search Results</h3>
+			<ul>
+				<li th:each="category : ${categories}" th:text="${category.name}"></li>
+			</ul>
+		</div>
+	</div>
 </body>
 </html>

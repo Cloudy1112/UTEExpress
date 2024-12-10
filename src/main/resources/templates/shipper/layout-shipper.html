@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <!-- Các thẻ meta, CSS, hoặc JS có thể nằm ở đây -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/static/bootstrap.min.css">
+<title>Shipper Management</title>
 </head>
 <body>
-    <header class="row">
-        <div class="col">
-            <div th:replace="~{shipper/fragments/header :: header}"></div>
-        </div>
-    </header>
-    
-    <main class="container">
-        <div class="row">
-            <div class="col">
-                <div th:replace="~{shipper/fragments/nav :: nav}"></div>
-            </div>
-        </div>
-        <section class="row mt-4">
-            <div class="col mt-5 mb-5">
-                <div layout:fragment="content"></div>
-            </div>
-        </section>
-    </main>
-    
-    <footer class="row">
-        <div class="col">
-            <div th:replace="~{shipper/fragments/footer :: footer}"></div>
-        </div>
-    </footer>
+	<header class="row">
+		<div class="col">
+			<div th:replace="~{shipper/fragments/header :: header}"></div>
+		</div>
+	</header>
+
+	<main class="container">
+		<div class="row">
+			<div class="col">
+				<div th:replace="~{shipper/fragments/nav :: nav}"></div>
+			</div>
+		</div>
+		<section class="row mt-4">
+			<div class="col mt-5 mb-5">
+				<div layout:fragment="content"></div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="row">
+		<div class="col">
+			<div th:replace="~{shipper/fragments/footer :: footer}"></div>
+		</div>
+	</footer>
 </body>
 </html>
