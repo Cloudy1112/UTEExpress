@@ -15,24 +15,24 @@ public class Manager implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	public String IDManager;
+	private String IDManager;
 	@Column(columnDefinition = "nvarchar(50) not null")
-	public String username;
+	private String username;
 	@Column(columnDefinition = "nvarchar(50) not null")
-	public String password;
+	private String password;
 	@Column(columnDefinition = "nvarchar(10) not null")
-	public String phone;
-	
+	private String phone;
+
 	@OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
 	private List<Voucher> vouchers;
-	
+
 	@OneToOne
 	@JoinColumn(name="IDPost")
 	private Post post;
-	
+
 	@OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
 	private List<Shipper> shippers;
-	
+
 	@OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
 	private List<User> users;
 }

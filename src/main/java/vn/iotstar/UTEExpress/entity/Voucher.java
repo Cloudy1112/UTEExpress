@@ -17,18 +17,18 @@ public class Voucher implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	public String IDVoucher;
+	private String IDVoucher;
 	
-	public String vouchername;
+	private String vouchername;
 	
 	@Column(columnDefinition = "nvarchar(500)")
-	public String description;
+	private String description;
 	
 	
-	public Date dayStart;
-	public Date dayEnd;
+	private Date dayStart;
+	private Date dayEnd;
 	
-	public int amount;
+	private int amount;
 	
 	@OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL)
 	private List<Order> orders;
