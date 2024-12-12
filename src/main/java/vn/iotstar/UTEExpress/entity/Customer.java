@@ -8,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -17,14 +16,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
-@Table(name="shippers")
-public class Shipper {
+@Table(name="customers")
+public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer shipperID;
+	private Integer customerID;
 	
 	private String password;
 	private String name;
@@ -36,18 +35,15 @@ public class Shipper {
 	private String phone;
 	private String cccd;
 	
-	//1 - bận  2 - rảnh
-	private Integer statusShipper;
-	
-	// 1 shipper thuộc 1 post duy nhất
-	@ManyToOne
-	@JoinColumn(name="IDPost")
-	private Post post;
+	// if active, permit place order
+	private Integer isActive; //accept by mangager
 	
 	@OneToOne
 	@JoinColumn(name="username")
 	private Account account;
 	
-	@OneToMany(mappedBy = "shipper")
-	private List<Shipping> shippings;
+	// cac địa chỉ đơn của customer
+	@OneToMany(mappedBy = "customer")
+	private List<Address> addresses;
+
 }

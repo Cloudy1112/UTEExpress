@@ -1,78 +1,47 @@
 package vn.iotstar.UTEExpress.entity;
 
-import java.io.Serializable;
-import java.sql.Date;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import jakarta.persistence.*;
-import lombok.*;
-
-@Data
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name ="orders")
-
-public class Order implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-
+@NoArgsConstructor
+@Data
+@Table(name="orders")
+public class Order {
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	public String IDOrder;
+	private String orderID;
 	
-	public float shipFee;
-	public float codFee;
+	private Integer weight; //kg
+	private Integer height;
+	private Integer width;
 	
-	@Column(columnDefinition = "nvarchar(100)")
-	public String source;
+	private String destCity; // để tìm post từ bảng city
+	private String sourceCity;
 	
-	@Column(columnDefinition = "nvarchar(100)")
-	public String sourceCity;
+	// địa chỉ chi tiết
+	private String dest;
+	private String source;
 	
-	@Column(columnDefinition = "nvarchar(100)")
-	public String dest;
-	
-	@Column(columnDefinition = "nvarchar(100)")
-	public String destCity;
-	
-	public int width;
-	public int height;
-	public int weigth;
-	
-	public Date orderDate;
-	
-	//thêm date time các thứ
-	private Integer status;
-	/// Thuoc tinh anh xa
-		//IDTransport anh xa voi Transport
-		//IDGoods anh xa voi Goods
-		//IDVoucher anh xa voi Voucher
-		//IDShipper anh xa voi Shipper
-		//IDUser anh xa voi User
-		//IDPost anh xa voi User
-	
-	@OneToOne
-    @JoinColumn(name = "IDGoods") //tên column tham chiếu trong database
-	private Goods good;
-	
-	@OneToOne
-	@JoinColumn(name="IDTransport")
-	private Transport transport;
-	
-	@ManyToOne
-	@JoinColumn(name="IDUser")
-	private User user;
+	private Integer codFee;
+	private Integer shipFee;
 	
 	@ManyToOne
 	@JoinColumn(name="IDVoucher")
 	private Voucher voucher;
 	
 	@ManyToOne
-	@JoinColumn(name="IDShipper")
-	private Shipper shipper;
+	@JoinColumn(name="IDGoods")
+	private Goods goods;
 	
 	@ManyToOne
-	@JoinColumn(name="IDPost")
-	private Post postOffice;
+	@JoinColumn(name="IDTransport")
+	private Transport transport;
 	
 }

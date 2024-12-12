@@ -1,49 +1,49 @@
 package vn.iotstar.UTEExpress.entity;
 
-import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Data
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name ="vouchers")
-public class Voucher implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+@NoArgsConstructor
+@Data
+@Table(name="vouchers")
+public class Voucher {
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	public String IDVoucher;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer voucherID;
 	
-	public String vouchername;
+	private String voucherName;
+	private Integer discount; //0-100
+	private Integer amount;
 	
-	@Column(columnDefinition = "nvarchar(500)")
-	public String description;
+	private Date dateStart;
+	private Date dateEnd;
 	
+	private String description;
 	
-	public Date dayStart;
-	public Date dayEnd;
-	
-	public int amount;
-	
-	@OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL)
-	private List<Order> orders;
-	
-	//IDTransport anh xa bang Transport
-	@ManyToOne
-	@JoinColumn(name="IDTransport")
-	private Transport transport;
-	//IDGood anh xa toi Goods
 	@ManyToOne
 	@JoinColumn(name="IDGoods")
 	private Goods goods;
 	
-	//IDManager anh xa toi Manager
 	@ManyToOne
-	@JoinColumn(name="IDManager")
-	private Manager manager;
+	@JoinColumn(name="IDTransport")
+	private Transport transport;
+	
+	@OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL)
+	private List<Order> orders;
+	
 }

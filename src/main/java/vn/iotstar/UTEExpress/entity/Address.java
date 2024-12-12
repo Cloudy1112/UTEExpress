@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,16 +15,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name="posts")
-public class Post {
+@Table(name="addresses")
+public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer postID;
-	private String postName;
+	private Integer addressID;
+	// details address of customer
+	private String soure;
+	// field to search post office
+	private String sourceCity;
 	
-	// co nhieu post thuoc ve cung 1 thanh pho
+	private String dest;
+	private String destCity;
+	
 	@ManyToOne
-	@JoinColumn(name="IDCity")
-	private City city;
-
+	@JoinColumn(name="IDCustomer")
+	private Customer customer;
 }

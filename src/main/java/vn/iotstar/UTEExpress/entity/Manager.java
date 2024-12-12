@@ -1,38 +1,39 @@
 package vn.iotstar.UTEExpress.entity;
 
-import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Data
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name ="managers")
-public class Manager implements Serializable {
-	private static final long serialVersionUID = 1L;
+@NoArgsConstructor
+@Data
+@Table(name="managers")
+public class Manager {
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	public String IDManager;
-	@Column(columnDefinition = "nvarchar(50) not null")
-	public String username;
-	@Column(columnDefinition = "nvarchar(50) not null")
-	public String password;
-	@Column(columnDefinition = "nvarchar(10) not null")
-	public String phone;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer managerID;
 	
-	@OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
-	private List<Voucher> vouchers;
+	private String password;
+	private String name;
+	private Integer gender; //1-nam  2-nữ
+	private String picture;
+	private String city;
+	private String address;
+	private Date birth;  //java.util
+	private String phone;
+	private String cccd;
 	
 	@OneToOne
-	@JoinColumn(name="IDPost")
-	private Post post;
-	
-	@OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
-	private List<Shipper> shippers;
-	
-	@OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
-	private List<User> users;
+	@JoinColumn(name="username")
+	private Account account;
 }

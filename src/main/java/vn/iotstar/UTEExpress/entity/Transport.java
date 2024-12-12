@@ -1,33 +1,34 @@
 package vn.iotstar.UTEExpress.entity;
 
-import java.io.Serializable;
 import java.util.List;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Data
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name ="transports")
-public class Transport implements Serializable  {
-
-	private static final long serialVersionUID = 1L;
-
+@NoArgsConstructor
+@Data
+@Table(name="transports")
+public class Transport {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	public String IDTransport;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer transportID;
+	private String transportType;
+	private Integer transportFee;
 	
-	@Column(columnDefinition = "nvarchar(100)")
-	public String TransportType;
+	@OneToMany(mappedBy = "transport")
+	private List<Voucher> vouchers;
 	
-	public float TransportFee;
-	
-	@OneToOne(mappedBy = "transport", cascade = CascadeType.ALL)
-	private Order order;
-	
-	@OneToMany(mappedBy = "transport", cascade = CascadeType.ALL)
-	private List<Voucher> transport;
-}
+	@OneToMany(mappedBy = "transport")
+	private List<Order> orders;
 
+}
