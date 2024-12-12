@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Table(name="shipping")
 public class Shipping {
+	// do de id nen t ko tao onetomany
 	@Id
 	private String orderID;
 	@Id
