@@ -32,9 +32,11 @@ public class Voucher {
 	
 	private Date dateStart;
 	private Date dateEnd;
+
 	
 	private String description;
 	
+
 	@ManyToOne
 	@JoinColumn(name="IDGoods")
 	private Goods goods;

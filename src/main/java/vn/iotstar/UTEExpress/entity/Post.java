@@ -19,6 +19,7 @@ import lombok.NoArgsConstructor;
 @Table(name="posts")
 public class Post {
 	@Id
+
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer postID;
 	private String postName;

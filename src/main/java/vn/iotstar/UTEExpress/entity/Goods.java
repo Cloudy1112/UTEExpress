@@ -24,7 +24,7 @@ public class Goods {
 	private String goodsID;
 	private String goodsType;
 	private Integer goodsFee;
-	
+
 	@OneToMany(mappedBy = "goods", cascade = CascadeType.ALL)
 	private List<Voucher> vouchers;
 	
