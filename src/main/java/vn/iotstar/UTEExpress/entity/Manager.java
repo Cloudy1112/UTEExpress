@@ -38,4 +38,8 @@ public class Manager {
 	@OneToOne
 	@JoinColumn(name="username")
 	private Account account;
+	
+	@OneToOne
+	@JoinColumn(name="IDPost")
+	private Post post;
 }

@@ -28,5 +28,7 @@ public class Post {
 	@ManyToOne
 	@JoinColumn(name="IDCity")
 	private City city;
-
+	
+	@OneToOne(mappedBy = "post")
+	private Manager manager;
 }
