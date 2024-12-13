@@ -1,0 +1,54 @@
+[33mcommit 3ed0413ac780e038ceea6a33b2b0afd08003b3bd[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Merge: 708fd6f 9a4affa
+Author: Cloudy1112 <chonglevan2004@gmai.com>
+Date:   Fri Dec 6 15:13:13 2024 +0700
+
+    Post Service
+
+[33mcommit 9a4affa094fa04e1f9251e1c3bb5e4a6ec1f15ff[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: capbalamauxanh <hlm1022004@gmail.com>
+Date:   Fri Dec 6 08:54:23 2024 +0700
+
+    Thymeleaf
+
+[33mcommit 708fd6f81b077932bbc062bfb04a2513874b5567[m
+Author: tien.blt <buitien747@gmail.com>
+Date:   Wed Dec 4 23:26:55 2024 +0700
+
+    fixed entity v1 bug
+
+[33mcommit 94bb4805605372a2a9a91b15ecf00f6c5dda1b66[m
+Author: tien.blt <buitien747@gmail.com>
+Date:   Wed Dec 4 23:26:28 2024 +0700
+
+    add jpa and database config
+
+[33mcommit 762f8f941c2316435911f279c62bbaeb567500b9[m
+Author: tien.blt <buitien747@gmail.com>
+Date:   Wed Dec 4 23:02:17 2024 +0700
+
+    delete config folder
+
+[33mcommit 555181677ba1fdca39659d28342c2afb27b5fc33[m
+Author: tien.blt <buitien747@gmail.com>
+Date:   Wed Dec 4 22:59:35 2024 +0700
+
+    finished  entity v1
+
+[33mcommit 7601a8ac751c50ff8408b28f888fa3ae8c5a8e84[m
+Author: tien.blt <buitien747@gmail.com>
+Date:   Wed Dec 4 21:44:43 2024 +0700
+
+    add JPA configuration
+
+[33mcommit 19996bcc0bcc6de8fdc80b6a46288c2d47f92f02[m
+Author: Cloudy1112 <chonglevan2004@gmai.com>
+Date:   Wed Dec 4 16:46:02 2024 +0700
+
+    entity half
+
+[33mcommit f6036c828ebe96112f03f636c04a3e5b55bd7fdd[m
+Author: Cloudy1112 <chonglevan2004@gmai.com>
+Date:   Wed Dec 4 15:45:34 2024 +0700
+
+    first commit

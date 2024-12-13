@@ -1,0 +1,24 @@
+package vn.iotstar.UTEExpress.service.interfaces;
+
+import java.util.List;
+import java.util.Optional;
+
+import vn.iotstar.UTEExpress.entity.Order;
+
+public interface IOrderService {
+	Optional<Order> findById(String id);
+
+	List<Order> findAll();
+
+	List<Order> filterOrderByPostID(String postID);
+
+	<S extends Order> S save(S entity);
+
+
+	List<Order> findByIdShipperAndStatus(String IDShipper, Integer status);
+
+	List<Order> findByIdShipper(String IDShipper);
+	
+	Long countByIdShipperAndStatus(String IDShipper, Integer status);
+	
+}
