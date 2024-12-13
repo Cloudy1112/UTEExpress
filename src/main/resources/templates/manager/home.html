@@ -67,7 +67,7 @@
                 <div class="card text-center">
                     <div class="card-body">
                         <h5 class="card-title">Orders</h5>
-                        <a class="btn btn-primary" href="/admin/packet">View</a>
+                        <a class="btn btn-primary" th:href="@{/manager/{id}/orders(id=${manager.managerID})}">View</a>
                     </div>
                 </div>
             </div>

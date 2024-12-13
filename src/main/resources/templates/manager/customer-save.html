@@ -30,18 +30,18 @@
 
 <!-- Dashboard -->
 <section class="bg-light text-center" id="admin-db" > 
-    <form th:action="@{/manager/{id}/add-shipper(id=${manager.managerID})}" method="POST" th:object="${shipper}" enctype="multipart/form-data">
+    <form th:action="@{/manager/{id}/add-customer(id=${manager.managerID})}" method="POST" th:object="${customer}" enctype="multipart/form-data">
 
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-9 mx-auto">
-                    <h1><a class="arrow" th:href="@{/manager/{id}/shippers(id=${manager.managerID})}"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Save Shipper
+                    <h1><a class="arrow" th:href="@{/manager/{id}/customers(id=${manager.managerID})}"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Save Customer
                     </h1>
                     <br/>
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-10 col-sm-4 col-sm-offset-4 class-">
+                <div class="col-10 col-sm-6 col-sm-offset-6 class-">
                     
                     <div class="row">
                         <div class="col">
@@ -57,8 +57,8 @@
                             <div class="form-group">
                                 <label for="gender">Gender</label>
 								<select id="gender" class="form-control" th:field="*{gender}">
-								    <option value="1" th:text="'Nam'">Nam</option>
-								    <option value="0" th:text="'Nữ'">Nữ</option>
+								    <option value="1" th:text="'Male'">Nam</option>
+								    <option value="0" th:text="'Female'">Nữ</option>
 								</select>
                             </div>
                         </div>
@@ -75,11 +75,30 @@
 	                        <div class="col">
 	                            <div class="form-group">
 	                                <label for="phone">Phone</label>
-									<input class="form-control" id="phone" placeholder="Enter phonenumber"
+									<input class="form-control" id="phone" placeholder="Enter Phone"
 	                                       th:errorclass="is-invalid"
 	                                       th:field="*{phone}" type="text">
 	                            </div>
 	                        </div>
+                        </div>
+                        
+                         <div class="row">
+	                        <div class="col">
+	                            <div class="form-group">
+	                                <label for="inputBirth">Date of Birth</label>
+							        <input class="form-control" id="inputBirth" name="birth"
+							               th:value="${#dates.format(manager.birth, 'yyyy-MM-dd')}" 
+							               placeholder="Enter birth date" required type="date" />
+	                            </div>
+	                        </div>
+	                        <div class="col">
+							    <div class="form-group">
+							        <label for="status">Active</label>
+							        <input class="form-control" id="status"
+							               th:errorclass="is-invalid"
+							               th:field="*{isActive}" required>
+							    </div>
+							</div>
                         </div>
                         <div class="row">
 	                        <div class="col">
@@ -87,54 +106,33 @@
 	                                <label for="city">City</label>
 									<input class="form-control" id="city" name="city"
                                				th:value="${manager.post.city.cityName}" type="text" readonly>
-	
 	                            </div>
 	                        </div>
 	                        <div class="col">
-							    <div class="form-group">
-							        <label for="status">Status</label>
-							        <input class="form-control" id="status"
-							               th:errorclass="is-invalid"
-							               th:field="*{statusShipper}" required>
-							    </div>
-							</div>
-                        
+	                        	<div class="form-group">
+			                        <label for="post">Office</label>
+			                        <input class="form-control" id="post"
+			                               th:value="${manager.post.postName}" type="text" readonly>
+			                    </div>
+	                        </div>                 
                     </div>
                     <div class="row">
                     	<div class="col">
 	                    <div class="form-group">
 	                        <label for="inputUsername">Username</label>
 	                        <input class="form-control" id="inputUsername" placeholder="Enter username"
-	                       
 	                               name="username" type="text">
 	                    </div>
 	                    </div>
 	                    <!-- Gen pass tự động -->
 	                    <div class="col">
-	                    <div class="form-group">
-	                        <label for="pass">Password</label>
-	                        <input class="form-control" id="pass" placeholder="Enter pass" th:errorclass="is-invalid"
-	                               th:field="*{password}" type="password">
-	                    </div>
+		                    <div class="form-group">
+		                        <label for="pass">Password</label>
+		                        <input class="form-control" id="pass" placeholder="Enter pass" th:errorclass="is-invalid"
+		                               th:field="*{password}" type="password">
+		                    </div>
 	                    </div>
                     </div>
-                    <div class="form-group">
-                        <label for="post">Office</label>
-                        <input class="form-control" id="post"
-                               th:value="${manager.post.postName}" type="text" readonly>
-                    </div>
-                    
-                    <div class="col">
-					    <div class="form-group">
-					        <label for="status">Role</label>
-					        <select class="form-control" id="status" name="roleid" required>
-					            <option value="4">Direct Delivery</option>
-					            <option value="5">Pickup from Customer</option>
-					            <option value="6">Pickup from Post Office</option>
-					            <option value="7">Transfer Between Post Offices</option>
-					        </select>
-					    </div>
-					</div>
 
                     <button class="btn btn-lg btn-primary btn-block signup_btn" type="submit">
                         Add
