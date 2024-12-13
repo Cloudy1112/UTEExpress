@@ -26,6 +26,10 @@ public class CustomerServiceImpl implements ICustomerService{
 	public <S extends Customer> S save(S entity) {
 		return customerReposotory.save(entity);
 	}
+
+	public void delete(Customer entity) {
+		customerReposotory.delete(entity);
+	}
 	
 	
 	// end coche

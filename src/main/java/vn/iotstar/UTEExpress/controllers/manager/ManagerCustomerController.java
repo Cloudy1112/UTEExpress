@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import vn.iotstar.UTEExpress.entity.Account;
 import vn.iotstar.UTEExpress.entity.Customer;
 import vn.iotstar.UTEExpress.entity.Manager;
+import vn.iotstar.UTEExpress.service.impl.AccountServiceImpl;
 import vn.iotstar.UTEExpress.service.impl.CustomerServiceImpl;
 import vn.iotstar.UTEExpress.service.impl.ManagerServiceImpl;
 
@@ -25,6 +27,8 @@ public class ManagerCustomerController {
 	private ManagerServiceImpl managerService;
 	@Autowired
 	private CustomerServiceImpl customerService;
+	@Autowired 
+	private AccountServiceImpl accountService;
 	
 	// trang co list cac customer thuoc buu cuc (dua tren city)
 	@GetMapping("customer-request")
@@ -52,5 +56,17 @@ public class ManagerCustomerController {
 		return "redirect:/manager/" + managerID + "/customer-request";
 	}
 	
+	@GetMapping("delete-request") 
+	public String rejectCustomerRequest(@PathVariable("id") Integer managerID, @RequestParam("username") String username){
+	 	// xóa customer
+		Customer customer = customerService.findCustomerByUserName(username);
+		customerService.delete(customer);
+		
+		// xóa account ứng vs customer
+		Account account = accountService.findById(username).get();
+		accountService.delete(account);
+		 
+		return "redirect:/manager/" + managerID + "/customer-request";
+	}
 
 }
