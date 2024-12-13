@@ -2,6 +2,8 @@ package vn.iotstar.UTEExpress.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,6 +32,8 @@ public class Manager {
 	private String picture;
 	private String city;
 	private String address;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;  //java.util
 	private String phone;
 	private String cccd;

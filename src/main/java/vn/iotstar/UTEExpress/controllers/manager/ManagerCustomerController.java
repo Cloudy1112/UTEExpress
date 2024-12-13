@@ -68,5 +68,21 @@ public class ManagerCustomerController {
 		 
 		return "redirect:/manager/" + managerID + "/customer-request";
 	}
-
+	
+	@GetMapping("customers")
+	public String allCustomerOfPost(@PathVariable("id") Integer managerID, Model model) {
+		Manager manager = managerService.findById(managerID).get();
+		
+		if(manager == null) {
+			return "redirect:/";
+		}
+		
+		String cityName = manager.getPost().getCity().getCityName();
+		List<Customer> allCustomers = customerService.findCustomersByCity(cityName);
+		model.addAttribute("allCustomers", allCustomers);
+		model.addAttribute("manager", manager);
+		
+		return "manager/customer";
+		
+	}
 }

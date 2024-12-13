@@ -30,6 +30,10 @@ public class CustomerServiceImpl implements ICustomerService{
 	public void delete(Customer entity) {
 		customerReposotory.delete(entity);
 	}
+
+	public List<Customer> findCustomersByCity(String cityName) {
+		return customerReposotory.findCustomersByCity(cityName);
+	}
 	
 	
 	// end coche

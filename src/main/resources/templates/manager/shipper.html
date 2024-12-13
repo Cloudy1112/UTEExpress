@@ -25,16 +25,7 @@
 <body>
 
 <!-- Navigation -->
-<nav class="navbar static-top">
-    <div class="container">
-        <a class="navbar-brand" th:href="@{/}">
-            <img alt="Logo" class="navbar-logo" th:src="@{/manager/assets/img/truck.png}">Logistics Express</a>
-        <div>
-            <span sec:authentication="name"></span>
-            <a class="btn btn-primary" th:href="@{/logout}">Log out</a>
-        </div>
-    </div>
-</nav>
+<nav th:replace="~{manager/fragments/header::nav}"></nav>
 
 
 <!-- Dashboard -->
@@ -56,27 +47,32 @@
                     <table class="table">
                         <thead>
                         <th scope="col">ID</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Picture</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Birth</th>
+                        <th scope="col">CCCD</th>
+                        <th scope="col">Post</th>
                         <th scope="col">Username</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Office</th>
-                        <th scope="col">Update</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Delete</th>
                         </thead>
                         <tbody>
-                        <tr th:each="shippers : ${allShippers}">
-                            <td th:text="${{employee.id}}"></td>
-                            <td th:text="${{employee.user.firstName}}"></td>
-                            <td th:text="${{employee.user.lastName}}"></td>
-                            <td th:text="${{employee.user.username}}"></td>
-                            <td th:text="${{employee.user.email}}"></td>
-                            <td th:text="${{employee.office.name}}"></td>
+                        <tr th:each="shipper : ${allShippers}">
+                            <td th:text="${{shipper.shipperID}}"></td>
+                            <td th:text="${{shipper.name}}"></td>
+                            <td> Picture</td>
+                            <td th:text="${{shipper.address}}"></td>
+                            <td th:text="${#dates.format(shipper.birth, 'yyyy-MM-dd')}"></td>
+                            <td th:text="${{shipper.cccd}}"></td>
+                            <td th:text="${{shipper.post.postName}}"></td>
+                            <td th:text="${{shipper.account.username}}"></td>
+                            <td th:text="(${shipper.statusShipper} == 1) ? 'Free' : 'Busy'"
+    							th:classappend="${shipper.statusShipper == 1} ? 'text-success' : 'text-danger'"></td>
+
+                          
                             <td>
-                                <a class="btn btn-primary" th:href="@{/admin/employee-update(id=${{employee.id}})}">Update</a>
-                            </td>
-                            <td>
-                                <a class="btn btn-primary" th:href="@{/admin/employee-delete(id=${{employee.id}})}">Delete</a>
+                                <a class="btn btn-primary" th:href="@{/manager/{id}/delete-shipper(id=${manager.managerID}, shipperId=${shipper.shipperID})}">Delete</a>
                             </td>
                         </tr>
                         </tbody>
@@ -85,27 +81,18 @@
             </div>
             <div class="row">
                 <div class="mx-auto my-3">
-                <a class="btn btn-primary add-button" href="/admin/employee-save">Add New Employee</a></div>
+                <a class="btn btn-primary add-button" th:href="@{/manager/{id}/add-shipper(id=${manager.managerID})}">Add New Shipper</a></div>
             </div>
         </div>
     </section>
 </section>
 
 <!-- Footer -->
-<footer class="footer bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-                <p class="text-muted small mb-4 mb-lg-0">&copy; Logistics Company 2020. All Rights Reserved.
-                    <br/><em>Martin Paskov - NBU F97808</em></p>
-            </div>
-        </div>
-    </div>
-</footer>
+<footer th:replace="~{manager/fragments/footer::footer}"></footer>
 
 <!-- Bootstrap core JavaScript -->
-<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/manager/jquery/jquery.min.js}"></script>
+<script th:src="@{/manager/js/bootstrap/bootstrap.bundle.min.js}"></script>
 
 </body>
 

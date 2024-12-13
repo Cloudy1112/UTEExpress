@@ -26,16 +26,7 @@
 <body>
 
 <!-- Navigation -->
-<nav class="navbar static-top">
-    <div class="container">
-        <a class="navbar-brand" th:href="@{/index}">
-            <img alt="Logo" class="navbar-logo" th:src="@{/manager/assets/img/truck.png}">Logistics Express</a>
-        <div>
-            <span sec:authentication="name"></span>
-            <a class="btn btn-primary" th:href="@{/logout}">Log out</a>
-        </div>
-    </div>
-</nav>
+<nav th:replace="~{manager/fragments/header::nav}"></nav>
 
 <!-- Dashboard -->
 <section class="bg-light text-center" id="admin-db">
@@ -89,16 +80,7 @@
 
 
 <!-- Footer -->
-<footer class="footer bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-                <p class="text-muted small mb-4 mb-lg-0">&copy; Logistics Company 2020. All Rights Reserved.
-                    <br/><em>Martin Paskov - NBU F97808</em></p>
-            </div>
-        </div>
-    </div>
-</footer>
+<footer th:replace="~{manager/fragments/footer::footer}"></footer>
 
 <!-- Bootstrap core JavaScript -->
 <script th:src="@{/manager/jquery/jquery.min.js}"></script>

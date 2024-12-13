@@ -80,7 +80,8 @@ td .btn-primary {
   position: relative;
   background: linear-gradient(45deg, rgba(239, 154, 154, 0.7), rgba(255, 245, 157, 0.7)), url("../img/db-admin.jpg") center top no-repeat; /* Soft Red to Light Yellow */
   background-size: cover;
-  padding-top: 10rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
   min-height: 48rem;
 }
 

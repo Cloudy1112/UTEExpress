@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import vn.iotstar.UTEExpress.entity.Manager;
 
 @Repository
-public interface IManagerReposotory extends JpaRepository<Manager, Integer>{
+public interface IManagerRepository extends JpaRepository<Manager, Integer>{
 	// find manager bằng post id
 	@Query("SELECT m FROM Manager m WHERE m.post.postID = :postID")
     Manager findManagerByIDPost(@Param("postID") Integer postID);
