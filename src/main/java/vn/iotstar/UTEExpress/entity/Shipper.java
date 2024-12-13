@@ -3,6 +3,7 @@ package vn.iotstar.UTEExpress.entity;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -48,6 +49,6 @@ public class Shipper {
 	@JoinColumn(name="username")
 	private Account account;
 	
-	@OneToMany(mappedBy = "shipper")
+	@OneToMany(mappedBy = "shipper", cascade = CascadeType.ALL)
 	private List<Shipping> shippings;
 }

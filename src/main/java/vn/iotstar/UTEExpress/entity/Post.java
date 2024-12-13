@@ -1,5 +1,6 @@
 package vn.iotstar.UTEExpress.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,6 +30,6 @@ public class Post {
 	@JoinColumn(name="IDCity")
 	private City city;
 	
-	@OneToOne(mappedBy = "post")
+	@OneToOne(mappedBy = "post", cascade = CascadeType.ALL)
 	private Manager manager;
 }

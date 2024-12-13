@@ -2,6 +2,7 @@ package vn.iotstar.UTEExpress.entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,10 +26,10 @@ public class Transport {
 	private String transportType;
 	private Integer transportFee;
 	
-	@OneToMany(mappedBy = "transport")
+	@OneToMany(mappedBy = "transport", cascade = CascadeType.ALL)
 	private List<Voucher> vouchers;
 	
-	@OneToMany(mappedBy = "transport")
+	@OneToMany(mappedBy = "transport",cascade = CascadeType.ALL)
 	private List<Order> orders;
 
 }

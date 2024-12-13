@@ -2,6 +2,7 @@ package vn.iotstar.UTEExpress.entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,7 +26,7 @@ public class City {
 	
 	private String cityName;
 	
-	@OneToMany(mappedBy = "city")
+	@OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
 	List<Post> posts;
 	
 }

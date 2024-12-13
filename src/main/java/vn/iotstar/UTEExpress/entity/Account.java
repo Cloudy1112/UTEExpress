@@ -20,16 +20,16 @@ public class Account {
 	@JoinColumn(name="roleID")
 	private Role role;
 	
-	@OneToOne(mappedBy = "account")
+	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
 	private Manager manager;
 	
-	@OneToOne(mappedBy = "account")
+	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
 	private Customer customer;
 	
-	@OneToOne(mappedBy = "account")
+	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
 	private Admin admin;
 	
-	@OneToOne(mappedBy = "account")
+	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
 	private Shipper shipper;
 	
 }
