@@ -1,11 +1,10 @@
 package vn.iotstar.UTEExpress.service.impl;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import vn.iotstar.UTEExpress.entity.Order;
 import vn.iotstar.UTEExpress.entity.User;
 import vn.iotstar.UTEExpress.repository.UserRepository;
 import vn.iotstar.UTEExpress.service.interfaces.IUserService;
@@ -17,36 +16,34 @@ public class UserService implements IUserService {
 
 	@Override
 	public List<User> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return userRepository.findAll();
 	}
 
 	@Override
 	public User findById(String id) {
+		return null;
+	}
+
+	@Override
+	public User createUser(User user) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public User create(User user) {
+	public User updateUser(String id, User user) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public User update(String id, User user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void delete(String id) {
+	public void deleteUser(String id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public List<User> search(String keyword) {
+	public List<User> findByName(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -68,6 +65,32 @@ public class UserService implements IUserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void createOrder(Order order) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void cancelOrder(Order order) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateStatusOrder(Order order, Integer status) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateOrder(Order order) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 
 	
 	}

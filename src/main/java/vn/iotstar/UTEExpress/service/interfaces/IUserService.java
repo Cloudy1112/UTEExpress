@@ -22,16 +22,16 @@ public interface IUserService {
     User findById(String id);
 
     // Tạo người dùng mới
-    User create(User user);
+    User createUser(User user);
 
     // Cập nhật thông tin người dùng
-    User update(String id, User user);
+    User updateUser(String id, User user);
 
     // Xóa người dùng
-    void delete(String id);
+    void deleteUser(String id);
 
     // Tìm kiếm người dùng theo từ khóa
-    List<User> search(String keyword);
+    List<User> findByName(String name);
 
     // Kích hoạt email cho người dùng
     boolean activateEmail(String id);
@@ -41,8 +41,13 @@ public interface IUserService {
 
     // Tìm người dùng theo số điện thoại
     User findByPhone(String phone);
-	
-	
-	
-
+	// Tạo đơn 
+    void createOrder(Order order);
+	// Huỷ đơn
+    void cancelOrder(Order order);
+    // Sửa trạng thái đơn hàng
+    void updateStatusOrder(Order order, Integer status);
+    //Sửa đơn hàng
+    void updateOrder(Order order);
+   
 }

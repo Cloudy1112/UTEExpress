@@ -11,12 +11,9 @@ import vn.iotstar.UTEExpress.entity.User;
 import vn.iotstar.UTEExpress.service.impl.UserService;
 
 @Controller
-
+@RequestMapping("/customer")
 public class CustomerCotroller {
-		@RequestMapping("/customer")
-		 public String customer(){
-			 
-			 return "customer/profile.html";
-		 }
+	
+	
 
 }
