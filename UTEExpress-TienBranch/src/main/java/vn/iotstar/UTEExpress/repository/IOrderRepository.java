@@ -12,21 +12,15 @@ import vn.iotstar.UTEExpress.entity.Order;
 @Repository
 public interface IOrderRepository extends JpaRepository<Order, String>{
 
-	// Tìm danh sách Order theo Shipper ID và Status
-		@Query("SELECT o FROM Order o WHERE o.shipper.IDShipper = :shipperId AND o.status = :status")
-	    List<Order> findByShipper_IDShipperAndStatus(@Param("shipperId") String shipperId, @Param("status") Integer status);
-	    
-	    // Tìm danh sách Order theo Shipper ID
-	    List<Order> findByShipper_IDShipper(String shipperId);
-	    
-	    // Đếm số lượng Order theo Shipper ID và Status
-	    Long countByShipper_IDShipperAndStatus(String shipperId, Integer status);
+	// Tìm tất cả các đơn hàng theo loại vận chuyển
+    @Query("SELECT o FROM Order o WHERE o.transport.transportType = ?1")
+    List<Order> findOrdersByTransportType(String transportType);
 
-		 @Query("SELECT o FROM Order o WHERE o.postOffice.IDPost = :postID")
-		 List<Order> filterOrderByPostID(@Param("postID") String postID);
+    // Tìm các đơn hàng theo trạng thái và loại vận chuyển (ví dụ: đơn hàng đang xử lý)
+    @Query("SELECT o FROM Order o WHERE o.transport.transportType = ?1 AND o.status = ?2")
+    List<Order> findOrdersByTransportTypeAndStatus(String transportType, Integer status);
 
-		 
-		 List<Order> findByShipper_ShipperID(Integer shipperID);
-		 List<Order> findByShipper_ShipperIDAndStatus(Integer shipperID, Integer status);
+    // Tìm đơn hàng theo mã đơn hàng
+    Order findByOrderID(String orderID);
 }
 

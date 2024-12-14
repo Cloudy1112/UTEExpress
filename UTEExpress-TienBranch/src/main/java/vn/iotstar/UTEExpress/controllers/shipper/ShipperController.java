@@ -4,6 +4,7 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,156 +16,154 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import vn.iotstar.UTEExpress.entity.Order;
 import vn.iotstar.UTEExpress.entity.Shipper;
+import vn.iotstar.UTEExpress.entity.Shipping;
 import vn.iotstar.UTEExpress.service.impl.OrderServiceImpl;
+import vn.iotstar.UTEExpress.service.impl.OrderStatusImpl;
 import vn.iotstar.UTEExpress.service.impl.ShipperServiceImpl;
 import vn.iotstar.UTEExpress.utils.ConstantUtil;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
 public class ShipperController {
 	@Autowired
-	private ShipperServiceImpl shipperService;
+	ShipperServiceImpl shipperService;
 	
 	@Autowired
-	private OrderServiceImpl orderService;
+	OrderServiceImpl orderService;
 	
-	//Log out
-		@GetMapping("/shipper/logout/{id}")
-		public String Logout(@PathVariable("id") String id) {
-			//Kết thúc Session ở đây
-			
-			return "redirect:/login";
-		}
-		
-		
-		//Shipper Home hiện đơn cần giao, đã giao, giao thất bại
-		@GetMapping("/shipper/{id}")
-		public String shipperHome(@PathVariable("id") String id, Model model) {
-			Shipper shipper = shipperService.findByID(id).get();
+	@Autowired
+	OrderStatusImpl orderstatusService;
+	
+	 // ------------------- 1. LOGOUT -------------------
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return "redirect:/login";
+    }
 
-			// Lấy danh sách các đơn hàng chưa giao
-			List<Order> orderShipping = orderService.findByIdShipperAndStatus(id, 3);
+    // ------------------- 2. SHIPPER HOME -------------------
+    @GetMapping("/{id}")
+    public String shipperHome(@PathVariable("id") String id, Model model) {
+        Optional<Shipper> optionalShipper = shipperService.findByID(id);
+        if (!optionalShipper.isPresent()) {
+            return "redirect:/login";
+        }
+        Shipper shipper = optionalShipper.get();
 
-			// Lấy danh sách các đơn hàng giao thất bại
-			List<Order> orderFailed = orderService.findByIdShipperAndStatus(id, 5);
+        List<Order> ordersShipping = orderService.findByIdShipperAndStatus(id, 3); // Đơn đang giao
+        List<Order> ordersFailed = orderService.findByIdShipperAndStatus(id, 5);  // Đơn thất bại
+        List<Order> ordersDelivered = orderService.findByIdShipperAndStatus(id, 4); // Đơn thành công
 
-			// Lấy danh sách các đơn hàng giao thành công
-			List<Order> orderDelivered = orderService.findByIdShipperAndStatus(id, 4);
+        model.addAttribute("shipper", shipper);
+        model.addAttribute("ordersShipping", ordersShipping);
+        model.addAttribute("ordersFailed", ordersFailed);
+        model.addAttribute("ordersDelivered", ordersDelivered);
 
-			String idShipper = id;
+        return "views/shipper/shipper-home";
+    }
 
-			// Truyền thông tin vào model
-			model.addAttribute("ordersShipping", orderShipping);
-			model.addAttribute("ordersFailed", orderFailed);
-			model.addAttribute("ordersDelivered", orderDelivered);
-			model.addAttribute("id", idShipper);
-			model.addAttribute("shipper", shipper);
-			return "views/shipper/shipper-home";
-		}
-		
-		//Trang Profile
-		//@GetMapping("/shipper/profile/{id}")
-		//public String Profile(@PathVariable("id") String id, Model model) {
-			//Shipper shipper = shipperService.findByID(id).get();
+    // ------------------- 3. PROFILE -------------------
+    @GetMapping("/profile/{id}")
+    public String profile(@PathVariable("id") String id, Model model) {
+        Optional<Shipper> optionalShipper = shipperService.findByID(id);
+        if (!optionalShipper.isPresent()) {
+            return "redirect:/login";
+        }
+		return id;
 
-			// Số sao của Shipper
-			//Integer star = shipperService.StarRateShipper(id);
+  
+    }
 
-			//model.addAttribute("star", star != null ? star : 0);
-			//model.addAttribute("shipper", shipper);
+    // ------------------- 4. EDIT PROFILE -------------------
+    @GetMapping("/profile/edit/{id}")
+    public String editProfile(@PathVariable("id") String idShipper, Model model) {
+        Optional<Shipper> optionalShipper = shipperService.findByID(idShipper);
+        if (!optionalShipper.isPresent()) {
+            return "redirect:/login";
+        }
+        model.addAttribute("shipper", optionalShipper.get());
+        return "views/shipper/editProfile";
+    }
 
-			//return "views/shipper/shipper-profile";
-		//}
+    // ------------------- 5. UPDATE PROFILE -------------------
+    @PostMapping("/profile/update/{id}")
+    public String updateProfile(
+            @PathVariable("id") String idShipper,
+            @RequestParam("name") String name,
+            @RequestParam("phone") String phone,
+            @RequestParam("address") String address,
+            @RequestParam("city") String city,
+            @RequestParam("statusShipper") Integer statusShipper,
+            @RequestParam("oldPassword") String oldPassword,
+            @RequestParam("newPassword") String newPassword,
+            @RequestParam("gender") Integer gender,
+            @RequestParam("cccd") String cccd,
+            @RequestParam("birth") Date birth,
+            @RequestParam(value = "images", required = false) String images,
+            HttpServletRequest request,
+            Model model) {
 
-		// Controller để xử lý yêu cầu chỉnh sửa profile
-		@GetMapping("shipper/profile/edit/{id}")
-		public String editProfile(@PathVariable("id") String idShipper, Model model) {
-			// Lấy thông tin shipper từ database
-			Shipper shipper = shipperService.findByID(idShipper).get();
-			model.addAttribute("shipper", shipper);
-			return "views/shipper/editProfile"; // Trả về trang HTML có form chỉnh sửa
-		}
+        Optional<Shipper> optionalShipper = shipperService.findByID(idShipper);
+        if (!optionalShipper.isPresent()) {
+            return "redirect:/login";
+        }
 
-		@PostMapping("shipper/profile/update/{id}")
-		public String updateProfile(@PathVariable("id") String IDShipper, @RequestParam("name") String name,
-				@RequestParam("phone") String phone, @RequestParam("address") String address,
-				@RequestParam("city") String city, @RequestParam("statusShipper") Boolean statusShipper,
-				@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword,
-				@RequestParam("gender") Boolean gender, @RequestParam("cccd") String cccd,
-				@RequestParam("birth") Date birth,
-				HttpServletRequest req, Model model) {
+        Shipper oldShipper = optionalShipper.get();
+        Shipper updatedShipper = new Shipper();
 
-			Shipper oldShipper = shipperService.findByID(IDShipper).get();
-			Boolean isPassword = false;
-			
-			//Gán Shipper nhũng thông tin cập nhật
-			Shipper shipper = new Shipper();
-			shipper.setShipperID(Integer.parseInt(IDShipper)); // Sửa setIDShipper thành setShipperID
-			shipper.setName(name);
-			shipper.setPhone(phone);
-			shipper.setAddress(address);
-			shipper.setCity(city);
-			shipper.setStatusShipper(statusShipper ? 1 : 2); // Chuyển đổi Boolean thành Integer
-			shipper.setGender(gender ? 1 : 2); // Chuyển đổi Boolean thành Integer
-			shipper.setCccd(cccd);
-			shipper.setBirth(birth);
-			//shipper.setManager(oldShipper.getManager());
-			shipper.setPost(oldShipper.getPost());
-			
-			// Hình cũ
-		    String fileOld = oldShipper.getPicture();
+        // Cập nhật thông tin cơ bản
+        //updatedShipper.setShippings(idShipper);
+        updatedShipper.setName(name);
+        updatedShipper.setPhone(phone);
+        updatedShipper.setAddress(address);
+        updatedShipper.setCity(city);
+        updatedShipper.setStatusShipper(statusShipper);
+        updatedShipper.setGender(gender);
+        updatedShipper.setCccd(cccd);
+        updatedShipper.setBirth(birth);
+        updatedShipper.setPost(oldShipper.getPost());
+        //updatedShipper.setManager(oldShipper.getManager());
 
-		    // Link từ request
-		    String images = req.getParameter("images");
+        // Xử lý ảnh đại diện
+        String uploadPath = "path/to/upload"; // Thay đường dẫn thực tế
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdir();
+        }
 
-		    // Xử lý images
-		    String fname = "";
-		    String uploadPath = ConstantUtil.UPLOAD_PATH;
-		    File uploadDir = new File(uploadPath);
-		    if (!uploadDir.exists()) {
-		        uploadDir.mkdir();
-		    }
-			
-		    try {
-		        Part part = req.getPart("images1");
-		        if (part.getSize() > 0) {
-		            String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-		            String ext = filename.substring(filename.lastIndexOf(".") + 1);
-		            fname = System.currentTimeMillis() + "." + ext;
-		            part.write(uploadPath + "/" + fname);
-		            shipper.setPicture(fname);
-		        } else if (images != null) {
-		            shipper.setPicture(images);
-		        } else {
-		            shipper.setPicture(fileOld);
-		        }
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		    }
-			
+        try {
+            Part part = request.getPart("images1");
+            if (part != null && part.getSize() > 0) {
+                String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+                String fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
+                String newFileName = System.currentTimeMillis() + "." + fileExtension;
+                part.write(uploadPath + "/" + newFileName);
+                updatedShipper.setPicture(newFileName);
+            } else if (images != null && !images.isEmpty()) {
+                updatedShipper.setPicture(images);
+            } else {
+                updatedShipper.setPicture(oldShipper.getPicture());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-			// Kiểm tra mật khẩu oldPassword, cần đảm bảo người dùng nhập đúng password để
-			// cập nhật thông tin
-			if (oldPassword.equals(oldShipper.getPassword())) {
-				isPassword = true; // Nếu mật khẩu nhập vào đúng thì isPassword = true
-			}
+        // Xử lý mật khẩu
+        if (!oldPassword.equals(oldShipper.getPassword())) {
+            model.addAttribute("errorMessage", "Incorrect old password.");
+            model.addAttribute("shipper", oldShipper);
+            return "views/shipper/editProfile";
+        }
 
-			// Nếu oldPassword, kiểm tra ô newPassword có rỗng không
-			if (newPassword != null && !newPassword.isEmpty()) {
-				shipper.setPassword(newPassword); // Nếu không rỗng gán password mới cho shipper
-			} else {
-				shipper.setPassword(oldShipper.getPassword()); 
-			}
+        updatedShipper.setPassword(
+                newPassword != null && !newPassword.isEmpty() ? newPassword : oldShipper.getPassword());
 
-			// Nếu oldPassword, không rỗng và newPassword: isPassword= true thì đổi mật khẩu
-			// mới
-			if (isPassword == true) {
-				shipperService.save(shipper); // Lưu shipper
-			}else {
-				model.addAttribute("errorMessage", "Mật khẩu cũ không chính xác. Vui lòng thử lại!");
-				model.addAttribute("shipper",shipper);
-			    return "views/shipper/editProfile";
-			}
-			return "redirect:/shipper/profile/" + IDShipper;
-		}
+        shipperService.save(updatedShipper);
+        return "redirect:/shipper/profile/" + idShipper;
+    }
+	
 }

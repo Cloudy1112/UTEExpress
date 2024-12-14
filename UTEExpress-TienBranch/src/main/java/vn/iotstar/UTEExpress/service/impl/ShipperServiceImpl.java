@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import vn.iotstar.UTEExpress.entity.Order;
 import vn.iotstar.UTEExpress.entity.Shipper;
+import vn.iotstar.UTEExpress.entity.Shipping;
 import vn.iotstar.UTEExpress.repository.IOrderRepository;
 import vn.iotstar.UTEExpress.repository.IShipperRepository;
 import vn.iotstar.UTEExpress.service.interfaces.IShipperService;
@@ -22,89 +23,46 @@ public class ShipperServiceImpl implements IShipperService {
 	IOrderRepository orderRepository;
 
 	@Override
-	public Optional<Shipper> findByName(String name) {
-		  return shipperRepository.findByName(name);
+	public Shipper getShipperById(Integer id) {
+		return shipperRepository.findById(id).orElse(null);
 	}
 
 	@Override
-	public Optional<Shipper> findByID(String IDShipper) {
-		try {
-            Integer shipperId = Integer.parseInt(IDShipper);
-            return shipperRepository.findById(shipperId);
-        } catch (NumberFormatException e) {
-            return Optional.empty();
-        }
-	}
-
-	@Override
-	public Optional<Order> findOrderByIDOrder(String IDOrder) {
-        return orderRepository.findById(IDOrder);
+	public Shipper getShipperByUsername(String username) {
+        return shipperRepository.findByAccountUsername(username);
 
 	}
 
 	@Override
-	public List<Order> findAllOrder(String IDShipper) {
-		try {
-            Integer shipperId = Integer.parseInt(IDShipper);
-            return orderRepository.findByShipper_ShipperID(shipperId);
-        } catch (NumberFormatException e) {
-            return List.of();
-        }
+	public List<Shipper> getShippersByCity(String city) {
+		return shipperRepository.findByCity(city);
 	}
 
 	@Override
-	public List<Order> findAllOrderBystatus(String IDShipper, Integer status) {
-		try {
-            Integer shipperId = Integer.parseInt(IDShipper);
-            return orderRepository.findByShipper_ShipperIDAndStatus(shipperId, status);
-        } catch (NumberFormatException e) {
-            return List.of();
-        }
+	public List<Shipper> getShippersByStatus(Integer statusShipper) {
+		  return shipperRepository.findByStatusShipper(statusShipper);
 	}
 
 	@Override
-	public Optional<Shipper> findByPost(String IDPost) {
-		 return shipperRepository.findByPost_IDPost(IDPost);
+	public void saveOrUpdateShipper(Shipper shipper) {
+		shipperRepository.save(shipper);
 	}
 
 	@Override
-	public void editProfile(Shipper shipper) {
-        shipperRepository.save(shipper);
+	public void deleteShipperById(Integer id) {
+		 shipperRepository.deleteById(id);
+    
+	}
+
+	public Optional<Shipper> findByID(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void save(Shipper updatedShipper) {
 		
 	}
 
-	@Override
-	public void editStatusOrder(String IDOrder, Integer status) {
-		Optional<Order> orderOpt = orderRepository.findById(IDOrder);
-        if (orderOpt.isPresent()) {
-            Order order = orderOpt.get();
-            order.setStatus(status);
-            orderRepository.save(order);
-        }
-	}
-
-	@Override
-	public Optional<Shipper> findByID(Integer IDShipper) {
-        return shipperRepository.findById(IDShipper);
-
-	}
-
-	@Override
-	public List<Order> findAllOrderByStatus(String IDShipper, Integer status) {
-        return findAllOrderBystatus(IDShipper, status);
-	}
-
-	@Override
-	public void save(Shipper shipper) {
-        shipperRepository.save(shipper);
-		
-	}
-
-	@Override
-	public void deleteById(Integer id) {
-        shipperRepository.deleteById(id);
-		
-	}
 	
 
  

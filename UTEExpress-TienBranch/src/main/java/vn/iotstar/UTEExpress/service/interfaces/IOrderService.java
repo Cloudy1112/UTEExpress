@@ -6,19 +6,14 @@ import java.util.Optional;
 import vn.iotstar.UTEExpress.entity.Order;
 
 public interface IOrderService {
-	Optional<Order> findById(String id);
+	 	List<Order> getOrdersByTransportType(String transportType);
 
-	List<Order> findAll();
+	    List<Order> getOrdersByTransportTypeAndStatus(String transportType, Integer status);
 
-	List<Order> filterOrderByPostID(String postID);
+	    Order getOrderById(String orderID);
 
-	<S extends Order> S save(S entity);
+	    void saveOrder(Order order);
 
-
-	List<Order> findByIdShipperAndStatus(String IDShipper, Integer status);
-
-	List<Order> findByIdShipper(String IDShipper);
-	
-	Long countByIdShipperAndStatus(String IDShipper, Integer status);
+	    void updateOrderStatus(String orderID, Integer newStatus);
 	
 }

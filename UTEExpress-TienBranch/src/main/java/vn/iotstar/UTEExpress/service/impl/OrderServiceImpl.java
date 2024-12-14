@@ -11,45 +11,50 @@ import vn.iotstar.UTEExpress.service.interfaces.IOrderService;
 public class OrderServiceImpl implements IOrderService {
 	@Autowired
 	IOrderRepository orderRepository;
+
+	@Override
+	public List<Order> getOrdersByTransportType(String transportType) {
+        return orderRepository.findOrdersByTransportType(transportType);
+
+	}
+
+	@Override
+	public List<Order> getOrdersByTransportTypeAndStatus(String transportType, Integer status) {
+        return orderRepository.findOrdersByTransportTypeAndStatus(transportType, status);
+
+	}
+
+	@Override
+	public Order getOrderById(String orderID) {
+        return orderRepository.findByOrderID(orderID);
+
+	}
+
+	@Override
+	public void saveOrder(Order order) {
+		orderRepository.save(order);		
+	}
+
+	@Override
+	public void updateOrderStatus(String orderID, Integer newStatus) {
+		  Order order = orderRepository.findByOrderID(orderID);
+	        if (order != null) {
+	            order.setStatus(newStatus);
+	            orderRepository.save(order);
+	        }
+	}
+
+	public List<Order> findByIdShipperAndStatus(String id, int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Order> findByIdStatusOrder(String id, int i) {
 	
-	public OrderServiceImpl(IOrderRepository orderRepository) {
-		this.orderRepository = orderRepository;
+		return null;
+	}
 	
-	}
-	@Override
-	public Optional<Order> findById(String id) {
-		return orderRepository.findById(id);
-	}
-
-	@Override
-	public List<Order> findAll() {
-		return orderRepository.findAll();
-	}
-
-	@Override
-	public <S extends Order> S save(S entity) {
-		return orderRepository.save(entity);
-	}
-
-	@Override
-	public List<Order> findByIdShipperAndStatus(String IDShipper, Integer status) {
-		return orderRepository.findByShipper_IDShipperAndStatus(IDShipper, status);
-	}
-
-	@Override
-	public List<Order> findByIdShipper(String IDShipper) {
-		return orderRepository.findByShipper_IDShipper(IDShipper);
-	}
-
-	@Override
-	public Long countByIdShipperAndStatus(String IDShipper, Integer status) {
-		return orderRepository.countByShipper_IDShipperAndStatus(IDShipper, status);
-	}
-
-	public List<Order> filterOrderByPostID(String postID) {
-		return orderRepository.filterOrderByPostID(postID);
-
-	}
+	
 
 
 }
