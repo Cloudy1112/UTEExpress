@@ -38,5 +38,10 @@ public interface IOrderRepository extends JpaRepository<Order, String>{
 		       "AND s.shipper IS NULL")
 	List<Order> findOrderByOrderStatusAndDestCity(Integer statusOrderID, String destCity);
 
+	@Query("SELECT o FROM Order o " +
+		       "WHERE o.sourceCity = :cityName " +
+		       "OR o.destCity = :cityName")
+	List<Order> findOrdersBySourceCityAndDestCity(String cityName);
+
 
 }

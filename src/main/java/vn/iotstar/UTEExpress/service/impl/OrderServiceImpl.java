@@ -30,6 +30,10 @@ public class OrderServiceImpl implements IOrderService{
 	public <S extends Order> S save(S entity) {
 		return orderRepository.save(entity);
 	}
+
+	public List<Order> findOrdersBySourceCityAndDestCity(String cityName) {
+		return orderRepository.findOrdersBySourceCityAndDestCity(cityName);
+	}
 	
 	
 	

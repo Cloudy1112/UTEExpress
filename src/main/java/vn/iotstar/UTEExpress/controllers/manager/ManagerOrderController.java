@@ -47,13 +47,23 @@ public class ManagerOrderController {
 		Manager manager = managerService.findById(managerID).get();
 		
 		model.addAttribute("manager",manager);
+		
 		return "manager/order";
 	}
 	
 	@GetMapping("all-orders")
-	public String allOrderOfPost() {
+	public String allOrderOfPost(@PathVariable("id") Integer managerID, Model model) {
+		
 		// order có srccity == city va destcity = city
-		return "";
+		Manager manager = managerService.findById(managerID).get();
+		model.addAttribute("manager", manager);
+		
+		String cityName = manager.getCity();
+		List<Order> allOrders = orderService.findOrdersBySourceCityAndDestCity(cityName);
+		
+		model.addAttribute("allOrders", allOrders);
+		
+		return "manager/allOrder";
 	}
 	
 	@GetMapping("orders-pending")
