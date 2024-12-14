@@ -88,6 +88,13 @@
                            <td th:style="${customer.isActive == 0 ? 'color: red !important; font-weight: bold;' : 'color: green !important; font-weight: bold;'}"
    								 th:text="${customer.isActive == 0 ? 'InActive' : 'Active'}">
    							</td>
+   							
+   					<!-- 		<td>
+							    <a class="btn btn-primary"
+							       th:href="@{/manager/{managerID}/customer/{customerID}/history(managerID=${manager.managerID}, customerID=${customer.customerID})}">
+							        View
+							    </a>
+							</td> -->
                            
                             <td>
 							    <a class="btn btn-primary"

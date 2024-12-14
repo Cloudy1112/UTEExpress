@@ -49,5 +49,8 @@ public class Customer {
 	// cac địa chỉ đơn của customer
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
 	private List<Address> addresses;
+	
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+	private List<Order> orders;
 
 }

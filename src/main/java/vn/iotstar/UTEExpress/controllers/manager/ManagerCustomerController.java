@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import vn.iotstar.UTEExpress.entity.Account;
 import vn.iotstar.UTEExpress.entity.Customer;
 import vn.iotstar.UTEExpress.entity.Manager;
-import vn.iotstar.UTEExpress.entity.Post;
+
 import vn.iotstar.UTEExpress.entity.Role;
 import vn.iotstar.UTEExpress.service.impl.AccountServiceImpl;
 import vn.iotstar.UTEExpress.service.impl.CustomerServiceImpl;
@@ -143,7 +143,7 @@ public class ManagerCustomerController {
 	    }
 	    customer.setBirth(birthDate);
 	    
-	 // Create account
+	    // Create account
 	    Optional<Account> optionalAccount = accountService.findById(request.getParameter("username"));
 	    if (optionalAccount.isPresent()) {
 	        return "redirect:/manager/" + managerID + "/add-shipper?error=existUsername";

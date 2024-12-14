@@ -44,4 +44,8 @@ public class Order {
 	@JoinColumn(name="IDTransport")
 	private Transport transport;
 	
+	@ManyToOne
+	@JoinColumn(name="IDCustomer")
+	private Customer customer;
+	
 }
