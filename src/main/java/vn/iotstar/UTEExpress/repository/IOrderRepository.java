@@ -18,4 +18,12 @@ public interface IOrderRepository extends JpaRepository<Order, String>{
 	//tìm order dửa theo phương thức vận chuyển
 	@Query("SELECT o FROM Order o WHERE o.transport.transportType = :transportType")
     List<Order> findOrderByTransportType(@Param("transportType") String transportType);
+	
+	//tìm order pending dưa tren orderstatus và src city
+    @Query("SELECT o FROM Order o " +
+           "JOIN Shipping s ON o.orderID = s.orderID " +
+           "JOIN StatusOrder so ON s.statusOrderID = so.IDStatusOrder " +
+           "WHERE so.IDStatusOrder = :statusOrderID AND o.sourceCity = :sourceCity")
+    List<Order> findOrderByOrderStatusAndSourceCity(Integer statusOrderID, String sourceCity);
+
 }

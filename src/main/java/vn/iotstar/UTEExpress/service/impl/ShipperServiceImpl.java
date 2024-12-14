@@ -30,6 +30,10 @@ public class ShipperServiceImpl implements IShipperService{
 	public void delete(Shipper entity) {
 		shipperRepository.delete(entity);
 	}
+
+	public List<Shipper> findShippersByRoleId(Integer roleID) {
+		return shipperRepository.findShippersByRoleId(roleID);
+	}
 	
 	
 }

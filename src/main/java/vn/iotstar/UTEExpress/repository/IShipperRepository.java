@@ -11,6 +11,14 @@ import vn.iotstar.UTEExpress.entity.Shipper;
 
 @Repository
 public interface IShipperRepository extends JpaRepository<Shipper, Integer>{
+	
 	@Query("SELECT s FROM Shipper s WHERE s.post.postID = :postID")
 	List<Shipper> findShippersByIDPost(@Param("postID") Integer postID);
+	
+	// tìm shipper theo role id
+	@Query("SELECT s FROM Shipper s " +
+	           "JOIN s.account a " +
+	           "JOIN a.role r " +
+	           "WHERE r.roleID = :roleID")
+	    List<Shipper> findShippersByRoleId(Integer roleID);
 }

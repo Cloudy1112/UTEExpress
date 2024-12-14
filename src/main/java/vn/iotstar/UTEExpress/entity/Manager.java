@@ -35,6 +35,7 @@ public class Manager {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;  //java.util
+	
 	private String phone;
 	private String cccd;
 	
