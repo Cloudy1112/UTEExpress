@@ -1,6 +1,7 @@
 package vn.iotstar.UTEExpress.controllers.manager;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -42,11 +43,17 @@ public class ManagerOrderController {
 	private ShippingServiceImpl shippingService;
 	
 	@GetMapping("orders")
-	public String allOrderOfPost(@PathVariable("id") Integer managerID, Model model) {
+	public String orderDashBoard(@PathVariable("id") Integer managerID, Model model) {
 		Manager manager = managerService.findById(managerID).get();
 		
 		model.addAttribute("manager",manager);
 		return "manager/order";
+	}
+	
+	@GetMapping("all-orders")
+	public String allOrderOfPost() {
+		// order có srccity == city va destcity = city
+		return "";
 	}
 	
 	@GetMapping("orders-pending")
@@ -63,6 +70,7 @@ public class ManagerOrderController {
 		return "manager/order-pending";
 	}
 	
+	/* Order Pending */
 	@GetMapping("assign-shipper")
 	public String assignShipperToOrder(@PathVariable("id") Integer managerID, @RequestParam("orderid") String orderID,
 										Model model) {
@@ -89,6 +97,7 @@ public class ManagerOrderController {
 		
 		// trang thai don
 		Shipping shipping = shippingService.findByOrderID(orderID);
+		if(shipping == null) System.out.println("null");
 		model.addAttribute("shipping", shipping);
 		
 		//tìm shipper tương ứng
@@ -169,10 +178,124 @@ public class ManagerOrderController {
 		/*
 		 * if(shipping != null) { System.out.println("shipping nor null"); //ok }
 		 */
+	    
 	
 		return "redirect:/manager/" + managerID + "/orders-pending";
 	}
 	
 	// order at post
-
+	@GetMapping("orders-in-post")
+	public String listOrderInPost(@PathVariable("id") Integer managerID, Model model) {
+		Manager manager = managerService.findById(managerID).get();
+		
+		model.addAttribute("manager",manager);
+		String cityName = manager.getCity();
+		
+		List<Order> allInPost = new ArrayList<>();
+		
+		List<Order> allInPost1 = orderService.findOrderByOrderStatusAndSourceCity(4, cityName);
+		List<Order> allInPost2 = orderService.findOrderByOrderStatusAndDestCity(6, cityName);
+		
+		// Gộp allInPost1 và allInPost2 vào allInPost
+		allInPost.addAll(allInPost1);
+		allInPost.addAll(allInPost2);
+		
+		model.addAttribute("allInPost", allInPost);
+		
+		return "manager/order-in-post";
+	}
+	
+	// phân order trong post cho shipper
+	@GetMapping("update-order-inpost")
+	public String assignShipperToOrderInPostView(@PathVariable("id") Integer managerID, @RequestParam("orderid") String orderID,
+										Model model) {
+		// lấy manager
+		Manager manager = managerService.findById(managerID).get();
+		model.addAttribute("manager", manager);
+		
+		//lấy order
+		Order order = orderService.findById(orderID).get();
+		model.addAttribute("order", order);
+		
+		// các status order
+		List<StatusOrder> statusOrders = statusOderService.findAll();
+		model.addAttribute("statusOder", statusOrders);
+		
+		// lấy shipper
+		// nếu cùng city statusorder = 4 -> giao shipper tu post - client
+		List<Shipper> shippers = null;
+		if(order.getSourceCity().equals(order.getDestCity()) && order.getShipping().getStatusOrderID() == 4 ) {
+			shippers = shipperService.findShippersByRoleId(6);
+		}else if((!order.getSourceCity().equals(order.getDestCity())) && order.getShipping().getStatusOrderID() == 4) {
+		// nếu khác city statusorder = 4 -> giao shipper transit
+			shippers = shipperService.findShippersByRoleId(7);
+		}else if((!order.getSourceCity().equals(order.getDestCity())) && order.getShipping().getStatusOrderID() == 6 ) {
+			// nếu khác city statusorder = 6 -> giao shipper tu post - client
+			shippers = shipperService.findShippersByRoleId(6);
+		}
+		
+		model.addAttribute("shippers", shippers);
+		
+		return "manager/updateOrderInPost";
+	}
+	
+	// xử lí phân shipper
+	@PostMapping("update-order-inpost")
+	public String assignShipperToOrderInPost(@PathVariable("id") Integer managerID, @RequestParam("orderid") String orderID,
+										HttpServletRequest request) {
+		// lấy manager
+		Manager manager = managerService.findById(managerID).get();
+		
+		// update order: gán shipper
+			Integer shipperID = 0;
+			try {
+				shipperID = Integer.parseInt(request.getParameter("shipperID"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// System.out.println(shipperID); //ok
+			Optional<Shipper> optionalShipper = shipperService.findById(shipperID);
+			Shipper shipper = null;
+			if (optionalShipper.isPresent()) {
+			    shipper = optionalShipper.get();
+			    // Thực hiện các logic cần thiết với shipper
+			} else {
+			    // Xử lý khi không tìm thấy shipper với shipperID
+			    System.out.println("Shipper not found for ID: " + shipperID);
+			    return "redirect:/manager/" + managerID + "/update-order-inpost?error=shipper-not-found";
+			}
+			
+			// xử lý date
+			String updateDateString = request.getParameter("dateUpdate");
+			Date updateDay = null;
+			if(updateDateString != null ) {
+				// Manually parse the birth string to Date
+			    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			    
+			    try {
+			    	updateDay = dateFormat.parse(updateDateString);
+		//	        System.out.println(updateDateString);
+			    } catch (Exception e) {
+			        e.printStackTrace();
+			        return "redirect:/manager/" + managerID + "/update-order-inpost?error=error"; // Handle invalid date
+			    }
+			}
+	
+			// update statusorder
+			// update shipping
+		    Shipping shipping = shippingService.findByOrderID(orderID);
+		    shipping.setDateUpdate(updateDay);
+		    shipping.setShipper(shipper);
+		    
+		    //save
+		    shippingService.save(shipping);
+		    
+			/*
+			 * //order Order order = orderService.findById(orderID).get();
+			 * order.setShipping(shipping); orderService.save(order);
+			 */
+	
+	
+		return "redirect:/manager/" + managerID + "/orders-in-post";
+	}
 }

@@ -54,7 +54,16 @@
                 <div class="card text-center">
                     <div class="card-body">
                         <h5 class="card-title">At Post Office</h5>
-                        <a class="btn btn-primary" href="/admin/report">View</a>
+                        <a class="btn btn-primary" th:href="@{/manager/{id}/orders-in-post(id=${manager.managerID})}">View</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-8 col-sm-5 col-lg-4 my-4 mx-2">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">All Orders</h5>
+                        <a class="btn btn-primary" th:href="@{/manager/{id}/allOrders(id=${manager.managerID})}">View</a>
                     </div>
                 </div>
             </div>

@@ -38,4 +38,5 @@ public class StatusOrder {
 	private Integer IDStatusOrder;
 	private String nameStatus;
 
+
 }

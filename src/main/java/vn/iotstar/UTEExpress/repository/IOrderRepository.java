@@ -20,10 +20,23 @@ public interface IOrderRepository extends JpaRepository<Order, String>{
     List<Order> findOrderByTransportType(@Param("transportType") String transportType);
 	
 	//tìm order pending dưa tren orderstatus và src city
-    @Query("SELECT o FROM Order o " +
-           "JOIN Shipping s ON o.orderID = s.orderID " +
-           "JOIN StatusOrder so ON s.statusOrderID = so.IDStatusOrder " +
-           "WHERE so.IDStatusOrder = :statusOrderID AND o.sourceCity = :sourceCity")
-    List<Order> findOrderByOrderStatusAndSourceCity(Integer statusOrderID, String sourceCity);
+	@Query("SELECT o FROM Order o " +
+		       "JOIN Shipping s ON o.orderID = s.orderID " +
+		       "JOIN StatusOrder so ON s.statusOrderID = so.IDStatusOrder " +
+		       "WHERE so.IDStatusOrder = :statusOrderID " +
+		       "AND o.sourceCity = :sourceCity " +
+		       "AND s.shipper IS NULL")
+	List<Order> findOrderByOrderStatusAndSourceCity(Integer statusOrderID, String sourceCity);
+
+    
+  //tìm order pending dưa tren orderstatus và dest city
+	@Query("SELECT o FROM Order o " +
+		       "JOIN Shipping s ON o.orderID = s.orderID " +
+		       "JOIN StatusOrder so ON s.statusOrderID = so.IDStatusOrder " +
+		       "WHERE so.IDStatusOrder = :statusOrderID " +
+		       "AND o.destCity = :destCity " +
+		       "AND s.shipper IS NULL")
+	List<Order> findOrderByOrderStatusAndDestCity(Integer statusOrderID, String destCity);
+
 
 }

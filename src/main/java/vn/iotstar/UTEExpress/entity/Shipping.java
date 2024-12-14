@@ -4,12 +4,14 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +28,8 @@ public class Shipping {
 	private Integer shippingID;
 	// do de id nen t ko tao onetomany
 	
-	private String orderID;
+	private String orderID;  
+	
 	private Integer statusOrderID;
 	
 //	Total
@@ -43,5 +46,6 @@ public class Shipping {
 	@JoinColumn(name="IDShipper")
 	private Shipper shipper;
 	
-
+	@OneToOne(mappedBy = "shipping", cascade = CascadeType.ALL)
+	private Order order;
 }

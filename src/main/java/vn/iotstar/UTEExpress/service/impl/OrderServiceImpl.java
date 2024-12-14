@@ -23,5 +23,14 @@ public class OrderServiceImpl implements IOrderService{
 		return orderRepository.findById(id);
 	}
 
+	public List<Order> findOrderByOrderStatusAndDestCity(Integer statusOrderID, String destCity) {
+		return orderRepository.findOrderByOrderStatusAndDestCity(statusOrderID, destCity);
+	}
+
+	public <S extends Order> S save(S entity) {
+		return orderRepository.save(entity);
+	}
+	
+	
 	
 }
