@@ -9,7 +9,7 @@ import vn.iotstar.UTEExpress.entity.StatusOrder;
 import vn.iotstar.UTEExpress.repository.IStatusOrderRepository;
 import vn.iotstar.UTEExpress.service.interfaces.IOrderStatusService;
 
-public class OrderStatusImpl implements IOrderStatusService {
+public class OrderStatusServiceImpl implements IOrderStatusService {
 	@Autowired
 	private IStatusOrderRepository statusOrderRepository;
 	@Override

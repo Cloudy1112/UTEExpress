@@ -18,7 +18,7 @@ import vn.iotstar.UTEExpress.entity.Order;
 import vn.iotstar.UTEExpress.entity.Shipper;
 import vn.iotstar.UTEExpress.entity.Shipping;
 import vn.iotstar.UTEExpress.service.impl.OrderServiceImpl;
-import vn.iotstar.UTEExpress.service.impl.OrderStatusImpl;
+import vn.iotstar.UTEExpress.service.impl.OrderStatusServiceImpl;
 import vn.iotstar.UTEExpress.service.impl.ShipperServiceImpl;
 import vn.iotstar.UTEExpress.utils.ConstantUtil;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,7 +33,7 @@ public class ShipperController {
 	OrderServiceImpl orderService;
 	
 	@Autowired
-	OrderStatusImpl orderstatusService;
+	OrderStatusServiceImpl orderstatusService;
 	
 	 // ------------------- 1. LOGOUT -------------------
     @GetMapping("/logout")
