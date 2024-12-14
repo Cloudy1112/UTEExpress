@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import vn.iotstar.UTEExpress.entity.Customer;
 import vn.iotstar.UTEExpress.entity.Manager;
-import vn.iotstar.UTEExpress.service.impl.CustomerServiceImpl;
+import vn.iotstar.UTEExpress.service.ICustomerService;
 import vn.iotstar.UTEExpress.service.impl.ManagerServiceImpl;
 
 
@@ -24,7 +24,7 @@ public class ManagerCustomerController {
 	@Autowired
 	private ManagerServiceImpl managerService;
 	@Autowired
-	private CustomerServiceImpl customerService;
+	private ICustomerService customerService;
 	
 	// trang co list cac customer thuoc buu cuc (dua tren city)
 	@GetMapping("customer-request")

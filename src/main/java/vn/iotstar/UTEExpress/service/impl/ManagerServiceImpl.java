@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.iotstar.UTEExpress.entity.Manager;
-import vn.iotstar.UTEExpress.repository.IManagerReposotory;
+import vn.iotstar.UTEExpress.repository.IManagerRepository;
 import vn.iotstar.UTEExpress.service.IManagerService;
 
 @Service
 public class ManagerServiceImpl implements IManagerService{
 	@Autowired
-	private IManagerReposotory managerRepository;
+	private IManagerRepository managerRepository;
 
 	@Override
 	public <S extends Manager> S save(S entity) {

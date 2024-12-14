@@ -33,15 +33,21 @@ public class Order {
 	private Integer shipFee;
 	
 	@ManyToOne
-	@JoinColumn(name="IDVoucher")
+	@JoinColumn(name="voucherID")
 	private Voucher voucher;
 	
 	@ManyToOne
-	@JoinColumn(name="IDGoods")
+	@JoinColumn(name="goodsID")
 	private Goods goods;
 	
 	@ManyToOne
-	@JoinColumn(name="IDTransport")
+	@JoinColumn(name="transportID")
 	private Transport transport;
+	
+	@ManyToOne
+	@JoinColumn(name="customerID")
+	private Customer customer;
+	
+	
 	
 }

@@ -42,7 +42,7 @@ public class Shipper {
 	
 	// 1 shipper thuộc 1 post duy nhất
 	@ManyToOne
-	@JoinColumn(name="IDPost")
+	@JoinColumn(name="postID")
 	private Post post;
 	
 	@OneToOne

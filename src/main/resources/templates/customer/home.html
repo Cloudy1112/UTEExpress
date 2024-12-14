@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đơn hàng cần xử lý - Viettel Post</title>
+    <link rel="stylesheet" th:href="@{/css/customerHome.css}">
+    
+</head>
+<body>
+    <div class="sidebar">
+        <ul>
+            <li><a th:href="@{/#}">Tạo đơn</a></li>
+            <li><a th:href="@{/#}">Thống kê tiền hàng</a></li>
+            <li><a th:href="@{/#}">Thống kê doanh thu</a></li>
+            <li><a th:href="@{/#}" style="color: red;">Đơn hàng cần xử lý</a></li>
+            <li><a th:href="@{/#}">Danh sách người nhận</a></li>
+            <li><a th:href="@{/#}">Tra cứu</a></li>
+            <li><a th:href="@{/customer/profile/{id}(id=${id})}">Tài khoản</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="header">
+            <div class="title">Đơn hàng cần xử lý</div>
+            <!-- <div class="user-info">
+                <span><a href=""@{/#}"">Thông báo</a></span>
+                <span><a href=""@{/#}"">Tài khoản</a></span>
+            </div> -->
+        </div>
+        <div class="main-content">
+            <h2>Cần xử lý (0)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Ngày tạo đơn</th>
+                        <th>Người nhận</th>
+                        <th>Địa chỉ</th>
+                        <th>Hàng hóa</th>
+                        <th>Hàng hóa sẽ giao</th>
+                        <th>Hàng hóa hoàn về</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="8" style="text-align: center;">Không có bản ghi nào</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="actions">
+                <button class="accept">Đồng ý</button>
+                <button class="reject">Từ chối</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

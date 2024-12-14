@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import vn.iotstar.UTEExpress.entity.Manager;
 
-public interface IManagerReposotory extends JpaRepository<Manager, Integer>{
+public interface IManagerRepository extends JpaRepository<Manager, Integer>{
 
 }

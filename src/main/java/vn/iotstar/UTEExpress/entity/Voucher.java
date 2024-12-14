@@ -38,11 +38,11 @@ public class Voucher {
 	
 
 	@ManyToOne
-	@JoinColumn(name="IDGoods")
+	@JoinColumn(name="goodsID")
 	private Goods goods;
 	
 	@ManyToOne
-	@JoinColumn(name="IDTransport")
+	@JoinColumn(name="transportID")
 	private Transport transport;
 	
 	@OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL)

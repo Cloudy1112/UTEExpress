@@ -27,7 +27,7 @@ public class Post {
 	
 	// co nhieu post thuoc ve cung 1 thanh pho
 	@ManyToOne
-	@JoinColumn(name="IDCity")
+	@JoinColumn(name="cityID")
 	private City city;
 	
 	@OneToOne(mappedBy = "post", cascade = CascadeType.ALL)

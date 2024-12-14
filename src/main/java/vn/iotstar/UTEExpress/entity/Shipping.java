@@ -33,7 +33,7 @@ public class Shipping {
 	private Date dateUpdate;
 	
 	@ManyToOne
-	@JoinColumn(name="IDShipper")
+	@JoinColumn(name="shipperID")
 	private Shipper shipper;
 	
 

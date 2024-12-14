@@ -39,6 +39,6 @@ public class Manager {
 	private Account account;
 	
 	@OneToOne
-	@JoinColumn(name="IDPost")
+	@JoinColumn(name="postID")
 	private Post post;
 }

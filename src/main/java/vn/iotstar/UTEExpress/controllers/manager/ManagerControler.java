@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import vn.iotstar.UTEExpress.entity.Customer;
 import vn.iotstar.UTEExpress.entity.Manager;
-import vn.iotstar.UTEExpress.service.impl.CustomerServiceImpl;
+import vn.iotstar.UTEExpress.service.ICustomerService;
 import vn.iotstar.UTEExpress.service.impl.ManagerServiceImpl;
 
 @Controller
@@ -21,7 +21,7 @@ public class ManagerControler {
 	@Autowired
 	private ManagerServiceImpl managerService;
 	@Autowired
-	private CustomerServiceImpl customerService;
+	private ICustomerService customerService;
 	
 	// login xong sẽ về trang này nếu role là manager
 	@GetMapping("/{id}")
