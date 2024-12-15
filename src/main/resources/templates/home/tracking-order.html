@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+
+    <title>UTEExpress - Tracking Your Order</title>
+    <link rel="icon" th:href="@{/manager/assets/img/favicon.ico}" type="image/ico">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" th:href="@{/manager/css/bootstrap/bootstrap.min.css}">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" th:href="@{/manager/css/manager.css}">
+    
+    <style>
+		/* Thanh tiến trình với màu cam đất hoặc xám */
+		.progress-bar {
+		    background: linear-gradient(to right, #E67E22, #D35400); /* Cam đất nhạt đến đậm */
+		    color: white;
+		    font-weight: bold;
+		}
+		
+		/* Mục active với nền trắng và viền xanh dương */
+		.active-status {
+		    background: #FDF3E7; /* Trắng ngà */
+		    color: #D35400; /* Cam đất đậm */
+		    font-weight: bold;
+		    border-left: 5px solid #3498DB; /* Viền xanh dương nhạt */
+		}
+		
+		/* Hover cho các mục active */
+		.active-status:hover {
+		    background: #E67E22; /* Cam đất đậm */
+		    color: #FFFFFF; /* Trắng */
+		    transition: background 0.3s ease;
+		}
+</style>
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav th:replace="~{manager/fragments/header::nav}"></nav>
+
+<body>
+<section class="bg-light text-center" id="admin-db">
+   <div class="container mt-5">
+    <h2 class="text-center">Order Tracking</h2>
+    <div class="card shadow-sm mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Order ID: <span>123456</span></h5>
+            <p class="card-text">Status:
+                <span th:if="${status == 0}" class="badge bg-warning">Pending</span>
+                <span th:if="${status == 1}" class="badge bg-primary">Confirmed</span>
+                <span th:if="${status == 2}" class="badge bg-success">Shipper take</span>
+                <span th:if="${status == 3}" class="badge bg-purple">Success</span>
+                <span th:if="${status == 4}" class="badge bg-orange">At Post Office</span>
+                <span th:if="${status == 5}" class="badge bg-danger">In transit to Dest Post</span>
+                <span th:if="${status == 6}" class="badge bg-info">Shipper is shipping</span>
+                <span th:if="${status == 7}" class="badge bg-success">Delivered</span>
+                <span th:if="${status == 8}" class="badge bg-secondary">Failed</span>
+            </p>
+
+            <!-- Progress Bar với gradient -->
+            <div class="progress mt-3" style="height: 25px;">
+                <div class="progress-bar" 
+                     role="progressbar" 
+                     th:style="'width:' + (${status} * 12.5) + '%; background: linear-gradient(to right, #ffd699, #ff6600);'" 
+                     th:text="'Step ' + ${status} + ' of 8'">
+                    Step 0 of 8
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="mt-4">
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center" 
+                th:classappend="${status >= 0 ? 'active-status' : ''}">
+                Pending
+                <span th:text="${status == 0 ? '(Current)' : ''}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center" 
+                th:classappend="${status >= 1 ? 'active-status' : ''}">
+                Confirmed
+                <span th:text="${status == 1 ? '(Current)' : ''}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center" 
+                th:classappend="${status >= 2 ? 'active-status' : ''}">
+                Shipper take
+                <span th:text="${status == 2 ? '(Current)' : ''}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center" 
+                th:classappend="${status >= 3 ? 'active-status' : ''}">
+                Success
+                <span th:text="${status == 3 ? '(Current)' : ''}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center" 
+                th:classappend="${status >= 4 ? 'active-status' : ''}">
+                At Post Office
+                <span th:text="${status == 4 ? '(Current)' : ''}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center" 
+                th:classappend="${status >= 5 ? 'active-status' : ''}">
+                In transit to Dest Post
+                <span th:text="${status == 5 ? '(Current)' : ''}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center" 
+                th:classappend="${status >= 6 ? 'active-status' : ''}">
+                Shipper is shipping
+                <span th:text="${status == 6 ? '(Current)' : ''}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center" 
+                th:classappend="${status >= 7 ? 'active-status' : ''}">
+                Delivered
+                <span th:text="${status == 7 ? '(Current)' : ''}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center" 
+                th:classappend="${status >= 8 ? 'active-status' : ''}">
+                Failed
+                <span th:text="${status == 8 ? '(Current)' : ''}"></span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</section>
+	<!-- Footer -->
+	<footer th:replace="~{manager/fragments/footer::footer}"></footer>
+	
+	<!-- Bootstrap core JavaScript -->
+	<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

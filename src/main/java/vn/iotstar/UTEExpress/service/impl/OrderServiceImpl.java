@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import vn.iotstar.UTEExpress.entity.Order;
@@ -34,7 +37,19 @@ public class OrderServiceImpl implements IOrderService{
 	public List<Order> findOrdersBySourceCityAndDestCity(String cityName) {
 		return orderRepository.findOrdersBySourceCityAndDestCity(cityName);
 	}
-	
-	
-	
+
+	public List<Order> findOrdersByShipperID(Integer shipperID) {
+		return orderRepository.findOrdersByShipperID(shipperID);
+	}
+
+	public List<Order> findOrdersByShipperIDAndStatus(Integer shipperID, Integer statusOrderID) {
+		return orderRepository.findOrdersByShipperIDAndStatus(shipperID, statusOrderID);
+	}
+
+	/*
+	 * public Page<Order> findOrdersByShipperIDAndStatus(Integer shipperID, Integer
+	 * statusOrderID, int page, int size) { Pageable pageable = PageRequest.of(page,
+	 * size); return orderRepository.findOrdersByShipperIDAndStatus(shipperID,
+	 * statusOrderID, pageable); }
+	 */
 }

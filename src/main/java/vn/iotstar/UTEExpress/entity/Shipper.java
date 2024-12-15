@@ -3,6 +3,8 @@ package vn.iotstar.UTEExpress.entity;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,6 +35,7 @@ public class Shipper {
 	private String picture;
 	private String city;
 	private String address;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;  //java.util
 	private String phone;
 	private String cccd;

@@ -2,6 +2,8 @@ package vn.iotstar.UTEExpress.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -42,6 +44,35 @@ public interface IOrderRepository extends JpaRepository<Order, String>{
 		       "WHERE o.sourceCity = :cityName " +
 		       "OR o.destCity = :cityName")
 	List<Order> findOrdersBySourceCityAndDestCity(String cityName);
+	
+	//--SHIPPER
+	// tìm order dựa tren shipper id
+	@Query("SELECT o FROM Order o " +
+		       "JOIN o.shipping s " +
+		       "WHERE s.shipper.shipperID = :shipperID")
+	List<Order> findOrdersByShipperID(@Param("shipperID") Integer shipperID);
+	
+	// tìm order dựa tren shipper id va status order
+	@Query("SELECT o FROM Order o " +
+		       "JOIN o.shipping s " +
+		       "WHERE s.shipper.shipperID = :shipperID " +
+		       "AND s.statusOrderID = :statusOrderID")
+	List<Order> findOrdersByShipperIDAndStatus(
+	        @Param("shipperID") Integer shipperID, 
+	        @Param("statusOrderID") Integer statusOrderID);
+		//phân trang
+		/*
+		 * @Query("SELECT o FROM Order o " + "JOIN o.shipping s " +
+		 * "WHERE s.shipper.shipperID = :shipperID " +
+		 * "AND s.statusOrderID = :statusOrderID") Page<Order>
+		 * findOrdersByShipperIDAndStatus(
+		 * 
+		 * @Param("shipperID") Integer shipperID,
+		 * 
+		 * @Param("statusOrderID") Integer statusOrderID, Pageable pageable);
+		 */
+
+
 
 
 }
