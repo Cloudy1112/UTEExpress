@@ -2,7 +2,11 @@ package vn.iotstar.UTEExpress.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -19,17 +23,20 @@ import lombok.NoArgsConstructor;
 public class Shipping {
 	// do de id nen t ko tao onetomany
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer shippingID;
 	private String orderID;
-	@Id
 	private Integer statusOrderID;
 	
 //	Total
 //	province = abs( mã tỉnh gửi - mã tỉnh nhận)
-//	shipFee = weight * transportFee*province + weight * goodsFee*province
+//	if (province==0) province=1
+//    let shipFee = transportFee * goodFee * province * weight 
 //	codFee = codFee * 1.1
 //
 //	total = shipFee + codFee - discount (voucher)
-	private Integer total;
+	private float total;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dateUpdate;
 	
 	@ManyToOne

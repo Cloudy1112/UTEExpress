@@ -6,47 +6,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đơn hàng cần xử lý - Viettel Post</title>
     <link rel="stylesheet" th:href="@{/css/customerHome.css}">
+    <link rel="stylesheet" th:href="@{/css/customerHeader.css}">
     
 </head>
 <body>
+	<header th:replace="~{customer/fragments/header::header}"></header>
+	
     <div class="sidebar">
         <ul>
-            <li><a th:href="@{/#}">Tạo đơn</a></li>
-            <li><a th:href="@{/#}">Thống kê tiền hàng</a></li>
-            <li><a th:href="@{/#}">Thống kê doanh thu</a></li>
-            <li><a th:href="@{/#}" style="color: red;">Đơn hàng cần xử lý</a></li>
-            <li><a th:href="@{/#}">Danh sách người nhận</a></li>
-            <li><a th:href="@{/#}">Tra cứu</a></li>
-            <li><a th:href="@{/customer/profile/{id}(id=${id})}">Tài khoản</a></li>
+            <li><a th:href="@{/customer/order}">Create Order</a></li>
+			<li><a th:href="@{/customer/statistic}">Statistic</a></li>
+			<li><a th:href="@{/customer/{id}(id=${id})}" style="color: red;">Orders to Process</a></li>
+			<li><a th:href="@{/customer/receiver}">Recipient List</a></li>
+			<li><a th:href="@{/customer/track}">Track</a></li>
+			<li><a th:href="@{/customer/profile/{id}(id=${id})}">Account</a></li>
         </ul>
     </div>
+    
+    <!-- content -->
     <div class="content">
         <div class="header">
-            <div class="title">Đơn hàng cần xử lý</div>
-            <!-- <div class="user-info">
-                <span><a href=""@{/#}"">Thông báo</a></span>
-                <span><a href=""@{/#}"">Tài khoản</a></span>
-            </div> -->
+            <div class="title">Order to Process</div>
         </div>
         <div class="main-content">
-            <h2>Cần xử lý (0)</h2>
+            <h2>Process</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>Mã đơn</th>
-                        <th>Ngày tạo đơn</th>
-                        <th>Người nhận</th>
-                        <th>Địa chỉ</th>
-                        <th>Hàng hóa</th>
-                        <th>Hàng hóa sẽ giao</th>
-                        <th>Hàng hóa hoàn về</th>
-                        <th>Thao tác</th>
+                        <th>OrderID</th>
+                        <th>Date Create</th>
+                        <th>Sender Address</th>
+                        <th>Receiver name</th>
+                        <th>Receiver Address</th>
+                        <th>Goods Type</th>
+                        <th>Transport Type</th>
+                        <th>COD Fee</th>
+                        <th>COD Surcharge</th>
+                        <th>Ship Fee</th>
+                        <th>Total</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td colspan="8" style="text-align: center;">Không có bản ghi nào</td>
-                    </tr>
+                    <tr th:each="order : ${orders}">
+		                    <td th:text="${order.orderID}"></td>
+		                    <td th:text="${order.weight} + ' kg'"></td>
+		                    <td th:text="${order.sourceCity}"></td>
+		                    <td th:text="${order.destCity}"></td>
+		                    <td th:text="${order.nameReceiver}"></td>
+		                    <td th:text="${order.codFee} + ' đ'"></td>
+		                    <td th:text="${order.shipFee} + ' đ'"></td>
+	                </tr>
+	                <tr th:if="${#lists.isEmpty(orders)}">
+	                    <td colspan="7" style="text-align: center;">Không có đơn hàng nào.</td>
+	                </tr>
                 </tbody>
             </table>
             <div class="actions">
@@ -55,5 +68,7 @@
             </div>
         </div>
     </div>
+    <!-- content -->
+    
 </body>
 </html>

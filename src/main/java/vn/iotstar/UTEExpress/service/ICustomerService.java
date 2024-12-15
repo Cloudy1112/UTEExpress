@@ -13,4 +13,8 @@ public interface ICustomerService {
 	
 	Customer findCustomerByIDUser(Integer IDUser);
 
+	Customer findById(Integer id);
+	
+
+
 }

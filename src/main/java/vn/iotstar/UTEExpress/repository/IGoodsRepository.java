@@ -1,11 +1,13 @@
 package vn.iotstar.UTEExpress.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import vn.iotstar.UTEExpress.entity.City;
+import vn.iotstar.UTEExpress.entity.Goods;
 
 @Repository
-public interface ICityRepository extends JpaRepository<City, Integer>  {
-	City findByCityName (String cityName);
+public interface IGoodsRepository extends JpaRepository<Goods, Integer> {
+
 }

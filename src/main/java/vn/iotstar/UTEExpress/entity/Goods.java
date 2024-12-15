@@ -23,7 +23,7 @@ public class Goods {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer goodsID;
 	private String goodsType;
-	private Integer goodsFee;
+	private float goodsFee;
 
 	@OneToMany(mappedBy = "goods", cascade = CascadeType.ALL)
 	private List<Voucher> vouchers;

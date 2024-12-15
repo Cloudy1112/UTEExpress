@@ -29,8 +29,12 @@ public class Order {
 	private String dest;
 	private String source;
 	
-	private Integer codFee;
-	private Integer shipFee;
+	//thông tin người nhận
+	private String nameReceiver;
+	private String phoneReceiver;
+	
+	private float codFee;
+	private float shipFee;
 	
 	@ManyToOne
 	@JoinColumn(name="voucherID")

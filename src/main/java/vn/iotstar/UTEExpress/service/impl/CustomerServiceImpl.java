@@ -37,6 +37,12 @@ public class CustomerServiceImpl implements ICustomerService{
 		// TODO Auto-generated method stub
 		return customerRepository.findById(IDUser).get();
 	}
+
+	@Override
+	public Customer findById(Integer id) {
+		// TODO Auto-generated method stub
+		return customerRepository.findById(id).orElse(null);
+	}
 	
 	//
 	

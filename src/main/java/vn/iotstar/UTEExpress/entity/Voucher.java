@@ -27,7 +27,7 @@ public class Voucher {
 	private Integer voucherID;
 	
 	private String voucherName;
-	private Integer discount; //0-100
+	private float discount; //0-100
 	private Integer amount;
 	
 	private Date dateStart;

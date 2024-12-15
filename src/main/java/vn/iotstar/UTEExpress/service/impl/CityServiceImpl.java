@@ -18,5 +18,11 @@ public class CityServiceImpl implements ICityService{
 	public List<City> findAll() {
 		return cityRepository.findAll();
 	}
+
+	@Override
+	public City findByCityName(String cityName) {
+		// TODO Auto-generated method stub
+		return cityRepository.findByCityName(cityName);
+	}
 	
 }
