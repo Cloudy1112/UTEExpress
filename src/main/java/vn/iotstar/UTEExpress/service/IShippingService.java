@@ -2,6 +2,8 @@ package vn.iotstar.UTEExpress.service;
 
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
+
 import vn.iotstar.UTEExpress.entity.Shipping;
 
 public interface IShippingService  {
@@ -11,5 +13,10 @@ public interface IShippingService  {
 	Shipping findByOrderID(String orderID);
 
 	List<Shipping> findAllByOrderID(String orderID);
-
+	
+	Shipping findLatestShippingByOrderID(String orderID);
+	
+	Integer findNewStatusOrderByOrderID (String orderID);
+	
+	void deleteByShipping(Shipping shipping);
 }

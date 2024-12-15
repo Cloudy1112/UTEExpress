@@ -20,10 +20,8 @@
 	<div class="sidebar">
 		<ul>
             <li><a th:href="@{/customer/order/{id}(id=${id})}">Create Order</a></li>
-			<li><a th:href="@{/customer/statistic}">Statistic</a></li>
+			<li><a th:href="@{/customer/statistic/{id}(id=${id})}">Statistic</a></li>
 			<li><a th:href="@{/customer/{id}(id=${id})}" >Orders to Process</a></li>
-			<li><a th:href="@{/customer/receiver}">Recipient List</a></li>
-			<li><a th:href="@{/customer/track}">Track</a></li>
 			<li><a th:href="@{/customer/profile/{id}(id=${id})}" style="color: red;">Account</a></li>
 		</ul>
 	</div> 

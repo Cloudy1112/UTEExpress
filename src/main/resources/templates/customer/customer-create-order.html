@@ -15,10 +15,8 @@
 	<div class="sidebar">
 		<ul>
             <li><a th:href="@{/customer/order/{id}(id=${id})}" style="color: red;">Create Order</a></li>
-			<li><a th:href="@{/customer/statistic}">Statistic</a></li>
+			<li><a th:href="@{/customer/statistic/{id}(id=${id})}">Statistic</a></li>
 			<li><a th:href="@{/customer/{id}(id=${id})}" >Orders to Process</a></li>
-			<li><a th:href="@{/customer/receiver}">Recipient List</a></li>
-			<li><a th:href="@{/customer/track}">Track</a></li>
 			<li><a th:href="@{/customer/profile/{id}(id=${id})}" >Account</a></li>
 		</ul>
 	</div> 
@@ -107,14 +105,10 @@
 	            <!-- Fee Information -->
 	            <div class="form-group">
 	                <label for="codFee">COD Fee:</label>
-	                <input type="number" id="codFee" name="codFee" required>
+	                <input type="number" id="codFee" name="codFee" >
 	            </div>
 	            
-				<div class="form-group">
-				    <label for="shipFee">Shipping Fee:</label>
-				    <input type="number" id="shipFee" name="shipFee" readonly>
-				</div>
-
+				
 	
 	            <!-- Goods -->
 	            <div class="form-group">
@@ -142,7 +136,15 @@
 					</select>
 	            </div>
 	            
+	            
+	            
+	            
 	            <h3>Total</h3>
+	            
+	            <div class="form-group">
+				    <label for="shipFee">Shipping Fee:</label>
+				    <input type="number" id="shipFee" name="shipFee" readonly>
+				</div>
 	            <!-- Voucher -->
 	            <div class="form-group">
 	                <label for="voucherID">Voucher:</label>
@@ -234,11 +236,12 @@
 	        let province = Math.abs(destCityFee-sourceCityFee);
 	        if (province==0) province=1;
 	        
-	        let shipFee = transportFee * goodFee * province * weight;
+	        let shipFee = transportFee *goodFee  * (province + weight) ;
 			let cod_surcharge = codFee*0.1;
 			let total = shipFee + cod_surcharge +codFee;
-			if ( voucherFee<0 ) total = total + voucherFee;
-			if ( voucherFee>0 ) total = total * voucherFee;
+			if ( voucherFee<0 ) shipFee = shipFee + voucherFee;
+			if ( voucherFee>0 ) shipFee = shipFee * voucherFee;
+			total = shipFee + cod_surcharge +codFee;
 			if (total < 0) total=0;
 	
 	        // Hiển thị giá trị shipFee trong trường
@@ -246,6 +249,7 @@
 	        
 	     	// Hiển thị giá trị codFee trong trường
 	        document.getElementById('COD_surcharge').value = cod_surcharge.toFixed(2);
+	        document.getElementById('codFee').value = cod_surcharge.toFixed(2);
 	     	
 	    	 // Hiển thị giá trị codFee trong trường
 	        document.getElementById('total').value = total.toFixed(2);

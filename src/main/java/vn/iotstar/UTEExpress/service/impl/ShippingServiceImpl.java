@@ -28,4 +28,21 @@ public class ShippingServiceImpl implements IShippingService {
 	public List<Shipping> findAllByOrderID(String orderID) {
 		return shippingRepository.findAllByOrderID(orderID);
 	}
+
+	@Override
+	public Shipping findLatestShippingByOrderID(String orderID) {
+		return shippingRepository.findLatestShippingByOrderID(orderID);
+	}
+
+	@Override
+	public Integer findNewStatusOrderByOrderID(String orderID) {
+		return shippingRepository.findNewStatusOrderByOrderID(orderID);
+	}
+
+	@Override
+	public void deleteByShipping(Shipping shipping) {
+		shippingRepository.delete(shipping);
+		
+	}
+
 }

@@ -30,4 +30,10 @@ public class OrderServiceImpl implements IOrderService{
 		return orderRepository.findById(orderID).get();
 	}
 
+	@Override
+	public void deleteByOrderID(String orderID) {
+		orderRepository.deleteById(orderID);
+		
+	}
+
 }

@@ -72,6 +72,7 @@ public class CustomerController {
 				dto.setTransportType(order.getTransport() != null ? order.getTransport().getTransportType() : null);
 				dto.setCOD_surcharge(order.getCodFee()*0.1);
 				dto.setTotal(order.getTotal());
+				dto.setStatusOrderID(shippingService.findNewStatusOrderByOrderID(order.getOrderID())); 
 				orderDTO.add(dto);
 			}
 		}
