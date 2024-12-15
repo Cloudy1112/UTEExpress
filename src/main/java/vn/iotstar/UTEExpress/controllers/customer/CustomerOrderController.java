@@ -13,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import vn.iotstar.UTEExpress.dto.OrderDTO;
 import vn.iotstar.UTEExpress.entity.City;
 import vn.iotstar.UTEExpress.entity.Customer;
 import vn.iotstar.UTEExpress.entity.Goods;
 import vn.iotstar.UTEExpress.entity.Order;
+import vn.iotstar.UTEExpress.entity.Shipper;
 import vn.iotstar.UTEExpress.entity.Shipping;
+import vn.iotstar.UTEExpress.entity.StatusOrder;
 import vn.iotstar.UTEExpress.entity.Transport;
 import vn.iotstar.UTEExpress.entity.Voucher;
 import vn.iotstar.UTEExpress.repository.IOrderRepository;
@@ -25,7 +29,9 @@ import vn.iotstar.UTEExpress.service.ICityService;
 import vn.iotstar.UTEExpress.service.ICustomerService;
 import vn.iotstar.UTEExpress.service.IGoodsService;
 import vn.iotstar.UTEExpress.service.IOrderService;
+import vn.iotstar.UTEExpress.service.IShipperService;
 import vn.iotstar.UTEExpress.service.IShippingService;
+import vn.iotstar.UTEExpress.service.IStatusOrderService;
 import vn.iotstar.UTEExpress.service.ITransportService;
 import vn.iotstar.UTEExpress.service.IVoucherService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,20 +42,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 @RequestMapping("/customer/order")
 public class CustomerOrderController {
-	@Autowired
-	ICityService cityService;
-	@Autowired
-	ICustomerService customerService;	
-	@Autowired
-	ITransportService transportService;
-	@Autowired
-	IGoodsService goodsService;
-	@Autowired
-	IVoucherService voucherService;
-	@Autowired
-	IOrderService orderService;
-	@Autowired
-	IShippingService shippingService;
+	@Autowired ICityService cityService;
+	@Autowired ICustomerService customerService;	
+	@Autowired ITransportService transportService;
+	@Autowired IGoodsService goodsService;
+	@Autowired IVoucherService voucherService;
+	@Autowired IOrderService orderService;
+	@Autowired IShippingService shippingService;
+	@Autowired IShipperService shipperService;
+	@Autowired IStatusOrderService statusOrderService;
 	
 	@GetMapping("/{id}")
 	public String getMethodName(@PathVariable("id") Integer customerID, Model model){
@@ -115,6 +116,8 @@ public class CustomerOrderController {
         order.setPhoneReceiver(phoneReceiver);  // Gán số điện thoại người nhận
         order.setCodFee(codFee);      // Gán phí COD
         order.setShipFee(shipFee);    // Gán phí vận chuyển
+        order.setCodSurcharge(codSurcharge);
+        order.setTotal(total);
         
         // Gán các đối tượng liên kết
         Voucher voucher = voucherService.findById(voucherID);  // Giả sử bạn đã lấy được voucher từ cơ sở dữ liệu
@@ -147,10 +150,35 @@ public class CustomerOrderController {
         shipping.setShipper(null);
         shippingService.save(shipping);
         
-        
-        
         return "redirect:/customer/"+id; // Return confirmation page after form submission
     }
+	
+	//Xem Status của từng đơn hàng
+	@GetMapping("/status/{id}")	//ID này là ID đơn hàng
+	public String StatusOrder(@PathVariable("id") String orderID, Model model) {
+		List<Shipping> shipping = shippingService.findAllByOrderID(orderID);
+		Order order = orderService.findByID(orderID);
+	
+		
+		Shipper shipper = new Shipper();	//Shipper này là người phụ trách giao trực tiếp đến người nhận
+		
+		for (Shipping shipping2 : shipping) {
+			if (shipping2.getStatusOrderID() ==7) { //Tìm thông tin Shipper khi shipper trạng thái Shipping
+				shipper = shipping2.getShipper(); //gán nó cho shipper
+				break;
+			}
+		}
+		List<StatusOrder> statusOrder = statusOrderService.findAll();
+		model.addAttribute("statusorder", statusOrder);
+		
+		model.addAttribute("shipper",shipper);  //Thông tin Shipper giao hàng
+		model.addAttribute("order", order); 	//Thông tin đơn hàng
+		model.addAttribute("shipping",shipping); //thông tin trạng thái vị trí đơn hàng
+		model.addAttribute("id",order.getCustomer().getCustomerID());
+		
+		return "customer/trackOrder";
+	}
+	
 	
 	
 }

@@ -24,4 +24,10 @@ public class OrderServiceImpl implements IOrderService{
 		return orderRepository.findAllByCustomerID(customerID);
 	}
 
+	@Override
+	public Order findByID(String orderID) {
+		// TODO Auto-generated method stub
+		return orderRepository.findById(orderID).get();
+	}
+
 }

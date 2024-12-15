@@ -1,5 +1,7 @@
 package vn.iotstar.UTEExpress.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,4 +13,7 @@ import vn.iotstar.UTEExpress.entity.Shipping;
 public interface IShippingRepository extends JpaRepository<Shipping, Integer> {
 	@Query("SELECT s FROM Shipping s WHERE s.orderID = :orderID")
     Shipping findByOrderID(@Param("orderID") String orderID);
+	
+	@Query("SELECT s FROM Shipping s WHERE s.orderID = :orderID")
+    List<Shipping> findAllByOrderID(@Param("orderID") String orderID);
 }

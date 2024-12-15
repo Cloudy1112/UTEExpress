@@ -14,7 +14,7 @@
 	
     <div class="sidebar">
         <ul>
-            <li><a th:href="@{/customer/order}">Create Order</a></li>
+            <li><a th:href="@{/customer/order/{id}(id=${id})}">Create Order</a></li>
 			<li><a th:href="@{/customer/statistic}">Statistic</a></li>
 			<li><a th:href="@{/customer/{id}(id=${id})}" style="color: red;">Orders to Process</a></li>
 			<li><a th:href="@{/customer/receiver}">Recipient List</a></li>
@@ -34,7 +34,6 @@
                 <thead>
                     <tr>
                         <th>OrderID</th>
-                        <th>Date Create</th>
                         <th>Sender Address</th>
                         <th>Receiver name</th>
                         <th>Receiver Address</th>
@@ -50,22 +49,31 @@
                 <tbody>
                     <tr th:each="order : ${orders}">
 		                    <td th:text="${order.orderID}"></td>
-		                    <td th:text="${order.weight} + ' kg'"></td>
-		                    <td th:text="${order.sourceCity}"></td>
-		                    <td th:text="${order.destCity}"></td>
-		                    <td th:text="${order.nameReceiver}"></td>
+		                  	<td th:text="${order.source} + ' ,' + ${order.sourceCity}" ></td>		             
+		                    <td th:text="${order.nameReceiver} + ' kg'"></td>
+		                    <td th:text="${order.dest} + ' ,' + ${order.destCity}"></td>
+		                    <td th:text="${order.goodsType}"></td>
+		                  	<td th:text="${order.transportType}"></td>
 		                    <td th:text="${order.codFee} + ' đ'"></td>
+		                    <td th:text="${order.COD_surcharge} + ' đ'"></td>
 		                    <td th:text="${order.shipFee} + ' đ'"></td>
+		                    <td th:text="${order.total} + ' đ'"></td>
+		                    <td>
+			                    <div class="actions">
+                					<a th:href="@{/customer/order/status/{id}(id=${order.orderID})}">
+							            <button class="accept">Status</button>
+							        </a>
+							        <a th:href="@{/customer/order/cancel/{id}(id=${order.orderID})}">
+							            <button class="reject">Cancel</button>
+							        </a>
+            					</div>
+				            </td>
 	                </tr>
 	                <tr th:if="${#lists.isEmpty(orders)}">
 	                    <td colspan="7" style="text-align: center;">Không có đơn hàng nào.</td>
 	                </tr>
                 </tbody>
             </table>
-            <div class="actions">
-                <button class="accept">Đồng ý</button>
-                <button class="reject">Từ chối</button>
-            </div>
         </div>
     </div>
     <!-- content -->

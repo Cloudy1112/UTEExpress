@@ -1,5 +1,7 @@
 package vn.iotstar.UTEExpress.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +22,10 @@ public class ShippingServiceImpl implements IShippingService {
 	@Override
 	public <S extends Shipping> S save(S entity) {
 		return shippingRepository.save(entity);
+	}
+
+	@Override
+	public List<Shipping> findAllByOrderID(String orderID) {
+		return shippingRepository.findAllByOrderID(orderID);
 	}
 }

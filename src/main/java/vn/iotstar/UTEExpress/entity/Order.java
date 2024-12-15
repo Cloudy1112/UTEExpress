@@ -35,6 +35,8 @@ public class Order {
 	
 	private float codFee;
 	private float shipFee;
+	private float codSurcharge;
+	private float total;
 	
 	@ManyToOne
 	@JoinColumn(name="voucherID")

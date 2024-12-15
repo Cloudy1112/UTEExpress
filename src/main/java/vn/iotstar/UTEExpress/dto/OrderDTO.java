@@ -23,9 +23,9 @@ public class OrderDTO {
     private double width;
     private double codFee;
     private double shipFee;
-    private String goodsID;
-    private String transportID;
-    private String voucherID;
+    private String goodsType;
+    private String transportType;
+    private String voucherName;
     private double COD_surcharge;
     private Date dateUpdate;
     private Shipper shipper;
