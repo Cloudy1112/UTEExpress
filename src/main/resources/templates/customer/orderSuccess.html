@@ -16,8 +16,8 @@
         <ul>
             <li><a th:href="@{/customer/order/{id}(id=${id})}">Create Order</a></li>
 			<li><a th:href="@{/customer/statistic/{id}(id=${id})}">Statistic</a></li>
-			<li><a th:href="@{/customer/{id}(id=${id})}" style="color: red;">Orders to Process</a></li>
-			<li><a th:href="@{/customer/order/success/{id}(id=${id})}">Orders Success</a></li>
+			<li><a th:href="@{/customer/{id}(id=${id})}" >Orders to Process</a></li>
+			<li><a th:href="@{/customer/order/success/{id}(id=${id})}" style="color: red;">Orders Success</a></li>
 			<li><a th:href="@{/customer/order/failed/{id}(id=${id})}">Orders Failed</a></li>
 			<li><a th:href="@{/customer/profile/{id}(id=${id})}">Account</a></li>
         </ul>
@@ -26,7 +26,7 @@
     <!-- content -->
     <div class="content">
         <div class="header">
-            <div class="title">Order to Process</div>
+            <div class="title">Order Success</div>
         </div>
         <div class="main-content">
             <h2>Process</h2>

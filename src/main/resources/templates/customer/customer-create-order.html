@@ -17,6 +17,8 @@
             <li><a th:href="@{/customer/order/{id}(id=${id})}" style="color: red;">Create Order</a></li>
 			<li><a th:href="@{/customer/statistic/{id}(id=${id})}">Statistic</a></li>
 			<li><a th:href="@{/customer/{id}(id=${id})}" >Orders to Process</a></li>
+			<li><a th:href="@{/customer/order/success/{id}(id=${id})}">Orders Success</a></li>
+			<li><a th:href="@{/customer/order/failed/{id}(id=${id})}">Orders Failed</a></li>
 			<li><a th:href="@{/customer/profile/{id}(id=${id})}" >Account</a></li>
 		</ul>
 	</div> 
@@ -249,7 +251,7 @@
 	        
 	     	// Hiển thị giá trị codFee trong trường
 	        document.getElementById('COD_surcharge').value = cod_surcharge.toFixed(2);
-	        document.getElementById('codFee').value = cod_surcharge.toFixed(2);
+	        document.getElementById('codFee').value = codFee.toFixed(2);
 	     	
 	    	 // Hiển thị giá trị codFee trong trường
 	        document.getElementById('total').value = total.toFixed(2);
