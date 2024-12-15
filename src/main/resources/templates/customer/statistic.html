@@ -9,39 +9,36 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-	<header th:replace="~{customer/fragments/header::header}"></header>
-	
+    <header th:replace="~{customer/fragments/header::header}"></header>
+    
     <div class="sidebar">
         <ul>
             <li><a th:href="@{/customer/order/{id}(id=${id})}">Create Order</a></li>
-			<li><a th:href="@{/customer/statistic/{id}(id=${id})}">Statistic</a></li>
-			<li><a th:href="@{/customer/{id}(id=${id})}" style="color: red;">Orders to Process</a></li>
-			<li><a th:href="@{/customer/order/success/{id}(id=${id})}">Orders Success</a></li>
-			<li><a th:href="@{/customer/order/failed/{id}(id=${id})}">Orders Failed</a></li>
-			<li><a th:href="@{/customer/profile/{id}(id=${id})}">Account</a></li>
+            <li><a th:href="@{/customer/statistic/{id}(id=${id})}" style="color: red;">Statistic</a></li>
+            <li><a th:href="@{/customer/{id}(id=${id})}" >Orders to Process</a></li>
+            <li><a th:href="@{/customer/order/success/{id}(id=${id})}">Orders Success</a></li>
+            <li><a th:href="@{/customer/order/failed/{id}(id=${id})}">Orders Failed</a></li>
+            <li><a th:href="@{/customer/profile/{id}(id=${id})}">Account</a></li>
         </ul>
     </div>
     
-    <div class="container">
-    	<!-- card Shadow -->
-		<div class="card shadow">
-			<!-- row g-0 -->
-				<div class="row g-0">
-			        <h1>Income Statistics</h1>
-			        <canvas id="statisticPieChart"></canvas>
-		        </div>
-	        <!-- row g-0 -->
-    	</div>
-    	<!-- card Shadow -->
+    <div class="bieudo">
+    
+        <!-- Biểu đồ COD Fee và Surcharge -->
+        <div class="card shadow">
+            <h1>Income Statistics</h1>
+            <canvas id="statisticPieChart"></canvas>
+        </div>
+        
     </div>
+	<script>
 
-    <script>
-        // Lấy dữ liệu từ Thymeleaf
+        // Lấy dữ liệu từ Thymeleaf cho Pie Chart
         const totalCODFee = [[${totalCODFee}]];
-		const totalCODSurcharge = [[${totalCODSurcharge}]];
+        const totalCODSurcharge = [[${totalCODSurcharge}]];
 
-        // Dữ liệu cho biểu đồ
-        const data = {
+        // Dữ liệu cho Pie Chart
+        const dataPieChart = {
             labels: ['COD Fee', 'COD Surcharge'],
             datasets: [{
                 data: [totalCODFee, totalCODSurcharge],
@@ -51,18 +48,18 @@
             }]
         };
 
-        // Cấu hình biểu đồ
-        const config = {
+        // Cấu hình Pie Chart
+        const configPieChart = {
             type: 'pie',
-            data: data,
+            data: dataPieChart,
             options: {
                 responsive: true,
                 plugins: {
                     tooltip: {
                         callbacks: {
                             label: function(tooltipItem) {
-                                const total = data.datasets[0].data.reduce((acc, value) => acc + value, 0);
-                                const value = data.datasets[0].data[tooltipItem.dataIndex];
+                                const total = dataPieChart.datasets[0].data.reduce((acc, value) => acc + value, 0);
+                                const value = dataPieChart.datasets[0].data[tooltipItem.dataIndex];
                                 const percentage = ((value / total) * 100).toFixed(2);
                                 return `${tooltipItem.label}: ${value}đ (${percentage}%)`;
                             }
@@ -72,8 +69,10 @@
             }
         };
 
-        // Hiển thị biểu đồ
-        new Chart(document.getElementById('statisticPieChart').getContext('2d'), config);
+        // Hiển thị Pie Chart
+        new Chart(document.getElementById('statisticPieChart').getContext('2d'), configPieChart);
     </script>
+    
+    
 </body>
 </html>

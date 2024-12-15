@@ -1,8 +1,9 @@
 package vn.iotstar.UTEExpress.controllers.customer;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -155,28 +156,31 @@ public class CustomerController {
 		// Khởi tạo dữ liệu thống kê
 		double totalCODFee = 0.0;
 		double totalCODSurcharge = 0.0;
+		double total= 0;
+		double voucher=0;
+		double shipFee =0;
 
 		// Duyệt qua danh sách đơn hàng để tính tổng
 		for (Order order : orders) {
 			totalCODFee += order.getCodFee(); // Tổng COD Fee
 			totalCODSurcharge += order.getCodSurcharge(); // Tổng COD Surcharge
+			total += order.getTotal();	//Tổng tiền phải trả (bao gồm luôn cod)
+			shipFee += order.getShipFee();	//Tổng tiền ship
 		}
-
+		
+		total -= totalCODFee -totalCODSurcharge; //Tổng tiền ship 
+		
+		
 		// Chuẩn bị dữ liệu cho Thymeleaf
 		model.addAttribute("totalCODFee", totalCODFee);
 		model.addAttribute("totalCODSurcharge", totalCODSurcharge);
 
+		
+		
+		//trang thai don hang
 		List<OrderDTO> orderDTO = new ArrayList<>();
 
-		for (Order order : orders) {
-			if (order.getCustomer().getCustomerID() == customerID) {
-				OrderDTO dto = new OrderDTO();
-				dto.setOrderID(order.getOrderID());
-				
-				dto.setStatusOrderID(shippingService.findNewStatusOrderByOrderID(order.getOrderID()));
-				orderDTO.add(dto);
-			}
-		}
+		
 
 		return "customer/statistic";
 	}

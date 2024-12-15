@@ -108,12 +108,12 @@ th {
     height: auto; /* Giữ tỷ lệ khung */
 }
 
-.container {
-    margin-left: 250px; /* Đẩy nội dung ra ngoài thanh sidebar */
+/* .bieudo {
+    margin-left: 250px; Đẩy nội dung ra ngoài thanh sidebar
     padding: 20px;
-}
+} */
 
-.card.shadow {
+.bieudo {
     margin: 20px auto;
     padding: 20px;
     background-color: #ffffff;
