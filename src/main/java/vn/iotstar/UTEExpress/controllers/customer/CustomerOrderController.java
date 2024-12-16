@@ -130,7 +130,7 @@ public class CustomerOrderController {
 		Customer customer = customerService.findById(id); // Giả sử bạn đã lấy được customer từ cơ sở dữ liệu
 		order.setCustomer(customer);
 
-		orderService.save(order); // Save Order
+		
 
 		// Kiểm tra có áp dụng Voucher không
 		if (voucher != null) {
@@ -146,6 +146,10 @@ public class CustomerOrderController {
 		shipping.setDateUpdate(Date.from(Instant.now()));
 		shipping.setShipper(null);
 		shippingService.save(shipping);
+		
+		//Gán thêm shipping cho ORDER
+		order.setShipping(shipping);
+		orderService.save(order); // Save Order
 
 		return "redirect:/customer/" + id; // Return confirmation page after form submission
 	}
