@@ -3,7 +3,6 @@ package vn.iotstar.UTEExpress.entity;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,23 +26,26 @@ public class Shipping {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer shippingID;
 	// do de id nen t ko tao onetomany
-	
+
 	private String orderID;  
 	
 	private Integer statusOrderID;
 	
 //	Total
 //	province = abs( mã tỉnh gửi - mã tỉnh nhận)
-//	shipFee = weight * transportFee*province + weight * goodsFee*province
+//	if (province==0) province=1
+//    let shipFee = transportFee * goodFee * province * weight 
 //	codFee = codFee * 1.1
 //
 //	total = shipFee + codFee - discount (voucher)
-	private Integer total;
+
+	private float total;
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dateUpdate;
 	
 	@ManyToOne
-	@JoinColumn(name="IDShipper")
+	@JoinColumn(name="shipperID")
 	private Shipper shipper;
 	
 	@OneToOne(mappedBy = "shipping", cascade = CascadeType.ALL)

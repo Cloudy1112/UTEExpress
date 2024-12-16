@@ -2,8 +2,6 @@ package vn.iotstar.UTEExpress.repository;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -71,8 +69,7 @@ public interface IOrderRepository extends JpaRepository<Order, String>{
 		 * 
 		 * @Param("statusOrderID") Integer statusOrderID, Pageable pageable);
 		 */
-
-
-
-
+	
+	@Query("select o from Order o where o.customer.customerID = :customerID")
+	List <Order> findAllByCustomerID(@Param("customerID") Integer customerID);
 }

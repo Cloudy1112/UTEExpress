@@ -18,6 +18,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer>{
 	@Query("SELECT c FROM Customer c WHERE c.account.username = :username")
     Customer findCustomerByUserName(@Param("username") String username);
 	
+
 	@Query("SELECT c FROM Customer c WHERE c.city IN " +
 	           "(SELECT p.city.cityName FROM Post p WHERE p.city.cityName = :cityName)")
 	List<Customer> findCustomersByCity(@Param("cityName") String cityName);

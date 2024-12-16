@@ -12,31 +12,47 @@ import vn.iotstar.UTEExpress.service.ICustomerService;
 @Service
 public class CustomerServiceImpl implements ICustomerService{
 	@Autowired
-	private ICustomerRepository customerReposotory;
+	private ICustomerRepository customerRepository;
 	
 	// coche
+	@Override
 	public List<Customer> findInactiveCustomersByCity(String cityName) {
-		return customerReposotory.findInactiveCustomersByCity(cityName);
+		return customerRepository.findInactiveCustomersByCity(cityName);
 	}
 
+	@Override
 	public Customer findCustomerByUserName(String username) {
-		return customerReposotory.findCustomerByUserName(username);
+		return customerRepository.findCustomerByUserName(username);
 	}
 
+	@Override
 	public <S extends Customer> S save(S entity) {
-		return customerReposotory.save(entity);
+		return customerRepository.save(entity);
+	}
+	// end coche
+
+	//Van
+	@Override
+	public Customer findCustomerByIDUser(Integer IDUser) {
+		// TODO Auto-generated method stub
+		return customerRepository.findById(IDUser).get();
+	}
+
+	@Override
+	public Customer findById(Integer id) {
+		// TODO Auto-generated method stub
+		return customerRepository.findById(id).orElse(null);
 	}
 
 	public void delete(Customer entity) {
-		customerReposotory.delete(entity);
+		customerRepository.delete(entity);
 	}
 
 	public List<Customer> findCustomersByCity(String cityName) {
-		return customerReposotory.findCustomersByCity(cityName);
+		return customerRepository.findCustomersByCity(cityName);
 	}
 	
-	
-	// end coche
+	//
 	
 	
 }

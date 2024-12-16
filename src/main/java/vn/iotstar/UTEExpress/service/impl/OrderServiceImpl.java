@@ -18,6 +18,25 @@ public class OrderServiceImpl implements IOrderService{
 	@Autowired
 	private IOrderRepository orderRepository;
 
+
+	@Override
+	public List<Order> findAllByCustomerID(Integer customerID) {
+		// TODO Auto-generated method stub
+		return orderRepository.findAllByCustomerID(customerID);
+	}
+
+	@Override
+	public Order findByID(String orderID) {
+		// TODO Auto-generated method stub
+		return orderRepository.findById(orderID).get();
+	}
+
+	@Override
+	public void deleteByOrderID(String orderID) {
+		orderRepository.deleteById(orderID);
+		
+	}
+
 	public List<Order> findOrderByOrderStatusAndSourceCity(Integer statusOrderID, String sourceCity) {
 		return orderRepository.findOrderByOrderStatusAndSourceCity(statusOrderID, sourceCity);
 	}

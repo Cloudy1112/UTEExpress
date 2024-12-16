@@ -1,5 +1,10 @@
 package vn.iotstar.UTEExpress.service;
 
-public interface IStatusOrderService {
+import java.util.List;
 
+import vn.iotstar.UTEExpress.entity.StatusOrder;
+
+public interface IStatusOrderService {
+	public List <StatusOrder> findAll();
+	public StatusOrder findByStatusID(Integer id);
 }

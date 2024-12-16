@@ -30,19 +30,25 @@ public class Order {
 	private String dest;
 	private String source;
 	
-	private Integer codFee;
-	private Integer shipFee;
+	//thông tin người nhận
+	private String nameReceiver;
+	private String phoneReceiver;
+	
+	private float codFee;
+	private float shipFee;
+	private float codSurcharge;
+	private float total;
 	
 	@ManyToOne
-	@JoinColumn(name="IDVoucher")
+	@JoinColumn(name="voucherID")
 	private Voucher voucher;
 	
 	@ManyToOne
-	@JoinColumn(name="IDGoods")
+	@JoinColumn(name="goodsID")
 	private Goods goods;
 	
 	@ManyToOne
-	@JoinColumn(name="IDTransport")
+	@JoinColumn(name="transportID")
 	private Transport transport;
 	
 	@ManyToOne
@@ -52,4 +58,5 @@ public class Order {
 	@OneToOne
 	@JoinColumn(name="shippingID")
 	private Shipping shipping;
+
 }

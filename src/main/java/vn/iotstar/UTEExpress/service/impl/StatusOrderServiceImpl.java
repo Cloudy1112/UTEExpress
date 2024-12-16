@@ -10,14 +10,18 @@ import vn.iotstar.UTEExpress.repository.IStatusOrderRepository;
 import vn.iotstar.UTEExpress.service.IStatusOrderService;
 
 @Service
-public class StatusOrderServiceImpl implements IStatusOrderService{
-	@Autowired
-	private IStatusOrderRepository statusRepository;
+public class StatusOrderServiceImpl implements IStatusOrderService {
+	@Autowired IStatusOrderRepository statusOrderRepository;
 
+	@Override
 	public List<StatusOrder> findAll() {
-		return statusRepository.findAll();
+		// TODO Auto-generated method stub
+		return statusOrderRepository.findAll();
 	}
-	
-	
 
+	@Override
+	public StatusOrder findByStatusID(Integer id) {
+		// TODO Auto-generated method stub
+		return statusOrderRepository.findById(id).orElse(null);
+	}
 }

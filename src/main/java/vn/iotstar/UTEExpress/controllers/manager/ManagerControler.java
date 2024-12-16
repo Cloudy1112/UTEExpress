@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import vn.iotstar.UTEExpress.entity.Account;
 import vn.iotstar.UTEExpress.entity.Manager;
 import vn.iotstar.UTEExpress.service.impl.AccountServiceImpl;
+import vn.iotstar.UTEExpress.service.ICustomerService;
 import vn.iotstar.UTEExpress.service.impl.ManagerServiceImpl;
 
 @Controller
@@ -25,6 +26,9 @@ public class ManagerControler {
 	private ManagerServiceImpl managerService;
 	@Autowired
 	private AccountServiceImpl accountService;
+	@Autowired
+	private ICustomerService customerService;
+
 	
 	// login xong sẽ về trang này nếu role là manager
 	@GetMapping("/{id}")

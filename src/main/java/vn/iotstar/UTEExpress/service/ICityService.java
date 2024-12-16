@@ -1,5 +1,10 @@
 package vn.iotstar.UTEExpress.service;
 
-public interface ICityService {
+import java.util.List;
 
+import vn.iotstar.UTEExpress.entity.City;
+
+public interface ICityService {
+	List<City> findAll();
+	City findByCityName (String cityName);
 }

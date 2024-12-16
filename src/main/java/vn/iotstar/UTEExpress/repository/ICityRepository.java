@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import vn.iotstar.UTEExpress.entity.City;
 
 @Repository
-public interface ICityRepository extends JpaRepository<City, Integer>{
-
+public interface ICityRepository extends JpaRepository<City, Integer>  {
+	City findByCityName (String cityName);
 }

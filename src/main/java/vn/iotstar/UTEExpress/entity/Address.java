@@ -29,6 +29,6 @@ public class Address {
 	private String destCity;
 	
 	@ManyToOne
-	@JoinColumn(name="IDCustomer")
+	@JoinColumn(name="customerID")
 	private Customer customer;
 }

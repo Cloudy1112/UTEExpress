@@ -24,7 +24,7 @@ public class Transport {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer transportID;
 	private String transportType;
-	private Integer transportFee;
+	private float transportFee;
 	
 	@OneToMany(mappedBy = "transport", cascade = CascadeType.ALL)
 	private List<Voucher> vouchers;

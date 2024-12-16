@@ -35,5 +35,10 @@ public class ShipperServiceImpl implements IShipperService{
 		return shipperRepository.findShippersByRoleId(roleID);
 	}
 	
-	
+	@Override
+	public Optional<Shipper> findByShipperID(Integer shipperID) {
+		// TODO Auto-generated method stub
+		return shipperRepository.findById(shipperID);
+	}
+
 }
