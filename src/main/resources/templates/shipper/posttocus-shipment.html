@@ -8,7 +8,7 @@
     <meta content="" name="description">
     <meta content="" name="author">
 
-    <title>UTEExpress - Shipper</title>
+    <title>UTEExpress - Manager</title>
     <link rel="icon" th:href="@{/manager/assets/img/favicon.ico}" type="image/ico">
 
     <!-- Bootstrap core CSS -->
@@ -35,7 +35,7 @@
     <div id="db-header" class="container">
         <div class="row justify-content-center">
             <div class="col-xl-9 mx-auto">
-                <h1><a class="arrow" th:href="@{/shippercustocus/{id}(id=${shipper.shipperID})}"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shipments</h1>
+                <h1><a class="arrow" th:href="@{/shipperposttocus/{id}(id=${shipper.shipperID})}"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shipments</h1>
             </div>
         </div>
     </div>
@@ -100,7 +100,7 @@
                             <td th:text="'#' + ${{packet.recipient.id}} + ' ' + ${{packet.recipient.firstName}}+ ' ' + ${{packet.recipient.lastName}}"></td>
                             <td th:text="(${{packet.isOffice}} ? 'Office ' : ' ') + ${{packet.address}}"></td> -->
                             <td>
-                                <a class="btn btn-primary" th:href="@{/shippercustocus/{id}/take-shipment(id=${shipper.shipperID}, orderid=${order.orderID})}"
+                                <a class="btn btn-primary" th:href="@{/shipperposttocus/{id}/take-shipment(id=${shipper.shipperID}, orderid=${order.orderID})}"
                                    >Take</a>
                             </td>
                            
@@ -184,11 +184,11 @@
 						    </td>
  
                             <td>
-                                <a class="btn btn-primary" th:href="@{/shippercustocus/{id}/success-shipment(id=${shipper.shipperID}, orderid=${order.orderID})}"
+                                <a class="btn btn-primary" th:href="@{/shipperposttocus/{id}/success-shipment(id=${shipper.shipperID}, orderid=${order.orderID})}"
                                    >Success</a>
                             </td>
                             <td>
-                                <a class="btn btn-primary" th:href="@{/shippercustocus/{id}/failed-shipment(id=${shipper.shipperID}, orderid=${order.orderID})}"
+                                <a class="btn btn-primary" th:href="@{/shipperposttocus/{id}/failed-shipment(id=${shipper.shipperID}, orderid=${order.orderID})}"
                                    >Failed</a>
                             </td>
                            

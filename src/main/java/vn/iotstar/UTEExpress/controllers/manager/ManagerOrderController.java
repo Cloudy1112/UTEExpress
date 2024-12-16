@@ -237,7 +237,7 @@ public class ManagerOrderController {
 		if(order.getSourceCity().equals(order.getDestCity()) && order.getShipping().getStatusOrderID() == 4 ) {
 			shippers = shipperService.findShippersByRoleId(6);
 		}else if((!order.getSourceCity().equals(order.getDestCity())) && order.getShipping().getStatusOrderID() == 4) {
-		// nếu khác city statusorder = 4 -> giao shipper transit
+		// nếu khác city statusorder = 4 -> giao shipper transit post - post
 			shippers = shipperService.findShippersByRoleId(7);
 		}else if((!order.getSourceCity().equals(order.getDestCity())) && order.getShipping().getStatusOrderID() == 6 ) {
 			// nếu khác city statusorder = 6 -> giao shipper tu post - client
