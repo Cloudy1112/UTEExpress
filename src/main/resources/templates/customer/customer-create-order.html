@@ -192,71 +192,45 @@
 	<script>
 	    // Hàm tính phí vận chuyển
 	    function calculateShipFee() {
-	        // Lấy các giá trị từ các trường
-	        const weight = parseFloat(document.getElementById('weight').value) || 0;
-	        const width = parseFloat(document.getElementById('width').value) || 0;
-	        const height = parseFloat(document.getElementById('height').value) || 0;
-	        const codFee = parseFloat(document.getElementById('codFee').value) || 0;
-	        const transportType = document.getElementById('transportID').value;
-	        const goodsType = document.getElementById('goodsID').value;
-	        //const voucher = document.getElementById('voucherID').value;			
-	        //
-	        
-	        //Voucher
-	        const voucherSelect = document.getElementById('voucherID');
-	        const selectedVoucher = voucherSelect.options[voucherSelect.selectedIndex];
-	        const voucherFee = parseFloat(selectedVoucher.getAttribute('data-voucher-fee')) || 0;
-	        
-	        //Transport
-	        const transportSelect = document.getElementById('transportID');
-	        const selectedTransport = transportSelect.options[transportSelect.selectedIndex];
-	        const transportFee = parseFloat(selectedTransport.getAttribute('data-transport-fee')) || 0;
-	        
-	     	// Lấy phí city (destination)
-	        const destCitySelect = document.getElementById('destCity');
-	        const selectedDestCity = destCitySelect.options[destCitySelect.selectedIndex];
-	        const destCityFee = parseFloat(selectedDestCity.dataset.cityFee) || 0;
-	        
-	     	// Lấy phí city (source)
-	        const sourceCitySelect = document.getElementById('sourceCity');
-	        const selectedSourceCity = sourceCitySelect.options[sourceCitySelect.selectedIndex];
-	        const sourceCityFee = parseFloat(selectedSourceCity.dataset.cityFee) || 0;
-
-	        // Lấy phí hàng hóa
-	        const goodsSelect = document.getElementById('goodsID');
-	        const selectedGoods = goodsSelect.options[goodsSelect.selectedIndex];
-	        const goodFee = parseFloat(selectedGoods.dataset.goodFee) || 0;
-	        //Dieu kien khong am
-	        if (weight <0) weight =1;
-	        if (height <0) height =1;
-	        if (width <0) width =1;
-	        
-
-	        
-	        
-	        // Công thức tính phí (đây là ví dụ, bạn cần thay thế bằng logic cụ thể của mình)
-	        let province = Math.abs(destCityFee-sourceCityFee);
-	        if (province==0) province=1;
-	        
-	        let shipFee = transportFee *goodFee  * (province + weight) ;
-			let cod_surcharge = codFee*0.1;
-			let total = shipFee + cod_surcharge +codFee;
-			if ( voucherFee<0 ) shipFee = shipFee + voucherFee;
-			if ( voucherFee>0 ) shipFee = shipFee * voucherFee;
-			total = shipFee + cod_surcharge +codFee;
-			if (total < 0) total=0;
+	    const weight = Math.max(parseFloat(document.getElementById('weight').value) || 1, 1);
+	    const width = Math.max(parseFloat(document.getElementById('width').value) || 1, 1);
+	    const height = Math.max(parseFloat(document.getElementById('height').value) || 1, 1);
+	    const codFee = Math.max(parseFloat(document.getElementById('codFee').value) || 0, 0);
 	
-	        // Hiển thị giá trị shipFee trong trường
-	        document.getElementById('shipFee').value = shipFee.toFixed(2);
-	        
-	     	// Hiển thị giá trị codFee trong trường
-	        document.getElementById('COD_surcharge').value = cod_surcharge.toFixed(2);
-	        document.getElementById('codFee').value = codFee.toFixed(2);
-	     	
-	    	 // Hiển thị giá trị codFee trong trường
-	        document.getElementById('total').value = total.toFixed(2);
+	    const voucherSelect = document.getElementById('voucherID');
+	    const voucherFee = parseFloat(voucherSelect?.options[voucherSelect.selectedIndex]?.dataset?.voucherFee) || 0;
+	
+	    const transportSelect = document.getElementById('transportID');
+	    const transportFee = parseFloat(transportSelect?.options[transportSelect.selectedIndex]?.dataset?.transportFee) || 0;
+	
+	    const destCitySelect = document.getElementById('destCity');
+	    const destCityFee = parseFloat(destCitySelect?.options[destCitySelect.selectedIndex]?.dataset?.cityFee) || 0;
+	
+	    const sourceCitySelect = document.getElementById('sourceCity');
+	    const sourceCityFee = parseFloat(sourceCitySelect?.options[sourceCitySelect.selectedIndex]?.dataset?.cityFee) || 0;
+	
+	    const goodsSelect = document.getElementById('goodsID');
+	    const goodFee = parseFloat(goodsSelect?.options[goodsSelect.selectedIndex]?.dataset?.goodFee) || 0;
+	
+	    let province = Math.abs(destCityFee - sourceCityFee) || 1;
+	
+	    let shipFee = transportFee * goodFee * (province + weight);
+	    let cod_surcharge = codFee * 0.1;
+	
+	    if (voucherFee < 0) {
+	        shipFee += voucherFee;
+	    } else if (voucherFee > 0) {
+	        shipFee *= (1 - voucherFee);
 	    }
 	
+	    let total = shipFee + cod_surcharge + codFee;
+	    total = Math.max(total, 0); // Prevent negative total
+	
+	    document.getElementById('shipFee').value = shipFee.toFixed(2);
+	    document.getElementById('COD_surcharge').value = cod_surcharge.toFixed(2);
+	    document.getElementById('total').value = total.toFixed(2);
+	}
+
 	    // Lắng nghe sự kiện thay đổi trên các trường
 	    document.getElementById('weight').addEventListener('input', calculateShipFee);
 	    document.getElementById('width').addEventListener('input', calculateShipFee);
@@ -267,7 +241,6 @@
 	    document.getElementById('voucherID').addEventListener('change', calculateShipFee);
 	    document.getElementById('destCity').addEventListener('change', calculateShipFee);
 	    document.getElementById('sourceCity').addEventListener('change', calculateShipFee);
-
 	    
 	</script>
 	
