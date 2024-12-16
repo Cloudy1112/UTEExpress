@@ -180,8 +180,6 @@ public class CustomerController {
 		//trang thai don hang
 		List<OrderDTO> orderDTO = new ArrayList<>();
 
-		
-
 		return "customer/statistic";
 	}
 

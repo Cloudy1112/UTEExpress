@@ -148,7 +148,7 @@
 				    <input type="number" id="shipFee" name="shipFee" readonly>
 				</div>
 	            <!-- Voucher -->
-	            <div class="form-group">
+	        <!--     <div class="form-group">
 	                <label for="voucherID">Voucher:</label>
 	                <select id="voucherID" name="voucherID">
 	                    <option th:each="voucher : ${vouchers}" 
@@ -159,7 +159,7 @@
 					        th:attr="data-voucher-fee=${voucher.discount}" >
 					    </option>
 	                </select>
-	            </div>
+	            </div> -->
 	            
 	            <div class="form-group">
 				    <label for="COD_surcharge">COD surcharge:</label>
@@ -197,8 +197,8 @@
 	    const height = Math.max(parseFloat(document.getElementById('height').value) || 1, 1);
 	    const codFee = Math.max(parseFloat(document.getElementById('codFee').value) || 0, 0);
 	
-	    const voucherSelect = document.getElementById('voucherID');
-	    const voucherFee = parseFloat(voucherSelect?.options[voucherSelect.selectedIndex]?.dataset?.voucherFee) || 0;
+/* 	    const voucherSelect = document.getElementById('voucherID');
+	    const voucherFee = parseFloat(voucherSelect?.options[voucherSelect.selectedIndex]?.dataset?.voucherFee) || 0; */
 	
 	    const transportSelect = document.getElementById('transportID');
 	    const transportFee = parseFloat(transportSelect?.options[transportSelect.selectedIndex]?.dataset?.transportFee) || 0;
@@ -217,11 +217,11 @@
 	    let shipFee = transportFee * goodFee * (province + weight);
 	    let cod_surcharge = codFee * 0.1;
 	
-	    if (voucherFee < 0) {
+	  /*   if (voucherFee < 0) {
 	        shipFee += voucherFee;
 	    } else if (voucherFee > 0) {
 	        shipFee *= (1 - voucherFee);
-	    }
+	    } */
 	
 	    let total = shipFee + cod_surcharge + codFee;
 	    total = Math.max(total, 0); // Prevent negative total
@@ -238,7 +238,7 @@
 	    document.getElementById('codFee').addEventListener('input', calculateShipFee);
 	    document.getElementById('transportID').addEventListener('change', calculateShipFee);
 	    document.getElementById('goodsID').addEventListener('change', calculateShipFee);
-	    document.getElementById('voucherID').addEventListener('change', calculateShipFee);
+/* 	    document.getElementById('voucherID').addEventListener('change', calculateShipFee); */
 	    document.getElementById('destCity').addEventListener('change', calculateShipFee);
 	    document.getElementById('sourceCity').addEventListener('change', calculateShipFee);
 	    

@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="" name="description">
     <meta content="" name="author">
 
-    <title>UTEExpress - Tracking Your Order</title>
+    <title>Tracking</title>
     <link rel="icon" th:href="@{/manager/assets/img/favicon.ico}" type="image/ico">
 
     <!-- Bootstrap core CSS -->
@@ -19,127 +17,106 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" th:href="@{/manager/css/manager.css}">
-    
     <style>
-		/* Thanh tiến trình với màu cam đất hoặc xám */
-		.progress-bar {
-		    background: linear-gradient(to right, #E67E22, #D35400); /* Cam đất nhạt đến đậm */
-		    color: white;
-		    font-weight: bold;
+		body {
+			background-color: #FFD3B6 !important;
 		}
-		
-		/* Mục active với nền trắng và viền xanh dương */
-		.active-status {
-		    background: #FDF3E7; /* Trắng ngà */
-		    color: #D35400; /* Cam đất đậm */
-		    font-weight: bold;
-		    border-left: 5px solid #3498DB; /* Viền xanh dương nhạt */
-		}
-		
-		/* Hover cho các mục active */
-		.active-status:hover {
-		    background: #E67E22; /* Cam đất đậm */
-		    color: #FFFFFF; /* Trắng */
-		    transition: background 0.3s ease;
-		}
-</style>
+        .status-circle {
+            width: 40px !important;
+            height: 40px !important;
+            border-radius: 50% !important;
+            border: 2px solid #ddd !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            margin: 10px auto !important;
+            color: white !important;
+        }
+
+        .status-active {
+            background-color: green !important; /* Yellow for active status */
+            color: black !important; /* Black text for contrast */
+        }
+
+        .status-inactive {
+            background-color: #ccc !important; /* Gray for inactive status */
+        }
+
+
+        .footer {
+            background-color: #f8f9fa !important;
+            padding: 10px 0 !important;
+            text-align: center !important;
+            font-weight: bold !important;
+        }
+
+        .status-container {
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            height: 100% !important;
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- Navigation -->
-<nav th:replace="~{manager/fragments/header::nav}"></nav>
+    <!-- HEADER -->
+   <!-- Navigation -->
+	<nav class="navbar static-top">
+	    <div class="container">
+	        <a class="navbar-brand" th:href="@{/}">
+	            <img alt="Logo" class="navbar-logo" th:src="@{/manager/assets/img/truck.png}">UTE Logistics Express</a>
+	        <div>
+	            <span sec:authentication="name"></span>
+	            <a class="btn btn-primary" th:href="@{/login}">Log in</a>
+	        </div>
+	       
+	    </div>
+	</nav>
 
-<body>
-<section class="bg-light text-center" id="admin-db">
-   <div class="container mt-5">
-    <h2 class="text-center">Order Tracking</h2>
-    <div class="card shadow-sm mt-4">
-        <div class="card-body">
-            <h5 class="card-title">Order ID: <span>123456</span></h5>
-            <p class="card-text">Status:
-                <span th:if="${status == 0}" class="badge bg-warning">Pending</span>
-                <span th:if="${status == 1}" class="badge bg-primary">Confirmed</span>
-                <span th:if="${status == 2}" class="badge bg-success">Shipper take</span>
-                <span th:if="${status == 3}" class="badge bg-purple">Success</span>
-                <span th:if="${status == 4}" class="badge bg-orange">At Post Office</span>
-                <span th:if="${status == 5}" class="badge bg-danger">In transit to Dest Post</span>
-                <span th:if="${status == 6}" class="badge bg-info">Shipper is shipping</span>
-                <span th:if="${status == 7}" class="badge bg-success">Delivered</span>
-                <span th:if="${status == 8}" class="badge bg-secondary">Failed</span>
-            </p>
 
-            <!-- Progress Bar với gradient -->
-            <div class="progress mt-3" style="height: 25px;">
-                <div class="progress-bar" 
-                     role="progressbar" 
-                     th:style="'width:' + (${status} * 12.5) + '%; background: linear-gradient(to right, #ffd699, #ff6600);'" 
-                     th:text="'Step ' + ${status} + ' of 8'">
-                    Step 0 of 8
+    <!-- CONTENT -->
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-md-3 position-relative">
+                <div class="status-container">
+                    <div th:each="status, iterStat : ${allStatuses}" 
+                         class="status-circle" 
+                         th:classappend="${order.shipping.statusOrderID == status.IDStatusOrder} ? 'status-active' : 'status-inactive'">
+                         <span th:text="${status.IDStatusOrder}"></span>
+                    </div>
                 </div>
+            </div>
+
+            <div class="col-md-9">
+                <h4>Order Information</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <strong>Order ID:</strong> <span th:text="${order.orderID}">123456</span>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Receiver:</strong> <span th:text="${order.nameReceiver}">John Doe</span>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Destination:</strong> <span th:text="${order.destCity}">New York</span>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Total Amount:</strong> <span th:text="${order.total}">$100.00</span>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
 
-    <!-- Timeline -->
-    <div class="mt-4">
-        <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center" 
-                th:classappend="${status >= 0 ? 'active-status' : ''}">
-                Pending
-                <span th:text="${status == 0 ? '(Current)' : ''}"></span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center" 
-                th:classappend="${status >= 1 ? 'active-status' : ''}">
-                Confirmed
-                <span th:text="${status == 1 ? '(Current)' : ''}"></span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center" 
-                th:classappend="${status >= 2 ? 'active-status' : ''}">
-                Shipper take
-                <span th:text="${status == 2 ? '(Current)' : ''}"></span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center" 
-                th:classappend="${status >= 3 ? 'active-status' : ''}">
-                Success
-                <span th:text="${status == 3 ? '(Current)' : ''}"></span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center" 
-                th:classappend="${status >= 4 ? 'active-status' : ''}">
-                At Post Office
-                <span th:text="${status == 4 ? '(Current)' : ''}"></span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center" 
-                th:classappend="${status >= 5 ? 'active-status' : ''}">
-                In transit to Dest Post
-                <span th:text="${status == 5 ? '(Current)' : ''}"></span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center" 
-                th:classappend="${status >= 6 ? 'active-status' : ''}">
-                Shipper is shipping
-                <span th:text="${status == 6 ? '(Current)' : ''}"></span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center" 
-                th:classappend="${status >= 7 ? 'active-status' : ''}">
-                Delivered
-                <span th:text="${status == 7 ? '(Current)' : ''}"></span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center" 
-                th:classappend="${status >= 8 ? 'active-status' : ''}">
-                Failed
-                <span th:text="${status == 8 ? '(Current)' : ''}"></span>
-            </li>
-        </ul>
-    </div>
-</div>
-
-</section>
-	<!-- Footer -->
-	<footer th:replace="~{manager/fragments/footer::footer}"></footer>
-	
-	<!-- Bootstrap core JavaScript -->
-	<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-	<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-
+	<footer class="footer bg-light">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+	                <p class="text-muted small mb-4 mb-lg-0">&copy; Logistics Company 2024. All Rights Reserved.
+	                    <br/><em>UTE Express - Group 6</em></p>
+	            </div>
+	        </div>
+	    </div>
+	</footer>
 </body>
 </html>

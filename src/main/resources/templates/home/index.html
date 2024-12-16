@@ -6,26 +6,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mercury Delivery</title>
-<link rel="stylesheet" th:href="@{/css/main.css}" />
+<link rel="stylesheet" th:href="@{/home/css/main.css}" />
 <meta name="description"
 	content="A leading worldwide provider of transportation, warehousing, fulfillment and global logistics">
 <meta name="robots" content="index,follow">
 <script src="https://kit.fontawesome.com/b5ee560b9a.js"
 	crossorigin="anonymous"></script>
-<link rel="stylesheet" th:href="@{/css/main.css}">
+<link rel="stylesheet" th:href="@{/home/css/main.css}">
 </head>
 
 <body>
 	<!-- NAVBAR -->
-	<nav th:replace="~{views/fragment/navbar::nav}"></nav>
+	<nav th:replace="~{home/fragment/navbar::nav}"></nav>
 	<!-- HEADER -->
-	<header th:replace="~{views/fragment/header::header}"></header>
+	<header th:replace="~{home/fragment/header::header}"></header>
 	
 	<section id="about" class="about">
 		<h2 class="section__title">
-			<img th:src="@{assets/svg/zigzag.svg}" alt=""> <span
+			<img th:src="@{home/assets/svg/zigzag.svg}" alt=""> <span
 				class="section__title-span">About us</span> <img
-				th:src="@{assets/svg/zigzag.svg}" alt="">
+				th:src="@{home/assets/svg/zigzag.svg}" alt="">
 		</h2>
 		<div class="about__wrap">
 			<p class="about__info">
@@ -37,14 +37,14 @@
 					porro expedita labore esse velit veniam laborum quo obcaecati
 					similique iusto delectus quasi!</span>
 			</p>
-			<img th:src="@{assets/images/box.png}" alt="" class="about__img">
+			<img th:src="@{home/assets/images/box.png}" alt="" class="about__img">
 		</div>
 	</section>
 	<section id="services" class="services">
 		<h2 class="section__title">
-			<img th:src="@{assets/svg/zigzag.svg}" alt=""> <span
+			<img th:src="@{home/assets/svg/zigzag.svg}" alt=""> <span
 				class="section__title-span">Our services</span> <img
-				th:src="@{assets/svg/zigzag.svg}" alt="">
+				th:src="@{home/assets/svg/zigzag.svg}" alt="">
 		</h2>
 		<h3 class="section__subtitle">
 			Fast and reliable services <span class="services__title-slim">
@@ -92,9 +92,9 @@
 	</section>
 	<section id="offer" class="offer">
 		<h2 class="section__title">
-			<img th:src="@{assets/svg/zigzag.svg}" alt=""> <span
+			<img th:src="@{home/assets/svg/zigzag.svg}" alt=""> <span
 				class="section__title-span">Our offer</span><img
-				th:src="@{assets/svg/zigzag.svg}" alt="">
+				th:src="@{home/assets/svg/zigzag.svg}" alt="">
 		</h2>
 		<h3 class="section__subtitle">
 			We give you <span class="services__title-slim"> the best </span>
@@ -187,12 +187,12 @@
 
 	</section>
 	<!-- FOOTER -->
-	<footer th:replace="~{views/fragment/footer::footer}"></footer>
+	<footer th:replace="~{home/fragment/footer::footer}"></footer>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
-	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{home/js/main.js}"></script>
 </body>
 
 </html>

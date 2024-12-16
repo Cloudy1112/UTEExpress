@@ -87,7 +87,7 @@ public class CustomerOrderController {
 			@RequestParam("height") Integer height, @RequestParam("width") Integer width,
 			@RequestParam("codFee") float codFee, @RequestParam("shipFee") float shipFee,
 			@RequestParam("goodsID") Integer goodsID, @RequestParam("transportID") Integer transportID,
-			@RequestParam("voucherID") Integer voucherID, @RequestParam("COD_surcharge") float codSurcharge,
+			/* @RequestParam("voucherID") Integer voucherID, */ @RequestParam("COD_surcharge") float codSurcharge,
 			@RequestParam("total") float total, Model model) {
 
 		Order order = new Order();
@@ -117,8 +117,8 @@ public class CustomerOrderController {
 		order.setTotal(total);
 
 		// Gán các đối tượng liên kết
-		Voucher voucher = voucherService.findById(voucherID); // Giả sử bạn đã lấy được voucher từ cơ sở dữ liệu
-		order.setVoucher(voucher);
+		//Voucher voucher = voucherService.findById(voucherID); // Giả sử bạn đã lấy được voucher từ cơ sở dữ liệu
+		//order.setVoucher(voucher);
 
 		Goods goods = goodsService.findById(goodsID); // Giả sử bạn đã lấy được goods từ cơ sở dữ liệu
 		order.setGoods(goods);
@@ -133,10 +133,10 @@ public class CustomerOrderController {
 		orderService.save(order); // Save Order
 
 		// Kiểm tra có áp dụng Voucher không
-		if (voucher != null) {
-			voucher.setAmount(voucher.getAmount() - 1);
-			voucherService.save(voucher);
-		}
+		/*
+		 * if (voucher != null) { voucher.setAmount(voucher.getAmount() - 1);
+		 * voucherService.save(voucher); }
+		 */
 
 		// Cập nhật shipping
 		Shipping shipping = new Shipping();

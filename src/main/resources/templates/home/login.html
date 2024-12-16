@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <title>Sign In/Up</title>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
-  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/home/css/style.css}">
   <style type="text/css">
   	/* Header Styles */
 	.main-header {
@@ -88,6 +88,14 @@
         <input name="fullname" type="text" placeholder="Name" />
         <input name="username" type="text" placeholder="Username" />
         <input name="password" type="password" placeholder="Password" />
+        <select name="city" style="background-color: #eee;
+										border: none;
+										padding: 12px 15px;
+										margin: 8px 0;
+										width: 100%;">
+	        <option value="" disabled selected>Select a city</option>
+	        <option th:each="city : ${allCity}" th:value="${city.cityID}" th:text="${city.cityName}"></option>
+    	</select>
         <button>Sign Up</button>
       </form>
     </div>
@@ -125,7 +133,7 @@
   <!-- Footer -->
   <footer>
     <div class="footer-content">
-      <p>&copy; 2024 MyWebsite. All rights reserved.</p>
+      <p>&copy; 2024 Group 6. All rights reserved.</p>
       <ul class="footer-menu">
         <li><a href="#">Privacy Policy</a></li>
         <li><a href="#">Terms of Service</a></li>
