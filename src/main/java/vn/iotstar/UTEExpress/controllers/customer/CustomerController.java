@@ -63,7 +63,8 @@ public class CustomerController {
 				dto.setTotal(order.getTotal());
 				dto.setStatusOrderID(shippingService.findNewStatusOrderByOrderID(order.getOrderID()));
 				
-				if (dto.getStatusOrderID() <8) orderDTO.add(dto);
+				//if (dto.getStatusOrderID() <8) orderDTO.add(dto);
+				
 			}
 		}
 
