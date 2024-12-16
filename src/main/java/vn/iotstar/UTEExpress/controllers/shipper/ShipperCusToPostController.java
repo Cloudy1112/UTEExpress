@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
+import vn.iotstar.UTEExpress.entity.Account;
 import vn.iotstar.UTEExpress.entity.Order;
 import vn.iotstar.UTEExpress.entity.Shipper;
 import vn.iotstar.UTEExpress.entity.Shipping;
+import vn.iotstar.UTEExpress.service.impl.AccountServiceImpl;
 import vn.iotstar.UTEExpress.service.impl.OrderServiceImpl;
 import vn.iotstar.UTEExpress.service.impl.ShipperServiceImpl;
 import vn.iotstar.UTEExpress.service.impl.ShippingServiceImpl;
@@ -30,6 +32,8 @@ public class ShipperCusToPostController {
 	private OrderServiceImpl orderService;
 	@Autowired
 	private ShippingServiceImpl shippingService;
+	@Autowired
+	private AccountServiceImpl accountService;
 	
 	@GetMapping("")
 	public String homeCusToPost(@PathVariable("id") Integer shipperID, Model model) {
@@ -72,6 +76,11 @@ public class ShipperCusToPostController {
 	    oldShipper.setPassword(confirmPassword);
 	    oldShipper.setPhone(phone);
 	    oldShipper.setCccd(cccd);
+	    
+	 // htem
+	    Account account = oldShipper.getAccount();
+	    account.setPassword(confirmPassword);
+	    accountService.save(account);
 	    
 	    // Manually parse the birth string to Date
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
+import vn.iotstar.UTEExpress.entity.Account;
 import vn.iotstar.UTEExpress.entity.Manager;
+import vn.iotstar.UTEExpress.service.impl.AccountServiceImpl;
 import vn.iotstar.UTEExpress.service.impl.ManagerServiceImpl;
 
 @Controller
@@ -21,6 +23,8 @@ import vn.iotstar.UTEExpress.service.impl.ManagerServiceImpl;
 public class ManagerControler {
 	@Autowired
 	private ManagerServiceImpl managerService;
+	@Autowired
+	private AccountServiceImpl accountService;
 	
 	// login xong sẽ về trang này nếu role là manager
 	@GetMapping("/{id}")
@@ -68,6 +72,11 @@ public class ManagerControler {
 	    oldManager.setPassword(confirmPassword);
 	    oldManager.setPhone(phone);
 	    oldManager.setCccd(cccd);
+	    
+	 // htem
+	    Account account = oldManager.getAccount();
+	    account.setPassword(confirmPassword);
+	    accountService.save(account);
 	    
 	    // Manually parse the birth string to Date
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
