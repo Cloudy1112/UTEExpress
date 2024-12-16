@@ -107,7 +107,7 @@
 	            <!-- Fee Information -->
 	            <div class="form-group">
 	                <label for="codFee">COD Fee:</label>
-	                <input type="number" id="codFee" name="codFee" >
+	                <input type="number" id="codFee" name="codFee" value="0" min="0">
 	            </div>
 	            
 				
@@ -147,19 +147,20 @@
 				    <label for="shipFee">Shipping Fee:</label>
 				    <input type="number" id="shipFee" name="shipFee" readonly>
 				</div>
+				
 	            <!-- Voucher -->
-	        <!--     <div class="form-group">
+	            <div class="form-group">
 	                <label for="voucherID">Voucher:</label>
 	                <select id="voucherID" name="voucherID">
+	                <option th:value="0">No Voucher</option> <!-- Default option -->
 	                    <option th:each="voucher : ${vouchers}" 
 					     	th:value="${voucher.voucherID}" 
 					        th:text="${voucher.voucherName}" 
 					        th:selected="${voucher.voucherID == 1}"			        
-					        
 					        th:attr="data-voucher-fee=${voucher.discount}" >
 					    </option>
 	                </select>
-	            </div> -->
+	            </div>
 	            
 	            <div class="form-group">
 				    <label for="COD_surcharge">COD surcharge:</label>
@@ -197,9 +198,9 @@
 	    const height = Math.max(parseFloat(document.getElementById('height').value) || 1, 1);
 	    const codFee = Math.max(parseFloat(document.getElementById('codFee').value) || 0, 0);
 	
-/* 	    const voucherSelect = document.getElementById('voucherID');
-	    const voucherFee = parseFloat(voucherSelect?.options[voucherSelect.selectedIndex]?.dataset?.voucherFee) || 0; */
-	
+	    const voucherSelect = document.getElementById('voucherID');
+	    const voucherFee = parseFloat(voucherSelect?.options[voucherSelect.selectedIndex]?.dataset?.voucherFee) || 0;
+
 	    const transportSelect = document.getElementById('transportID');
 	    const transportFee = parseFloat(transportSelect?.options[transportSelect.selectedIndex]?.dataset?.transportFee) || 0;
 	
@@ -217,19 +218,24 @@
 	    let shipFee = transportFee * goodFee * (province + weight);
 	    let cod_surcharge = codFee * 0.1;
 	
-	  /*   if (voucherFee < 0) {
+	    if (voucherFee < 0) {
 	        shipFee += voucherFee;
 	    } else if (voucherFee > 0) {
 	        shipFee *= (1 - voucherFee);
-	    } */
+	    }
+	    if (shipFee <0) shipFee = 0;
 	
 	    let total = shipFee + cod_surcharge + codFee;
 	    total = Math.max(total, 0); // Prevent negative total
+	    
+	 	// Set default value for voucherID on form load
+	    //document.getElementById('voucherID').value = document.getElementById('voucherID').value || 0;
 	
 	    document.getElementById('shipFee').value = shipFee.toFixed(2);
 	    document.getElementById('COD_surcharge').value = cod_surcharge.toFixed(2);
 	    document.getElementById('total').value = total.toFixed(2);
 	}
+	    
 
 	    // Lắng nghe sự kiện thay đổi trên các trường
 	    document.getElementById('weight').addEventListener('input', calculateShipFee);
@@ -238,7 +244,7 @@
 	    document.getElementById('codFee').addEventListener('input', calculateShipFee);
 	    document.getElementById('transportID').addEventListener('change', calculateShipFee);
 	    document.getElementById('goodsID').addEventListener('change', calculateShipFee);
-/* 	    document.getElementById('voucherID').addEventListener('change', calculateShipFee); */
+	    document.getElementById('voucherID').addEventListener('change', calculateShipFee);
 	    document.getElementById('destCity').addEventListener('change', calculateShipFee);
 	    document.getElementById('sourceCity').addEventListener('change', calculateShipFee);
 	    

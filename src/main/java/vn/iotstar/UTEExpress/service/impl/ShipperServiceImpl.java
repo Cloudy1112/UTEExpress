@@ -41,4 +41,9 @@ public class ShipperServiceImpl implements IShipperService{
 		return shipperRepository.findById(shipperID);
 	}
 
+	public Shipper findShipperByUsername(String username) {
+		return shipperRepository.findShipperByUsername(username);
+	}
+	
+	
 }

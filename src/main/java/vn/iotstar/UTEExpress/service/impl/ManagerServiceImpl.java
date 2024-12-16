@@ -34,4 +34,10 @@ public class ManagerServiceImpl implements IManagerService{
 	public long count() {
 		return managerRepository.count();
 	}
+
+	public Manager findManagerByUsername(String username) {
+		return managerRepository.findManagerByUsername(username);
+	}
+	
+	
 }

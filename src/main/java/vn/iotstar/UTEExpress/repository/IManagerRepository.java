@@ -13,4 +13,8 @@ public interface IManagerRepository extends JpaRepository<Manager, Integer>{
 	// find manager bằng post id
 	@Query("SELECT m FROM Manager m WHERE m.post.postID = :postID")
     Manager findManagerByIDPost(@Param("postID") Integer postID);
+	
+	// tìm manager dựa vào username
+	@Query("SELECT m FROM Manager m WHERE m.account.username = :username")
+	Manager findManagerByUsername(@Param("username") String username);
 }

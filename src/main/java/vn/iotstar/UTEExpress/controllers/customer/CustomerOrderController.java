@@ -11,10 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import vn.iotstar.UTEExpress.dto.OrderDTO;
 import vn.iotstar.UTEExpress.entity.City;
 import vn.iotstar.UTEExpress.entity.Customer;
 import vn.iotstar.UTEExpress.entity.Goods;
@@ -24,7 +22,6 @@ import vn.iotstar.UTEExpress.entity.Shipping;
 import vn.iotstar.UTEExpress.entity.StatusOrder;
 import vn.iotstar.UTEExpress.entity.Transport;
 import vn.iotstar.UTEExpress.entity.Voucher;
-import vn.iotstar.UTEExpress.repository.IOrderRepository;
 import vn.iotstar.UTEExpress.service.ICityService;
 import vn.iotstar.UTEExpress.service.ICustomerService;
 import vn.iotstar.UTEExpress.service.IGoodsService;
@@ -35,7 +32,6 @@ import vn.iotstar.UTEExpress.service.IStatusOrderService;
 import vn.iotstar.UTEExpress.service.ITransportService;
 import vn.iotstar.UTEExpress.service.IVoucherService;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/customer/order")
@@ -87,7 +83,7 @@ public class CustomerOrderController {
 			@RequestParam("height") Integer height, @RequestParam("width") Integer width,
 			@RequestParam("codFee") float codFee, @RequestParam("shipFee") float shipFee,
 			@RequestParam("goodsID") Integer goodsID, @RequestParam("transportID") Integer transportID,
-			/* @RequestParam("voucherID") Integer voucherID, */ @RequestParam("COD_surcharge") float codSurcharge,
+			@RequestParam("voucherID") Integer voucherID, @RequestParam("COD_surcharge") float codSurcharge,
 			@RequestParam("total") float total, Model model) {
 
 		Order order = new Order();
@@ -116,10 +112,6 @@ public class CustomerOrderController {
 		order.setCodSurcharge(codSurcharge);
 		order.setTotal(total);
 
-		// Gán các đối tượng liên kết
-		//Voucher voucher = voucherService.findById(voucherID); // Giả sử bạn đã lấy được voucher từ cơ sở dữ liệu
-		//order.setVoucher(voucher);
-
 		Goods goods = goodsService.findById(goodsID); // Giả sử bạn đã lấy được goods từ cơ sở dữ liệu
 		order.setGoods(goods);
 
@@ -130,13 +122,17 @@ public class CustomerOrderController {
 		Customer customer = customerService.findById(id); // Giả sử bạn đã lấy được customer từ cơ sở dữ liệu
 		order.setCustomer(customer);
 
-		orderService.save(order); // Save Order
+		// Gán các đối tượng liên kết
+		if (!voucherID.equals(0)) {
+			Voucher voucher = voucherService.findById(voucherID); // Giả sử bạn đã lấy được voucher từ cơ sở dữ liệu
+			order.setVoucher(voucher);
 
-		// Kiểm tra có áp dụng Voucher không
-		/*
-		 * if (voucher != null) { voucher.setAmount(voucher.getAmount() - 1);
-		 * voucherService.save(voucher); }
-		 */
+			// Kiểm tra có áp dụng Voucher không
+			if (voucher != null) {
+				voucher.setAmount(voucher.getAmount() - 1);
+				voucherService.save(voucher);
+			}
+		}
 
 		// Cập nhật shipping
 		Shipping shipping = new Shipping();
@@ -146,6 +142,10 @@ public class CustomerOrderController {
 		shipping.setDateUpdate(Date.from(Instant.now()));
 		shipping.setShipper(null);
 		shippingService.save(shipping);
+
+		// Gán thêm shipping cho ORDER
+		order.setShipping(shipping);
+		orderService.save(order); // Save Order
 
 		return "redirect:/customer/" + id; // Return confirmation page after form submission
 	}
@@ -189,7 +189,7 @@ public class CustomerOrderController {
 		if (statusOrder > 0) {
 			model.addAttribute("errorMessage", "Order confirmed can't cancel");
 			model.addAttribute("id", customerID); // add lai id thanh CustomerID
-			
+
 			return "redirect:/customer/" + customerID;
 		} else {
 
@@ -197,7 +197,7 @@ public class CustomerOrderController {
 			// Ta sẽ xem đơn hàng có áp dụng voucher không
 			Voucher voucher = order.getVoucher();
 			// Nếu voucher không null thì tăng số lượng voucher lên
-			if (!voucher.equals(null) || voucher != null) {
+			if (voucher != null) {
 				voucher.setAmount(voucher.getAmount() + 1);
 				voucherService.save(voucher);
 			}

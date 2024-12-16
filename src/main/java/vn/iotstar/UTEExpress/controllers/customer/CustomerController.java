@@ -1,9 +1,7 @@
 package vn.iotstar.UTEExpress.controllers.customer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -152,7 +150,34 @@ public class CustomerController {
 	@GetMapping("/statistic/{id}")
 	public String Statistic(@PathVariable("id") Integer customerID, Model model) {
 		List<Order> orders = orderService.findAllByCustomerID(customerID);
+		List<OrderDTO> orderDTO = new ArrayList<>();
 
+		for (Order order : orders) {
+			if (order.getCustomer().getCustomerID() == customerID) {
+				OrderDTO dto = new OrderDTO();
+				dto.setOrderID(order.getOrderID());
+				dto.setWeight(order.getWeight());
+				dto.setHeight(order.getHeight());
+				dto.setWidth(order.getWidth());
+				dto.setSourceCity(order.getSourceCity());
+				dto.setDestCity(order.getDestCity());
+				dto.setSource(order.getSource());
+				dto.setDest(order.getDest());
+				dto.setNameReceiver(order.getNameReceiver());
+				dto.setPhoneReceiver(order.getPhoneReceiver());
+				dto.setCodFee(order.getCodFee());
+				dto.setShipFee(order.getShipFee());
+				dto.setVoucherName(order.getVoucher() != null ? order.getVoucher().getVoucherName() : null);
+				dto.setGoodsType(order.getGoods() != null ? order.getGoods().getGoodsType() : null);
+				dto.setTransportType(order.getTransport() != null ? order.getTransport().getTransportType() : null);
+				dto.setCOD_surcharge(order.getCodSurcharge());
+				dto.setTotal(order.getTotal());
+				dto.setStatusOrderID(shippingService.findNewStatusOrderByOrderID(order.getOrderID()));
+				
+				if (dto.getStatusOrderID() ==8) orderDTO.add(dto);
+			}
+		}
+		
 		// Khởi tạo dữ liệu thống kê
 		double totalCODFee = 0.0;
 		double totalCODSurcharge = 0.0;
@@ -161,9 +186,9 @@ public class CustomerController {
 		double shipFee =0;
 
 		// Duyệt qua danh sách đơn hàng để tính tổng
-		for (Order order : orders) {
+		for (OrderDTO order : orderDTO) {
 			totalCODFee += order.getCodFee(); // Tổng COD Fee
-			totalCODSurcharge += order.getCodSurcharge(); // Tổng COD Surcharge
+			totalCODSurcharge += order.getCOD_surcharge(); // Tổng COD Surcharge
 			total += order.getTotal();	//Tổng tiền phải trả (bao gồm luôn cod)
 			shipFee += order.getShipFee();	//Tổng tiền ship
 		}
@@ -174,11 +199,7 @@ public class CustomerController {
 		// Chuẩn bị dữ liệu cho Thymeleaf
 		model.addAttribute("totalCODFee", totalCODFee);
 		model.addAttribute("totalCODSurcharge", totalCODSurcharge);
-
 		
-		
-		//trang thai don hang
-		List<OrderDTO> orderDTO = new ArrayList<>();
 
 		return "customer/statistic";
 	}
