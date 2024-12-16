@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +40,7 @@ public class LoginController {
     private CustomerServiceImpl customerService;
     @Autowired
     private ShipperServiceImpl shipperService;
+
 
     @GetMapping("")
     public String loginViews(Model model, HttpServletRequest request) {
@@ -78,18 +80,21 @@ public class LoginController {
     public String processLogin(HttpServletRequest request) {
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName(); // Lấy username
+		
+	
 
         Account account = accountService.findById(username).get();
 
         if (account == null || account.getRole() == null) {
             return "redirect:/login?error=account-doesnt-exist";
         }
-
-        // Lưu thông tin vào session
-        HttpSession session = request.getSession();
-        session.setAttribute("account", account);
-
-        // Điều hướng dựa trên vai trò
-        return redirectBasedOnRole(account);
+       
+	        // Lưu thông tin vào session
+	        HttpSession session = request.getSession();
+	        session.setAttribute("account", account);
+	
+	        // Điều hướng dựa trên vai trò
+	        return redirectBasedOnRole(account);
+       
     }
 }

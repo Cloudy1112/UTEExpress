@@ -94,7 +94,7 @@
 										margin: 8px 0;
 										width: 100%;" required>
 	        <option value="" disabled selected>Select a city</option>
-	        <option th:each="city : ${allCity}" th:value="${city.cityID}" th:text="${city.cityName}"></option>
+	        <option th:each="city : ${allCity}" th:value="${city.cityName}" th:text="${city.cityName}"></option>
     	</select>
         <button>Sign Up</button>
       </form>

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,8 @@ public class ManagerControler {
 	private AccountServiceImpl accountService;
 	@Autowired
 	private ICustomerService customerService;
-
+	@Autowired
+	private PasswordEncoder encoder;
 	
 	// login xong sẽ về trang này nếu role là manager
 	@GetMapping("/{id}")

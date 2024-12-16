@@ -45,7 +45,7 @@ public class MySecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/login/waiting", true))
+                        .defaultSuccessUrl("/login/waiting", true).permitAll())
                 .build();
     }
 
