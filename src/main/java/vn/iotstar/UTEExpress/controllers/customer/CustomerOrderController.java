@@ -201,7 +201,7 @@ public class CustomerOrderController {
 			// Ta sẽ xem đơn hàng có áp dụng voucher không
 			Voucher voucher = order.getVoucher();
 			// Nếu voucher không null thì tăng số lượng voucher lên
-			if (!voucher.equals(null) || voucher != null) {
+			if (voucher != null) {
 				voucher.setAmount(voucher.getAmount() + 1);
 				voucherService.save(voucher);
 			}
