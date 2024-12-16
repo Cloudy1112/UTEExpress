@@ -116,10 +116,6 @@ public class CustomerOrderController {
 		order.setCodSurcharge(codSurcharge);
 		order.setTotal(total);
 
-		// Gán các đối tượng liên kết
-		Voucher voucher = voucherService.findById(voucherID); // Giả sử bạn đã lấy được voucher từ cơ sở dữ liệu
-		order.setVoucher(voucher);
-
 		Goods goods = goodsService.findById(goodsID); // Giả sử bạn đã lấy được goods từ cơ sở dữ liệu
 		order.setGoods(goods);
 
@@ -130,12 +126,16 @@ public class CustomerOrderController {
 		Customer customer = customerService.findById(id); // Giả sử bạn đã lấy được customer từ cơ sở dữ liệu
 		order.setCustomer(customer);
 
-		
+		// Gán các đối tượng liên kết
+		if (!voucherID.equals(0)) {
+			Voucher voucher = voucherService.findById(voucherID); // Giả sử bạn đã lấy được voucher từ cơ sở dữ liệu
+			order.setVoucher(voucher);
 
-		// Kiểm tra có áp dụng Voucher không
-		if (voucher != null) {
-			voucher.setAmount(voucher.getAmount() - 1);
-			voucherService.save(voucher);
+			// Kiểm tra có áp dụng Voucher không
+			if (voucher != null) {
+				voucher.setAmount(voucher.getAmount() - 1);
+				voucherService.save(voucher);
+			}
 		}
 
 		// Cập nhật shipping
@@ -146,8 +146,8 @@ public class CustomerOrderController {
 		shipping.setDateUpdate(Date.from(Instant.now()));
 		shipping.setShipper(null);
 		shippingService.save(shipping);
-		
-		//Gán thêm shipping cho ORDER
+
+		// Gán thêm shipping cho ORDER
 		order.setShipping(shipping);
 		orderService.save(order); // Save Order
 
@@ -193,7 +193,7 @@ public class CustomerOrderController {
 		if (statusOrder > 0) {
 			model.addAttribute("errorMessage", "Order confirmed can't cancel");
 			model.addAttribute("id", customerID); // add lai id thanh CustomerID
-			
+
 			return "redirect:/customer/" + customerID;
 		} else {
 
@@ -201,7 +201,7 @@ public class CustomerOrderController {
 			// Ta sẽ xem đơn hàng có áp dụng voucher không
 			Voucher voucher = order.getVoucher();
 			// Nếu voucher không null thì tăng số lượng voucher lên
-			if (!voucher.equals(null) || voucher != null) {
+			if (voucher != null) {
 				voucher.setAmount(voucher.getAmount() + 1);
 				voucherService.save(voucher);
 			}

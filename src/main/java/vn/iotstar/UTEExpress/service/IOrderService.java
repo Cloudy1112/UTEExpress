@@ -8,7 +8,7 @@ public interface IOrderService {
 
 	<S extends Order> S save(S entity);
 	List <Order> findAllByCustomerID(Integer customerID);
-	Order findByID(String orderID);
 	void deleteByOrderID(String orderID);
+	Order findByID(String orderID);
 	
 }
