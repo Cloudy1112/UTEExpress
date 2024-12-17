@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,8 @@ public class ShipperCusToPostController {
 	private ShippingServiceImpl shippingService;
 	@Autowired
 	private AccountServiceImpl accountService;
+	@Autowired
+	PasswordEncoder encoder;
 	
 	@GetMapping("")
 	public String homeCusToPost(@PathVariable("id") Integer shipperID, Model model) {
@@ -65,7 +68,7 @@ public class ShipperCusToPostController {
 	    String confirmPassword = request.getParameter("confirmPassword");
 	    
 	    Shipper oldShipper = shipperService.findById(shipperID).get();
-	    if(!oldPassword.equals(oldShipper.getPassword())) {
+	    if(!encoder.matches(oldPassword, oldShipper.getPassword())) {
 	    	return "redirect:/shippercustopost/" + shipperID + "/account-info?status=wrong-pass";
 	    } else if(!newPassword.equals(confirmPassword)) {
 	    	return "redirect:/shippercustopost/" + shipperID + "/account-info?status=missmatch";
@@ -73,7 +76,7 @@ public class ShipperCusToPostController {
 	    oldShipper.setName(name);
 	    oldShipper.setGender(gender);
 	    oldShipper.setAddress(address);
-	    oldShipper.setPassword(confirmPassword);
+	    oldShipper.setPassword(encoder.encode(newPassword));
 	    oldShipper.setPhone(phone);
 	    oldShipper.setCccd(cccd);
 	    

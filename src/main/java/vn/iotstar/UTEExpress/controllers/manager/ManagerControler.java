@@ -67,15 +67,15 @@ public class ManagerControler {
 	    String confirmPassword = request.getParameter("confirmPassword");
 	    
 	    Manager oldManager = managerService.findById(managerID).get();
-	    if(!oldPassword.equals(oldManager.getPassword())) {
+	    if(!encoder.matches(oldPassword,oldManager.getAccount().getPassword())) {  // sửa
 	    	return "redirect:/manager/" + managerID + "/manager-info?status=wrong-pass";
-	    } else if(!newPassword.equals(confirmPassword)) {
+	    } else if(!newPassword.equals(confirmPassword)) {   
 	    	return "redirect:/manager/" + managerID + "/manager-info?status=missmatch";
 	    }
 	    oldManager.setName(name);
 	    oldManager.setGender(gender);
 	    oldManager.setAddress(address);
-	    oldManager.setPassword(confirmPassword);
+	    oldManager.setPassword(encoder.encode(confirmPassword));
 	    oldManager.setPhone(phone);
 	    oldManager.setCccd(cccd);
 	    
