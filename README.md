@@ -2,7 +2,7 @@
 ## Overview
 
 The application provides a company the opportunity to organize its offices, employees, clients and packets.
-The project utilizes Spring Boot, Tomcat, MySQL, JPA, Thymeleaf.
+The project utilizes Spring Boot, Tomcat, MySQL, JPA, Thymeleaf, Bootstrap.
 
 It features 3 different parts:
 
