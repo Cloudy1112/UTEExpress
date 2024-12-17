@@ -26,4 +26,16 @@ public class CityServiceImpl implements ICityService{
 		// TODO Auto-generated method stub
 		return cityRepository.findByCityName(cityName);
 	}
+
+	@Override
+	public City findById(Integer cityID) {
+		// TODO Auto-generated method stub
+		return cityRepository.findById(cityID).get();
+	}
+
+	@Override
+	public List<City> findCitiesHasPost() {
+		// TODO Auto-generated method stub
+		return cityRepository.findCitiesHasPost();
+	}
 }

@@ -1,5 +1,7 @@
 package vn.iotstar.UTEExpress.service;
 
-public interface IRoleService {
+import vn.iotstar.UTEExpress.entity.Role;
 
+public interface IRoleService {
+	Role findByRoleName(String roleName);
 }

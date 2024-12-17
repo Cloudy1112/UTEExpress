@@ -15,6 +15,12 @@ public class RoleServiceImpl implements IRoleService{
 	public Role findRoleByRoleNameIgnoreCase(String roleName) {
 		return roleRepository.findRoleByRoleNameIgnoreCase(roleName);
 	}
+
+	@Override
+	public Role findByRoleName(String roleName) {
+		// TODO Auto-generated method stub
+		return roleRepository.findByRoleName(roleName);
+	}
 	
 	
 }

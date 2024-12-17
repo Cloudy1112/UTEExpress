@@ -7,8 +7,9 @@
     <div class="header" th:fragment="header">
     <div>
         <ul>
-        	<li class="logo"><img  th:src="@{/assets/images/logo.png}" alt="Logo" style="height: 50px; margin-right: 15px;"> </li>
-            <li><a th:href="@{/customer/logout}">Log out</a></li>
+        	<li class="logo"><img  th:src="@{/assets/images/logo.png}" alt="Logo" style="height: 50px; margin-right: 15px;"> </li> 
+<!--             <img alt="Logo" class="logo" th:src="@{/manager/assets/img/truck.png}" style="height: 50px; margin-right: 15px;">UTE Logistics Express</a>
+ -->            <li><a th:href="@{/customer/logout}">Log out</a></li>
             <li><a th:href="@{/login}" class="active">Sign in</a></li>
         </ul>
    </div>	

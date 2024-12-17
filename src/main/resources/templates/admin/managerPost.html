@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/customerHome.css}">
+    <link rel="stylesheet" th:href="@{/css/customerHeader.css}">
+</head>
+<body>
+	<header th:replace="~{admin/fragments/header::header}"></header>
+	
+    <div class="sidebar">
+        <ul>
+            <li><a th:href="@{/admin/{id}(id=${id})}" style="color: red;">Post</a></li>
+			<li><a th:href="@{/admin/{id}/statistic(id=${id})}">Statistic</a></li>
+			<li><a th:href="@{/admin/{id}/voucher(id=${id})}">Voucher</a></li>
+			<li><a th:href="@{/admin/{id}/profile(id=${id})}">Account</a></li>
+        </ul>
+    </div>
+    <div class="content">
+    <!-- Container mt-5 -->
+    <div class="container mt-5">
+        <h1 class="mb-4">Manager Details</h1>
+
+        <table class="table table-bordered table-striped">
+            <tbody>
+            	<tr>
+                    <th>Picture</th>
+                    <td>
+                    	<img height="300" width="300"
+						th:if="${manager.picture != null and manager.picture.startsWith('http')}"
+						th:src="${manager.picture}" alt="Profile Picture" /> 
+						<img
+						height="300" width="300"
+						th:if="${manager.picture != null and !manager.picture?.startsWith('http')}"
+						th:src="@{/image/{fname}(fname=${manager.picture})}"
+						alt="Profile Picture" /> 
+						<img height="300" width="300"
+						th:if="${manager.picture == null}"
+						th:src="@{/image/{fname}(fname='avatar.jpg')}" alt="Default Avatar" />
+                        <!-- <img th:src="@{${manager.picture}}" alt="Manager Picture" class="img-thumbnail" style="max-width: 200px;"> -->
+                    </td>
+                </tr>
+                <tr>
+                    <th>Manager ID</th>
+                    <td th:text="${manager.managerID}"></td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td th:text="${manager.name}"></td>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td th:text="${manager.gender == 1 ? 'Male' : (manager.gender == 2 ? 'Female' : 'Other')}"></td>
+                </tr>
+          
+                <tr>
+                    <th>City</th>
+                    <td th:text="${manager.city}"></td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td th:text="${manager.address}"></td>
+                </tr>
+                <tr>
+                    <th>Date of Birth</th>
+                    <td th:text="${#dates.format(manager.birth, 'yyyy-MM-dd')}"></td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td th:text="${manager.phone}"></td>
+                </tr>
+                <tr>
+                    <th>CCCD</th>
+                    <td th:text="${manager.cccd}"></td>
+                </tr>
+                <tr>
+                    <th>Username</th>
+                    <td th:text="${manager.account.username}"></td>
+                </tr>
+                <tr>
+                    <th>Post</th>
+                    <td th:text="${manager.post.postName}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a th:href="@{/admin/{id}(id=${id})}" class="btn btn-primary">Back to List</a>
+    </div>
+	<!-- Container mt-5 -->
+	</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

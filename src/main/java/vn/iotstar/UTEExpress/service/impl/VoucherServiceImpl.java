@@ -34,4 +34,16 @@ public class VoucherServiceImpl implements IVoucherService {
 		// TODO Auto-generated method stub
 		return voucherRepository.save(entity);
 	}
+
+	@Override
+	public List<Voucher> findExpiredVoucher(Date currentDate) {
+		// TODO Auto-generated method stub
+		return voucherRepository.findExpiredVoucher(currentDate);
+	}
+
+	@Override
+	public List<Voucher> findInactiveVoucher(Date currentDate) {
+		// TODO Auto-generated method stub
+		return voucherRepository.findInactiveVoucher(currentDate);
+	}
 }

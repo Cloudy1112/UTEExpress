@@ -34,4 +34,18 @@ public class ManagerServiceImpl implements IManagerService{
 	public long count() {
 		return managerRepository.count();
 	}
+
+	@Override
+	public Manager findManagerByIDPost(Integer postID) {
+		// TODO Auto-generated method stub
+		return managerRepository.findManagerByIDPost(postID);
+	}
+
+	@Override
+	public void deleteManager(Integer managerID) {
+		managerRepository.deleteById(managerID);;
+		
+	}
+	
+	
 }

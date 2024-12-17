@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 
 import vn.iotstar.UTEExpress.entity.Account;
 import vn.iotstar.UTEExpress.repository.IAccountRepository;
+import vn.iotstar.UTEExpress.service.IAccountService;
 
 @Service
-public class AccountServiceImpl {
+public class AccountServiceImpl implements IAccountService{
 	@Autowired
 	IAccountRepository accountRepository;
 
@@ -24,6 +25,8 @@ public class AccountServiceImpl {
 	public Optional<Account> findById(String id) {
 		return accountRepository.findById(id);
 	}
+
+
 	
 	
 }

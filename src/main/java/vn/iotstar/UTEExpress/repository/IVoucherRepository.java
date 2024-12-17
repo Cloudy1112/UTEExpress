@@ -34,5 +34,14 @@ public interface IVoucherRepository extends JpaRepository<Voucher, Integer> {
     List<Voucher> findValidVoucherByDate(@Param("currentDate") Date currentDate);
     
     
+    @NativeQuery("SELECT v.* FROM vouchers v "
+            + "WHERE :currentDate > v.date_end OR v.amount=0")
+    List<Voucher> findExpiredVoucher(Date currentDate);
+	
+    @NativeQuery("SELECT v.* FROM vouchers v "
+            + "WHERE :currentDate < v.date_start")
+	List<Voucher> findInactiveVoucher(Date currentDate);
+    
+    
     
 }
