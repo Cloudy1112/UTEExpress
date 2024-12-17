@@ -47,7 +47,7 @@ public class MySecurityConfig {
                 		.requestMatchers("/shippercustopost/**").hasAuthority("SHIPPER_CUSTOMER")
                 		.requestMatchers("/shipperposttocus/**").hasAuthority("SHIPPER_POST")
                 		.requestMatchers("/shipperposttopost/**").hasAuthority("SHIPPER_TRANSFER")
-                        .requestMatchers("/","/register", "/login/**", "/register/**", "/logout/**").permitAll()
+                        .requestMatchers("/","/register", "/login/**", "/register/**", "/logout/**","/track-order/**").permitAll()
                         .requestMatchers("/assets/**", "/css/**", "/js/**", "/scss/**", "/home/**","/manager/**","/shipper/**" ).permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
