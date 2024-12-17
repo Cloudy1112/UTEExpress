@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +39,8 @@ public class ManagerCustomerController {
 	private AccountServiceImpl accountService;
 	@Autowired
 	private RoleServiceImpl roleService;
+	@Autowired
+	PasswordEncoder encoder;
 	
 	// trang co list cac customer thuoc buu cuc (dua tren city)
 	@GetMapping("customer-request")
@@ -142,6 +145,7 @@ public class ManagerCustomerController {
 	        return "redirect:/manager/" + managerID + "/manager-info?status=invalid-birth-date"; // Handle invalid date
 	    }
 	    customer.setBirth(birthDate);
+	   
 	    
 	    // Create account
 	    Optional<Account> optionalAccount = accountService.findById(request.getParameter("username"));
@@ -155,7 +159,8 @@ public class ManagerCustomerController {
 	    account.setUsername(request.getParameter("username"));
 	    account.setPassword(customer.getPassword());
 	    accountService.save(account);
-	  
+	    
+	    customer.setPassword(encoder.encode(customer.getPassword()));
 	    customer.setAccount(account);
 	    
 	    customerService.save(customer);

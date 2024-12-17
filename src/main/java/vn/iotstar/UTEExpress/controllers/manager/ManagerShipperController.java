@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,8 @@ public class ManagerShipperController {
 	private AccountServiceImpl accountService;
 	@Autowired
 	private RoleServiceImpl roleService;
+	@Autowired
+	PasswordEncoder encoder;
 	
 	@GetMapping("shippers")
 	public String listShippers(@PathVariable("id") Integer managerID, Model model) {
@@ -101,6 +104,7 @@ public class ManagerShipperController {
 	    
 	    accountService.save(account);
 	    
+	    shipper.setPassword(encoder.encode(shipper.getPassword()));
 	    shipper.setAccount(account);
 	    shipperService.save(shipper);
 	    return "redirect:/manager/" + managerID + "/shippers";
