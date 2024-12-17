@@ -14,4 +14,6 @@ public interface IAccountService {
 
 	void delete(Account entity);
 
+	Account findByUsername(String email);
+
 }

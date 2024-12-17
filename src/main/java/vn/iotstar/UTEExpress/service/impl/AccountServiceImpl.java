@@ -43,4 +43,10 @@ public class AccountServiceImpl implements IAccountService{
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         accountRepository.save(account);
     }
+
+	@Override
+	public Account findByUsername(String email) {
+		// TODO Auto-generated method stub
+		return accountRepository.findByUsername(email);
+	}
 }
