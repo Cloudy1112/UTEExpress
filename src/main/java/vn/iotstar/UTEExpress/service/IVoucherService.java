@@ -17,4 +17,6 @@ public interface IVoucherService {
 	Voucher findById(Integer voucherID);
 
 	<S extends Voucher> S save(S entity);
+	
+	void deleteVoucher (Integer voucherid);
 }

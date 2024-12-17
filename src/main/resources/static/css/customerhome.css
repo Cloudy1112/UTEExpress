@@ -158,7 +158,7 @@ legend {
     color: #444;
 }
 
-input[type="text"], input[type="date"], input[type="password"], select {
+input[type="text"], input[type="password"], input[type="number"], select {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -168,7 +168,22 @@ input[type="text"], input[type="date"], input[type="password"], select {
     color: #333;
 }
 
-input[type="text"]:focus, input[type="date"]:focus,input[type="password"]:focus, select:focus {
+input[type="number"], input[type="date"] {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    color: #333;
+}
+
+input[type="number"]:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+input[type="text"]:focus, input[type="date"]:focus,input[type="password"]:focus, select:focus{
     border-color: #007BFF;
     outline: none;
 }
@@ -188,5 +203,20 @@ button {
 
 button:hover {
     background-color: #0056b3;
+}
+
+form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: vertical; /* Cho phép người dùng thay đổi kích thước chiều cao */
+}
+
+form textarea:focus {
+    outline: none;
+    border-color: #2980b9;
 }
 

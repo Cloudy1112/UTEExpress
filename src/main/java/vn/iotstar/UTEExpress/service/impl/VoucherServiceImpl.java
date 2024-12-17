@@ -46,4 +46,10 @@ public class VoucherServiceImpl implements IVoucherService {
 		// TODO Auto-generated method stub
 		return voucherRepository.findInactiveVoucher(currentDate);
 	}
+
+	@Override
+	public void deleteVoucher(Integer voucherid) {
+		voucherRepository.deleteById(voucherid);
+		
+	}
 }
