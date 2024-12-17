@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,22 +20,24 @@ import vn.iotstar.UTEExpress.entity.Account;
 import vn.iotstar.UTEExpress.entity.Order;
 import vn.iotstar.UTEExpress.entity.Shipper;
 import vn.iotstar.UTEExpress.entity.Shipping;
-import vn.iotstar.UTEExpress.service.impl.AccountServiceImpl;
-import vn.iotstar.UTEExpress.service.impl.OrderServiceImpl;
-import vn.iotstar.UTEExpress.service.impl.ShipperServiceImpl;
+import vn.iotstar.UTEExpress.service.IAccountService;
+import vn.iotstar.UTEExpress.service.IOrderService;
+import vn.iotstar.UTEExpress.service.IShipperService;
 import vn.iotstar.UTEExpress.service.impl.ShippingServiceImpl;
 
 @Controller
 @RequestMapping("/shipperposttopost/{id}")
 public class ShipperPostToPostController {
 	@Autowired
-	private ShipperServiceImpl shipperService;
+	private IShipperService shipperService;
 	@Autowired
-	private OrderServiceImpl orderService;
+	private IOrderService orderService;
 	@Autowired
 	private ShippingServiceImpl shippingService;
 	@Autowired
-	private AccountServiceImpl accountService;
+	private IAccountService accountService;
+	@Autowired
+	PasswordEncoder encoder;
 	
 	@GetMapping("")
 	public String getposttopostHome(@PathVariable("id") Integer shipperID, Model model) {
@@ -66,7 +69,7 @@ public class ShipperPostToPostController {
 	    String confirmPassword = request.getParameter("confirmPassword");
 	    
 	    Shipper oldShipper = shipperService.findById(shipperID).get();
-	    if(!oldPassword.equals(oldShipper.getPassword())) {
+	    if(!encoder.matches(oldPassword, oldShipper.getPassword())) {
 	    	return "redirect:/shipperposttopost/" + shipperID + "/account-info?status=wrong-pass";
 	    } else if(!newPassword.equals(confirmPassword)) {
 	    	return "redirect:/shipperposttopost/" + shipperID + "/account-info?status=missmatch";
@@ -74,7 +77,7 @@ public class ShipperPostToPostController {
 	    oldShipper.setName(name);
 	    oldShipper.setGender(gender);
 	    oldShipper.setAddress(address);
-	    oldShipper.setPassword(confirmPassword);
+	    oldShipper.setPassword(encoder.encode(newPassword));
 	    oldShipper.setPhone(phone);
 	    oldShipper.setCccd(cccd);
 	    

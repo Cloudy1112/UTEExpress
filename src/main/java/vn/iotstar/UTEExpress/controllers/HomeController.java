@@ -8,25 +8,28 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.servlet.http.HttpServletRequest;
 import vn.iotstar.UTEExpress.entity.Order;
 import vn.iotstar.UTEExpress.entity.StatusOrder;
-import vn.iotstar.UTEExpress.service.impl.OrderServiceImpl;
+import vn.iotstar.UTEExpress.service.IOrderService;
 import vn.iotstar.UTEExpress.service.impl.StatusOrderServiceImpl;
 
 @Controller
 @RequestMapping("/")
 public class HomeController {
 	@Autowired
-	private OrderServiceImpl orderService;
+	private IOrderService orderService;
 	@Autowired
 	private StatusOrderServiceImpl statusOrderService;
 	
 	@GetMapping("track-order")
-	public String trackOrder(Model model) {
-		Order order = orderService.findByID("1xxx1");
+	public String trackOrder(Model model, HttpServletRequest request) {
+		String orderCode = request.getParameter("orderCode");
+		Order order = orderService.findByID(orderCode);
 		model.addAttribute("order", order);
 		List<StatusOrder> allStatuses = statusOrderService.findAll();
 		model.addAttribute("allStatuses", allStatuses);
+		model.addAttribute("formattedTotal", String.format("%.2f", order.getTotal()));
 		
 		return "home/tracking-order";
 	}

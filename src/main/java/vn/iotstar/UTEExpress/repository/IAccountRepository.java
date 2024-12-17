@@ -8,4 +8,6 @@ import vn.iotstar.UTEExpress.entity.Account;
 @Repository
 public interface IAccountRepository extends JpaRepository<Account, String>{
 
+	Account findByUsername(String email);
+
 }

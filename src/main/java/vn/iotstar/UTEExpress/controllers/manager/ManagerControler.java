@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,20 +16,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.servlet.http.HttpServletRequest;
 import vn.iotstar.UTEExpress.entity.Account;
 import vn.iotstar.UTEExpress.entity.Manager;
-import vn.iotstar.UTEExpress.service.impl.AccountServiceImpl;
+import vn.iotstar.UTEExpress.service.IAccountService;
 import vn.iotstar.UTEExpress.service.ICustomerService;
-import vn.iotstar.UTEExpress.service.impl.ManagerServiceImpl;
+import vn.iotstar.UTEExpress.service.IManagerService;
 
 @Controller
 @RequestMapping("/manager")
 public class ManagerControler {
 	@Autowired
-	private ManagerServiceImpl managerService;
+	private IManagerService managerService;
 	@Autowired
-	private AccountServiceImpl accountService;
+	private IAccountService accountService;
 	@Autowired
 	private ICustomerService customerService;
-
+	@Autowired
+	private PasswordEncoder encoder;
 	
 	// login xong sẽ về trang này nếu role là manager
 	@GetMapping("/{id}")
@@ -65,15 +67,15 @@ public class ManagerControler {
 	    String confirmPassword = request.getParameter("confirmPassword");
 	    
 	    Manager oldManager = managerService.findById(managerID).get();
-	    if(!oldPassword.equals(oldManager.getPassword())) {
+	    if(!encoder.matches(oldPassword,oldManager.getAccount().getPassword())) {  // sửa
 	    	return "redirect:/manager/" + managerID + "/manager-info?status=wrong-pass";
-	    } else if(!newPassword.equals(confirmPassword)) {
+	    } else if(!newPassword.equals(confirmPassword)) {   
 	    	return "redirect:/manager/" + managerID + "/manager-info?status=missmatch";
 	    }
 	    oldManager.setName(name);
 	    oldManager.setGender(gender);
 	    oldManager.setAddress(address);
-	    oldManager.setPassword(confirmPassword);
+	    oldManager.setPassword(encoder.encode(confirmPassword));
 	    oldManager.setPhone(phone);
 	    oldManager.setCccd(cccd);
 	    
