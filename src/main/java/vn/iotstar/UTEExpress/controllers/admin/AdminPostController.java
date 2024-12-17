@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +44,8 @@ public class AdminPostController {
 	IRoleService roleService;
 	@Autowired
 	private AccountServiceImpl accountService;
+	@Autowired
+	private PasswordEncoder encoder;
 
 	// Đây sẽ hiện thông tin Manager quản lí Post
 	@GetMapping("/manager/{postid}") // Đây là postID
@@ -102,6 +106,7 @@ public class AdminPostController {
 	}
 
 	// Save Edit Manager cho Post
+	// Chức năng chỉ reset password cho manager hoặc thay đổi tên managername thôi
 	@PostMapping("/editmanager/{postid}/save")
 	public String saveEditManagerPost(@PathVariable("id") Integer id, @PathVariable("postid") Integer postid,
 			Model model, @RequestParam("username") String username, @RequestParam("password") String password,
@@ -117,10 +122,12 @@ public class AdminPostController {
 			Account account = accountService.findById(username).orElse(null);
 
 			// Nếu mật khẩu không rỗng và mật khẩu khác thì cập nhật lại
-			if (!password.isEmpty() & !password.equals(oldManager.getAccount().getPassword())) {
-				account.setPassword(password); // Cập nhật mật khẩu cho account
-				oldManager.setPassword(password); // Cập nhật mật khẩu cho Manager
+			if (!password.isEmpty()) {
+					account.setPassword(password); // Cập nhật mật khẩu cho account
+					password = encoder.encode(password);
+					oldManager.setPassword(password); // Cập nhật mật khẩu cho Manager
 			}
+			
 			// Nếu tên name không rỗng và khác thì cập nhật lại MANAGER
 			if (!Managername.isEmpty() & !Managername.equals(oldManager.getName())) {
 				oldManager.setName(Managername);
@@ -129,8 +136,8 @@ public class AdminPostController {
 			managerService.save(oldManager);
 			accountService.save(account);
 			return "redirect:/admin/" + id;
-		} 
-			
+		}
+
 		return "redirect:/admin/" + id;
 	}
 
@@ -152,15 +159,16 @@ public class AdminPostController {
 			// Tạo Account cho Manager
 			Account account = new Account();
 			account.setUsername(username);
-			account.setPassword(password);
-			account.setRole(roleService.findByRoleName("Manager"));
+			account.setPassword(password); // Lưu mật khẩu mã hoá
+			account.setRole(roleService.findByRoleName("MANAGER"));
 			accountService.save(account);
 
 			// Tạo Manager trong MANAGER
 			Manager manager = new Manager();
 			manager.setAccount(account);
 			manager.setName(Managername);
-			manager.setPassword(password);
+			String passwordEnconde = encoder.encode(password);
+			manager.setPassword(passwordEnconde); // Lưu mật khẩu mã hoá
 			Post post = postService.findByID(postid);
 			manager.setCity(cityService.findById(post.getCity().getCityID()).getCityName());
 			manager.setPost(post);
