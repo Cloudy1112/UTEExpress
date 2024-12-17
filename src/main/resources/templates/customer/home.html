@@ -4,7 +4,7 @@
 <head>
    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đơn hàng cần xử lý - Viettel Post</title>
+    <title>Orders to process - UTE Express</title>
     <link rel="stylesheet" th:href="@{/css/customerHome.css}">
     <link rel="stylesheet" th:href="@{/css/customerHeader.css}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Thêm thư viện SweetAlert2 -->
@@ -27,8 +27,13 @@
     <div class="content">
         <div class="header">
             <div class="title">Order to Process</div>
+             <!-- Search Form -->
+	        
         </div>
         <div class="main-content">
+        	<div class="search-container">
+	            <input type="text" id="searchQuery" placeholder="Search by Order ID or Receiver Name" class="form-control" onkeyup="filterOrders()" />
+	        </div>
             <h2>Process</h2>
             <table>
                 <thead>
@@ -91,6 +96,24 @@
                 title: 'Error',         // Tiêu đề
                 text: errorMessage,     // Nội dung thông báo
                 confirmButtonText: 'OK' // Nút xác nhận
+            });
+        }
+    </script>
+    
+    <script>
+        // Function to filter the table based on the search query
+        function filterOrders() {
+            const query = document.getElementById('searchQuery').value.toLowerCase();
+            const rows = document.querySelectorAll('table tbody tr');
+            
+            rows.forEach(row => {
+                const orderID = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
+                const receiverName = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+                if (orderID.includes(query) || receiverName.includes(query)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
             });
         }
     </script>

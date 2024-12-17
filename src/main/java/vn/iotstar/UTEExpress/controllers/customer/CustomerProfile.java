@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,8 @@ public class CustomerProfile {
 	ICustomerService customerService;
 	@Autowired
 	ICityService cityService;
+	@Autowired
+	private PasswordEncoder encoder;
 	// Show Profile
 		@GetMapping("/{id}")
 		public String Profile(@PathVariable("id") Integer customerID, Model model) {
@@ -113,7 +116,7 @@ public class CustomerProfile {
 
 			// Kiểm tra mật khẩu oldPassword, cần đảm bảo người dùng nhập đúng password để
 			// cập nhật thông tin
-			if (oldPassword.equals(oldCustomer.getPassword())) {
+			if (encoder.matches(oldPassword, oldCustomer.getPassword())) {
 				isPassword = true; // Nếu mật khẩu nhập vào đúng thì isPassword = true
 			}
 

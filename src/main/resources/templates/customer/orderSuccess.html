@@ -29,6 +29,9 @@
             <div class="title">Order Success</div>
         </div>
         <div class="main-content">
+        	<div class="search-container">
+	            <input type="text" id="searchQuery" placeholder="Search by Order ID or Receiver Name" class="form-control" onkeyup="filterOrders()" />
+	        </div>
             <h2>Success</h2>
             <table>
                 <thead>
@@ -91,6 +94,23 @@
                 title: 'Error',         // Tiêu đề
                 text: errorMessage,     // Nội dung thông báo
                 confirmButtonText: 'OK' // Nút xác nhận
+            });
+        }
+    </script>
+    <script>
+        // Function to filter the table based on the search query
+        function filterOrders() {
+            const query = document.getElementById('searchQuery').value.toLowerCase();
+            const rows = document.querySelectorAll('table tbody tr');
+            
+            rows.forEach(row => {
+                const orderID = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
+                const receiverName = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+                if (orderID.includes(query) || receiverName.includes(query)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
             });
         }
     </script>
