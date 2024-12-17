@@ -145,6 +145,7 @@ public class CustomerOrderController {
 
 		// Gán thêm shipping cho ORDER
 		order.setShipping(shipping);
+		
 		orderService.save(order); // Save Order
 
 		return "redirect:/customer/" + id; // Return confirmation page after form submission

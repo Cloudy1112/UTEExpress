@@ -24,7 +24,8 @@ public class HomeController {
 	
 	@GetMapping("track-order")
 	public String trackOrder(Model model, HttpServletRequest request) {
-		Order order = orderService.findByID("1xxx1");
+		String orderCode = request.getParameter("orderCode");
+		Order order = orderService.findByID(orderCode);
 		model.addAttribute("order", order);
 		List<StatusOrder> allStatuses = statusOrderService.findAll();
 		model.addAttribute("allStatuses", allStatuses);
