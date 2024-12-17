@@ -19,22 +19,22 @@ import vn.iotstar.UTEExpress.entity.Account;
 import vn.iotstar.UTEExpress.entity.Order;
 import vn.iotstar.UTEExpress.entity.Shipper;
 import vn.iotstar.UTEExpress.entity.Shipping;
-import vn.iotstar.UTEExpress.service.impl.AccountServiceImpl;
-import vn.iotstar.UTEExpress.service.impl.OrderServiceImpl;
-import vn.iotstar.UTEExpress.service.impl.ShipperServiceImpl;
+import vn.iotstar.UTEExpress.service.IAccountService;
+import vn.iotstar.UTEExpress.service.IOrderService;
+import vn.iotstar.UTEExpress.service.IShipperService;
 import vn.iotstar.UTEExpress.service.impl.ShippingServiceImpl;
 
 @Controller
 @RequestMapping("/shippercustocus")
 public class ShipperCusToCusController {
 	@Autowired
-	private ShipperServiceImpl shipperService;
+	private IShipperService shipperService;
 	@Autowired
-	private OrderServiceImpl orderService;
+	private IOrderService orderService;
 	@Autowired
 	private ShippingServiceImpl shippingService;
 	@Autowired
-	private AccountServiceImpl accountService;
+	private IAccountService accountService;
 	@Autowired
 	PasswordEncoder encoder;
 	

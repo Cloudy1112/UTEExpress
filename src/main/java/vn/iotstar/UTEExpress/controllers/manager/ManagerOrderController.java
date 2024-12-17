@@ -22,9 +22,9 @@ import vn.iotstar.UTEExpress.entity.Order;
 import vn.iotstar.UTEExpress.entity.Shipper;
 import vn.iotstar.UTEExpress.entity.Shipping;
 import vn.iotstar.UTEExpress.entity.StatusOrder;
-import vn.iotstar.UTEExpress.service.impl.ManagerServiceImpl;
-import vn.iotstar.UTEExpress.service.impl.OrderServiceImpl;
-import vn.iotstar.UTEExpress.service.impl.ShipperServiceImpl;
+import vn.iotstar.UTEExpress.service.IManagerService;
+import vn.iotstar.UTEExpress.service.IOrderService;
+import vn.iotstar.UTEExpress.service.IShipperService;
 import vn.iotstar.UTEExpress.service.impl.ShippingServiceImpl;
 import vn.iotstar.UTEExpress.service.impl.StatusOrderServiceImpl;
 
@@ -32,11 +32,11 @@ import vn.iotstar.UTEExpress.service.impl.StatusOrderServiceImpl;
 @RequestMapping("/manager/{id}/")
 public class ManagerOrderController {
 	@Autowired
-	private ManagerServiceImpl managerService;
+	private IManagerService managerService;
 	@Autowired
-	private OrderServiceImpl orderService;
+	private IOrderService orderService;
 	@Autowired
-	private ShipperServiceImpl shipperService;
+	private IShipperService shipperService;
 	@Autowired
 	private StatusOrderServiceImpl statusOderService;
 	@Autowired

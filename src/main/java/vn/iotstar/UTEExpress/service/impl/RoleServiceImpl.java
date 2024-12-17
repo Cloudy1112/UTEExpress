@@ -12,6 +12,7 @@ public class RoleServiceImpl implements IRoleService{
 	@Autowired
 	private IRoleRepository roleRepository;
 
+	@Override
 	public Role findRoleByRoleNameIgnoreCase(String roleName) {
 		return roleRepository.findRoleByRoleNameIgnoreCase(roleName);
 	}

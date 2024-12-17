@@ -22,23 +22,23 @@ import vn.iotstar.UTEExpress.entity.Customer;
 import vn.iotstar.UTEExpress.entity.Manager;
 
 import vn.iotstar.UTEExpress.entity.Role;
-import vn.iotstar.UTEExpress.service.impl.AccountServiceImpl;
-import vn.iotstar.UTEExpress.service.impl.CustomerServiceImpl;
-import vn.iotstar.UTEExpress.service.impl.ManagerServiceImpl;
-import vn.iotstar.UTEExpress.service.impl.RoleServiceImpl;
+import vn.iotstar.UTEExpress.service.IAccountService;
+import vn.iotstar.UTEExpress.service.ICustomerService;
+import vn.iotstar.UTEExpress.service.IManagerService;
+import vn.iotstar.UTEExpress.service.IRoleService;
 
 
 @Controller
 @RequestMapping("/manager/{id}/")
 public class ManagerCustomerController {
 	@Autowired
-	private ManagerServiceImpl managerService;
+	private IManagerService managerService;
 	@Autowired
-	private CustomerServiceImpl customerService;
+	private ICustomerService customerService;
 	@Autowired 
-	private AccountServiceImpl accountService;
+	private IAccountService accountService;
 	@Autowired
-	private RoleServiceImpl roleService;
+	private IRoleService roleService;
 	@Autowired
 	PasswordEncoder encoder;
 	

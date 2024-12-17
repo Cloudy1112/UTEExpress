@@ -18,6 +18,7 @@ public class AccountServiceImpl implements IAccountService{
 	@Autowired
     private PasswordEncoder passwordEncoder;
 
+	@Override
 	public void delete(Account entity) {
 		accountRepository.delete(entity);
 	}
@@ -27,15 +28,18 @@ public class AccountServiceImpl implements IAccountService{
 	 * accountRepository.save(entity); }
 	 */
 
+	@Override
 	public Optional<Account> findById(String id) {
 		return accountRepository.findById(id);
 	}
 	
-    public boolean isPasswordValid(String rawPassword, String encodedPassword) {
+    @Override
+	public boolean isPasswordValid(String rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 
-    public void save(Account account) {
+    @Override
+	public void save(Account account) {
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         accountRepository.save(account);
     }

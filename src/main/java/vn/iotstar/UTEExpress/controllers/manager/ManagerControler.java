@@ -16,17 +16,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.servlet.http.HttpServletRequest;
 import vn.iotstar.UTEExpress.entity.Account;
 import vn.iotstar.UTEExpress.entity.Manager;
-import vn.iotstar.UTEExpress.service.impl.AccountServiceImpl;
+import vn.iotstar.UTEExpress.service.IAccountService;
 import vn.iotstar.UTEExpress.service.ICustomerService;
-import vn.iotstar.UTEExpress.service.impl.ManagerServiceImpl;
+import vn.iotstar.UTEExpress.service.IManagerService;
 
 @Controller
 @RequestMapping("/manager")
 public class ManagerControler {
 	@Autowired
-	private ManagerServiceImpl managerService;
+	private IManagerService managerService;
 	@Autowired
-	private AccountServiceImpl accountService;
+	private IAccountService accountService;
 	@Autowired
 	private ICustomerService customerService;
 	@Autowired

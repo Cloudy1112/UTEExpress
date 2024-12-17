@@ -35,6 +35,7 @@ public class ManagerServiceImpl implements IManagerService{
 		return managerRepository.count();
 	}
 
+	@Override
 	public Manager findManagerByUsername(String username) {
 		return managerRepository.findManagerByUsername(username);
 	}

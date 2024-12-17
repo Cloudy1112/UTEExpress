@@ -15,22 +15,27 @@ public class ShipperServiceImpl implements IShipperService{
 	@Autowired
 	private IShipperRepository shipperRepository;
 
+	@Override
 	public List<Shipper> findShippersByIDPost(Integer postID) {
 		return shipperRepository.findShippersByIDPost(postID);
 	}
 
+	@Override
 	public <S extends Shipper> S save(S entity) {
 		return shipperRepository.save(entity);
 	}
 
+	@Override
 	public Optional<Shipper> findById(Integer id) {
 		return shipperRepository.findById(id);
 	}
 
+	@Override
 	public void delete(Shipper entity) {
 		shipperRepository.delete(entity);
 	}
 
+	@Override
 	public List<Shipper> findShippersByRoleId(Integer roleID) {
 		return shipperRepository.findShippersByRoleId(roleID);
 	}
@@ -41,6 +46,7 @@ public class ShipperServiceImpl implements IShipperService{
 		return shipperRepository.findById(shipperID);
 	}
 
+	@Override
 	public Shipper findShipperByUsername(String username) {
 		return shipperRepository.findShipperByUsername(username);
 	}

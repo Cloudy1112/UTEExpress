@@ -15,4 +15,6 @@ public interface IManagerService {
 
 	<S extends Manager> S save(S entity);
 
+	Manager findManagerByUsername(String username);
+
 }

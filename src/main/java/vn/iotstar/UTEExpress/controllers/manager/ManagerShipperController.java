@@ -19,22 +19,22 @@ import vn.iotstar.UTEExpress.entity.Manager;
 import vn.iotstar.UTEExpress.entity.Post;
 import vn.iotstar.UTEExpress.entity.Role;
 import vn.iotstar.UTEExpress.entity.Shipper;
-import vn.iotstar.UTEExpress.service.impl.AccountServiceImpl;
-import vn.iotstar.UTEExpress.service.impl.ManagerServiceImpl;
-import vn.iotstar.UTEExpress.service.impl.RoleServiceImpl;
-import vn.iotstar.UTEExpress.service.impl.ShipperServiceImpl;
+import vn.iotstar.UTEExpress.service.IAccountService;
+import vn.iotstar.UTEExpress.service.IManagerService;
+import vn.iotstar.UTEExpress.service.IRoleService;
+import vn.iotstar.UTEExpress.service.IShipperService;
 
 @Controller
 @RequestMapping("/manager/{id}/")
 public class ManagerShipperController {
 	@Autowired
-	private ManagerServiceImpl managerService;
+	private IManagerService managerService;
 	@Autowired
-	private ShipperServiceImpl shipperService;
+	private IShipperService shipperService;
 	@Autowired
-	private AccountServiceImpl accountService;
+	private IAccountService accountService;
 	@Autowired
-	private RoleServiceImpl roleService;
+	private IRoleService roleService;
 	@Autowired
 	PasswordEncoder encoder;
 	

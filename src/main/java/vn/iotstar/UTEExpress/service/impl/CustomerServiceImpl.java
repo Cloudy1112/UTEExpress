@@ -44,10 +44,12 @@ public class CustomerServiceImpl implements ICustomerService{
 		return customerRepository.findById(id).orElse(null);
 	}
 
+	@Override
 	public void delete(Customer entity) {
 		customerRepository.delete(entity);
 	}
 
+	@Override
 	public List<Customer> findCustomersByCity(String cityName) {
 		return customerRepository.findCustomersByCity(cityName);
 	}

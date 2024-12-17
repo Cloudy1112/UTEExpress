@@ -19,12 +19,12 @@ import vn.iotstar.UTEExpress.entity.City;
 import vn.iotstar.UTEExpress.entity.Customer;
 import vn.iotstar.UTEExpress.entity.Manager;
 import vn.iotstar.UTEExpress.entity.Shipper;
+import vn.iotstar.UTEExpress.service.IAccountService;
+import vn.iotstar.UTEExpress.service.ICustomerService;
+import vn.iotstar.UTEExpress.service.IManagerService;
+import vn.iotstar.UTEExpress.service.IShipperService;
 import vn.iotstar.UTEExpress.service.impl.AccountDetailService;
-import vn.iotstar.UTEExpress.service.impl.AccountServiceImpl;
 import vn.iotstar.UTEExpress.service.impl.CityServiceImpl;
-import vn.iotstar.UTEExpress.service.impl.CustomerServiceImpl;
-import vn.iotstar.UTEExpress.service.impl.ManagerServiceImpl;
-import vn.iotstar.UTEExpress.service.impl.ShipperServiceImpl;
 
 @Controller
 @RequestMapping("/login")
@@ -33,13 +33,13 @@ public class LoginController {
     @Autowired
     private CityServiceImpl cityService;
     @Autowired
-    private AccountServiceImpl accountService;
+    private IAccountService accountService;
     @Autowired
-    private ManagerServiceImpl managerService;
+    private IManagerService managerService;
     @Autowired
-    private CustomerServiceImpl customerService;
+    private ICustomerService customerService;
     @Autowired
-    private ShipperServiceImpl shipperService;
+    private IShipperService shipperService;
 
 
     @GetMapping("")

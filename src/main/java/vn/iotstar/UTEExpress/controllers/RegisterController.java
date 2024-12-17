@@ -10,20 +10,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import vn.iotstar.UTEExpress.entity.Account;
 import vn.iotstar.UTEExpress.entity.Customer;
 import vn.iotstar.UTEExpress.entity.Role;
-import vn.iotstar.UTEExpress.service.impl.AccountServiceImpl;
-import vn.iotstar.UTEExpress.service.impl.CustomerServiceImpl;
-import vn.iotstar.UTEExpress.service.impl.RoleServiceImpl;
+import vn.iotstar.UTEExpress.service.IAccountService;
+import vn.iotstar.UTEExpress.service.ICustomerService;
+import vn.iotstar.UTEExpress.service.IRoleService;
 
 @Controller
 @RequestMapping("/register")
 public class RegisterController {
     
     @Autowired
-    private CustomerServiceImpl customerService;
+    private ICustomerService customerService;
     @Autowired
-    private RoleServiceImpl roleService;
+    private IRoleService roleService;
     @Autowired
-    private AccountServiceImpl accountService;
+    private IAccountService accountService;
     @Autowired
     private PasswordEncoder encoder;
     

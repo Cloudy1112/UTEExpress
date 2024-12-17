@@ -14,7 +14,10 @@ public interface ICustomerService {
 	Customer findCustomerByIDUser(Integer IDUser);
 
 	Customer findById(Integer id);
-	
+
+	List<Customer> findCustomersByCity(String cityName);
+
+	void delete(Customer entity);
 
 
 }
