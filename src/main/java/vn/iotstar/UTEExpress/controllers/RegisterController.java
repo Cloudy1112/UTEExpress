@@ -36,7 +36,6 @@ public class RegisterController {
         
         // Check if the username already exists
         if (accountService.findById(username).isPresent()) {
-            // Redirect back to the registration page with an error
             return "redirect:/register?error=username-already-exists";
         }
         
@@ -45,6 +44,7 @@ public class RegisterController {
         newCustomer.setIsActive(0); // Default to inactive
         newCustomer.setCity(city);
         newCustomer.setName(fullname);
+        newCustomer.setPassword(encoder.encode(password));
         
         // Assign the "CUSTOMER" role
         Role role = roleService.findRoleByRoleNameIgnoreCase("CUSTOMER");
@@ -53,7 +53,7 @@ public class RegisterController {
         Account newAccount = new Account();
         newAccount.setRole(role);
         newAccount.setUsername(username);
-        newAccount.setPassword(encoder.encode(password)); // Encode the password
+        newAccount.setPassword(password);
         
         // Save the Account
         accountService.save(newAccount);
@@ -64,7 +64,7 @@ public class RegisterController {
         // Save the Customer
         customerService.save(newCustomer);
         
-        // Redirect to the login page after successful registration
         return "redirect:/login";
     }
+
 }
