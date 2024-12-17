@@ -10,4 +10,8 @@ import vn.iotstar.UTEExpress.entity.Role;
 public interface IRoleRepository extends JpaRepository<Role, Integer>{
 	@Query("SELECT r FROM Role r WHERE LOWER(r.roleName) = LOWER(:roleName)")
     Role findRoleByRoleNameIgnoreCase(String roleName);
+	
+	Role findByRoleName(String roleName);
+	
+	
 }

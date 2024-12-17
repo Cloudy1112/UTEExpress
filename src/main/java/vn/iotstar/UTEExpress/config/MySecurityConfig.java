@@ -41,6 +41,7 @@ public class MySecurityConfig {
                 .csrf(csrf -> csrf.disable()) // Tắt CSRF (chỉ để demo, không khuyến nghị production)
                 .cors(cors -> cors.disable())
                 .authorizeHttpRequests(auth -> auth
+                		.requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
                 		.requestMatchers("/customer/**").hasAnyAuthority("CUSTOMER") // Chỉ CUSTOMER truy cập được
                 		.requestMatchers("/manager/**").hasAuthority("MANAGER")
                 		.requestMatchers("/shippercustocus/**").hasAuthority("SHIPPER_DIRECT")

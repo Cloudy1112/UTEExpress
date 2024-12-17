@@ -55,7 +55,7 @@
 						<option th:each="city : ${cities}" 
 					     	th:value="${city.cityName}" 
 					        th:text="${city.cityName}" 
-					        th:selected="${city.cityName == 'Hà Nội'}">
+					        th:selected="${city.cityName == 'Hà Nội'}"
 					        th:attr="data-city-fee=${city.cityID}">
 					        
 					    </option>
@@ -249,6 +249,7 @@
 	    document.getElementById('sourceCity').addEventListener('change', calculateShipFee);
 	    
 	</script>
-	
+	<!-- Footer -->
+	<footer th:replace="~{customer/fragments/footer::footer}"></footer>
 </body>
 </html>

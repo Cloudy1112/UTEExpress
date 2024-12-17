@@ -5,31 +5,25 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import vn.iotstar.UTEExpress.entity.Account;
 import vn.iotstar.UTEExpress.entity.City;
-import vn.iotstar.UTEExpress.entity.Customer;
-import vn.iotstar.UTEExpress.entity.Manager;
-import vn.iotstar.UTEExpress.entity.Shipper;
 import vn.iotstar.UTEExpress.service.IAccountService;
+import vn.iotstar.UTEExpress.service.IAdminService;
 import vn.iotstar.UTEExpress.service.ICustomerService;
 import vn.iotstar.UTEExpress.service.IEmailService;
 import vn.iotstar.UTEExpress.service.IManagerService;
 import vn.iotstar.UTEExpress.service.IShipperService;
-import vn.iotstar.UTEExpress.service.impl.AccountDetailService;
 import vn.iotstar.UTEExpress.service.impl.CityServiceImpl;
 
 @Controller
-
 public class LoginController {
 
 	@Autowired
@@ -44,6 +38,8 @@ public class LoginController {
 	private IShipperService shipperService;
 	@Autowired
 	private IEmailService emailService;
+	@Autowired
+	private IAdminService adminService;
 
 	@GetMapping("/login")
 	public String loginViews(Model model, HttpServletRequest request) {
@@ -62,6 +58,8 @@ public class LoginController {
 
 	private String redirectBasedOnRole(Account account) {
 		switch (account.getRole().getRoleID()) {
+		case 1:
+			return "redirect:/admin/" + adminService.findAdminByUsername(account.getUsername()).getAdminID();
 		case 2:
 			return "redirect:/manager/" + managerService.findManagerByUsername(account.getUsername()).getManagerID();
 		case 3:

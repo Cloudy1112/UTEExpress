@@ -57,7 +57,7 @@
 							<strong>Birth Date:</strong> [[${customer.birth}]]<br> 
 							<strong>Address:</strong> [[${customer.address}]], [[${customer.city}]]<br>
 							<strong>Active:</strong> [[${customer.isActive} ? 'Active' : 'Inactive']]<br>
-							<strong>Description:</strong> [[${customer.isActive} ? 'Bajn' : 'Inactive']]<br>
+							<strong>Description:</strong> [[${customer.isActive} ? 'Can create order' : 'Can not create order. Wait for administrator active your account']]<br>
 						</p>
 						<!-- Edit Profile Button (Sử dụng một liên kết để mở controller khác) -->
 						<a
@@ -73,5 +73,8 @@
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- Footer -->
+	<footer th:replace="~{customer/fragments/footer::footer}"></footer>
 </body>
 </html>

@@ -40,5 +40,17 @@ public class ManagerServiceImpl implements IManagerService{
 		return managerRepository.findManagerByUsername(username);
 	}
 	
+	@Override
+	public Manager findManagerByIDPost(Integer postID) {
+		// TODO Auto-generated method stub
+		return managerRepository.findManagerByIDPost(postID);
+	}
+
+	@Override
+	public void deleteManager(Integer managerID) {
+		managerRepository.deleteById(managerID);;
+		
+	}
+	
 	
 }
