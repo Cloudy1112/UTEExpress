@@ -128,5 +128,8 @@ public class ManagerControler {
 		}
 	    return "redirect:/manager/" + managerID + "/manager-info?status=success";
 	}
-	
+	@GetMapping("/{id}/statistic")
+	public String viewStatistic(Model model) {
+		return "";
+	}
 }
