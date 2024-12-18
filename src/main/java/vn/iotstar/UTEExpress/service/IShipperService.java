@@ -3,6 +3,7 @@ package vn.iotstar.UTEExpress.service;
 import java.util.List;
 import java.util.Optional;
 
+import vn.iotstar.UTEExpress.dto.PostShipperCountDTO;
 import vn.iotstar.UTEExpress.entity.Shipper;
 
 public interface IShipperService {
@@ -20,4 +21,5 @@ public interface IShipperService {
 	<S extends Shipper> S save(S entity);
 
 	List<Shipper> findShippersByIDPost(Integer postID);
+	
 }

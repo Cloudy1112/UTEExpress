@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import vn.iotstar.UTEExpress.dto.PostShipperCountDTO;
 import vn.iotstar.UTEExpress.entity.Shipper;
 
 @Repository
@@ -23,4 +24,11 @@ public interface IShipperRepository extends JpaRepository<Shipper, Integer>{
 	// tìm shipper theo userna,e
 	@Query("SELECT s FROM Shipper s WHERE s.account.username = :username")
 	Shipper findShipperByUsername(@Param("username") String username);
+	
+	//Tìm số lượng Shipper theo post
+	@Query("SELECT p.postName AS postName, COUNT(s.shipperID) AS shipperCount " +
+		       "FROM Post p LEFT JOIN Shipper s ON p.postID = s.post.postID " +
+		       "GROUP BY p.postID, p.postName")
+
+	List<PostShipperCountDTO> getShipperCountByPost();
 }

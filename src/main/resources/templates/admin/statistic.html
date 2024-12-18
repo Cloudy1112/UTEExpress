@@ -12,7 +12,6 @@
     <div class="sidebar">
         <ul>
             <li><a th:href="@{/admin/{id}(id=${id})}" >Post</a></li>
-			<li><a th:href="@{/admin/{id}/statistic(id=${id})}">Statistic</a></li>
 			<li><a th:href="@{/admin/{id}/voucher(id=${id})}" style="color: #FFC400;">Voucher</a></li>
 			<li><a th:href="@{/admin/{id}/profile(id=${id})}">Account</a></li>
         </ul>
@@ -20,6 +19,10 @@
     
     
     <div class="content">
+    
+    	 <h1>Shipper Count by Post</h1>
+    	<canvas id="shipperChart" width="400" height="200"></canvas>
+    
     	<h1>Voucher</h1>
     		<div class="search-bar">
 			    <input type="text" id="searchInput" onkeyup="searchVoucher()" placeholder="Search by Voucher Name or ID">
@@ -120,6 +123,33 @@
 	        }
 	    }
 	}
+</script>
+
+<script th:inline="javascript">
+    var postNames = [[${postNames}]];
+    var shipperCounts = [[${shipperCounts}]];
+    
+    const ctx = document.getElementById('shipperChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: postNames,
+            datasets: [{
+                label: 'Number of Shippers',
+                data: shipperCounts,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 </script>
 	
 </body>
