@@ -3,17 +3,17 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <title>Edit Voucher</title>
-    <link rel="stylesheet" th:href="@{/css/customerhome.css}">
+    <link rel="stylesheet" th:href="@{/css/homecss.css}">
     <link rel="stylesheet" th:href="@{/css/customerHeader.css}">
 </head>
 <body>
     <header th:replace="~{admin/fragments/header::header}"></header>
-    
+    <div class="container">
     <div class="sidebar">
         <ul>
             <li><a th:href="@{/admin/{id}(id=${id})}">Post</a></li>
             <li><a th:href="@{/admin/{id}/statistic(id=${id})}">Statistic</a></li>
-            <li><a th:href="@{/admin/{id}/voucher(id=${id})}" style="color: red;">Voucher</a></li>
+            <li><a th:href="@{/admin/{id}/voucher(id=${id})}" style="color: #FFC400;">Voucher</a></li>
             <li><a th:href="@{/admin/{id}/profile(id=${id})}">Account</a></li>
         </ul>
     </div>
@@ -22,7 +22,7 @@
         <h1>Edit Voucher</h1>
         <form th:action="@{/admin/{id}/voucher/save/edit/{voucherid}(id=${id}, voucherid=${voucherid})}" method="post">
             <!-- Voucher Information -->
-            <fieldset>
+            
                 <legend>Voucher Information</legend>
                 
                 <label for="voucherName">Voucher Name:</label>
@@ -60,10 +60,12 @@
                             th:selected="${voucher.goods != null and voucher.goods.goodsID == good.goodsID}">
                     </option>
                 </select><br>
-            </fieldset>
+           
             
             <button type="submit">Save</button>
         </form>
+        </div>
     </div>
+    <footer th:replace="~{admin/fragments/footer::footer}"></footer> 
 </body>
 </html>

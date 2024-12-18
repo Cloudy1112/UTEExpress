@@ -2,18 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <title>Post Form</title>
-    <link rel="stylesheet" th:href="@{/css/customerhome.css}">
+    <title>Add Voucher Form</title>
+    <link rel="stylesheet" th:href="@{/css/homecss.css}">
     <link rel="stylesheet" th:href="@{/css/customerHeader.css}">
 </head>
 <body>
 	<header th:replace="~{admin/fragments/header::header}"></header>
-	
+	<div class="container">
     <div class="sidebar">
         <ul>
             <li><a th:href="@{/admin/{id}(id=${id})}" >Post</a></li>
 			<li><a th:href="@{/admin/{id}/statistic(id=${id})}">Statistic</a></li>
-			<li><a th:href="@{/admin/{id}/voucher(id=${id})}" style="color: red;">Voucher</a></li>
+			<li><a th:href="@{/admin/{id}/voucher(id=${id})}" style="color: #FFC400;">Voucher</a></li>
 			<li><a th:href="@{/admin/{id}/profile(id=${id})}">Account</a></li>
         </ul>
     </div>
@@ -23,7 +23,7 @@
     	<h1>Voucher</h1>
     	<form th:action="@{/admin/{id}/voucher/save(id=${id})}"  method="post">
         <!-- Thông tin voucher -->
-        <fieldset>
+       
             <legend>Voucher Information</legend>
             <label for="postName">Voucher Name:</label>
             <input type="text" id="voucherName" name="voucherName" required/><br>
@@ -61,16 +61,17 @@
 		                > 
 		        </option>
 		    </select><br>
-            
-        </fieldset>
+           
 
 
         <button type="submit">Save</button>
     </form>
 
 	</div>
+	    
 	
-
+	</div>
+	<footer th:replace="~{admin/fragments/footer::footer}"></footer> 
 	
 </body>
 </html>

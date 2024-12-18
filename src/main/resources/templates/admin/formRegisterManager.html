@@ -2,16 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <title>Post Form</title>
-    <link rel="stylesheet" th:href="@{/css/customerHome.css}">
+    <title>Add Manager</title>
+    <link rel="stylesheet" th:href="@{/css/homecss.css}">
     <link rel="stylesheet" th:href="@{/css/customerHeader.css}">
 </head>
 <body>
 	<header th:replace="~{admin/fragments/header::header}"></header>
-	
+	<div class="container">
     <div class="sidebar">
         <ul>
-            <li><a th:href="@{/admin/{id}(id=${id})}" style="color: red;">Post</a></li>
+            <li><a th:href="@{/admin/{id}(id=${id})}" style="color: #FFC400;">Post</a></li>
 			<li><a th:href="@{/admin/{id}/statistic(id=${id})}">Statistic</a></li>
 			<li><a th:href="@{/admin/{id}/voucher(id=${id})}">Voucher</a></li>
 			<li><a th:href="@{/admin/{id}/profile(id=${id})}">Account</a></li>
@@ -27,7 +27,6 @@
 
         <!-- Thông tin Manager -->
  
-        <fieldset>
             <legend>Manager Information</legend>
             <label for="managerName">Manager Name:</label>
             <input type="text" id="managerName" name="managername" required/><br>
@@ -38,9 +37,12 @@
             <label for="password">Password:</label>
             <input type="password" id="password" name="password"  required/><br>
 
-        </fieldset> 
+
         <button type="submit">Save</button>
     </form>
 	</div>
+	</div>
+		<footer th:replace="~{admin/fragments/footer::footer}"></footer>
+	
 </body>
 </html>

@@ -4,79 +4,82 @@
 <head>
    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đơn hàng cần xử lý - Viettel Post</title>
-    <link rel="stylesheet" th:href="@{/css/customerHome.css}">
+    <title>UTE Express - Admin</title>
+    <script src="https://kit.fontawesome.com/b5ee560b9a.js"
+	crossorigin="anonymous"></script>
+	<link rel="stylesheet" th:href="@{/css/homecss.css}">
     <link rel="stylesheet" th:href="@{/css/customerHeader.css}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Thêm thư viện SweetAlert2 -->
 </head>
 <body>
 	<header th:replace="~{admin/fragments/header::header}"></header>
-	
-    <div class="sidebar">
-        <ul>
-            <li><a th:href="@{/admin/{id}(id=${id})}" style="color: red;">Post</a></li>
-			<li><a th:href="@{/admin/{id}/statistic(id=${id})}">Statistic</a></li>
-			<li><a th:href="@{/admin/{id}/voucher(id=${id})}">Voucher</a></li>
-			<li><a th:href="@{/admin/{id}/profile(id=${id})}">Account</a></li>
-        </ul>
-    </div>
-    
-    <!-- content -->
-    <div class="content">
-        <div class="header"> <div class="title">Post</div></div>
-        <!-- Main content -->
-        <div class="main-content">
-        	<div class="search-bar">
-			    <input type="text" id="searchInput" placeholder="Search posts..." onkeyup="searchPosts()" />
-			    <button type="button" onclick="searchPosts()">Search</button>
-			</div>
-        	<div class="main-content">
-	           <a th:href="@{/admin/{id}/post/add(id =${id})}">
-				<button class="addPost">Add Post</button>
-			   </a>
-	            <table>
-	                <thead>
-	                    <tr>
-	                        <th>PostID</th>
-	                        <th>Post name</th>
-	                        <th>City</th>
-	                        <th>Manager</th>
-	                        <th>Action</th>
-	                    </tr>
-	                </thead>
-	                <tbody>
-	                    <tr th:each="post : ${posts}">
-			                    <td th:text="${post.postID}"></td>
-			                  	<td th:text="${post.postName}" ></td>		             
-			                    <td th:text="${post.city.cityName}"></td>
-			                    <td th:text="${post.Manager != null ? post.Manager.name : ''}"></td>
-			                    <td>
-				                    <div class="actions">
-	                					<a th:if="${post.Manager != null}" th:href="@{/admin/{adminId}/post/manager/{postId}(adminId=${id}, postId=${post.postID})}">
-								            <button class="accept">Information Manager</button>
-								        </a>
-								        <a th:if="${post.Manager != null}" th:href="@{/admin/{adminId}/post/editmanager/{postId}(adminId=${id}, postId=${post.postID})}">
-								            <button class="add">Edit Manager</button>
-								        </a>
-								        
-									    <a th:if="${post.Manager == null}"  th:href="@{/admin/{id}/post/addmanager/{postid}(id =${id}, postid=${post.postID})}">
-								            <button class="add">Add Manager</button>
-								        </a>
-								        <!-- Chỉ hiển thị nút Cancel nếu orderStatusID == 0 -->
-									    <a th:href="@{/admin/{adminId}/post/delete/{postid}(adminId=${id}, postid=${post.postID})}">
-									        <button class="reject">Delete Post</button>
-									    </a>
-	            					</div>
-					            </td>
-		                </tr>
-		                <tr th:if="${#lists.isEmpty(posts)}">
-		                    <td colspan="7" style="text-align: center;">No Posts</td>
-		                </tr>
-	                </tbody>
-	            </table>
+	<div class="container">
+	    <div class="sidebar">
+	        <ul>
+	            <li><a th:href="@{/admin/{id}(id=${id})}" style="color: #FFC400;">Post</a></li>
+				<li><a th:href="@{/admin/{id}/statistic(id=${id})}">Statistic</a></li>
+				<li><a th:href="@{/admin/{id}/voucher(id=${id})}">Voucher</a></li>
+				<li><a th:href="@{/admin/{id}/profile(id=${id})}">Account</a></li>
+	        </ul>
+	    </div>
+	    
+	    <!-- content -->
+	    <div class="content">
+	        <div class="header"> <div class="title">Post</div></div>
+	        <!-- Main content -->
+	        <div class="main-content">
+	        	<div class="search-bar">
+				    <input type="text" id="searchInput" placeholder="Search posts..." onkeyup="searchPosts()" />
+				    <button type="button" onclick="searchPosts()">Search</button>
+				</div>
+	        	<div class="main-content">
+		           <a th:href="@{/admin/{id}/post/add(id =${id})}">
+					<button class="addPost">Add Post</button>
+				   </a>
+		            <table>
+		                <thead>
+		                    <tr>
+		                        <th>PostID</th>
+		                        <th>Post name</th>
+		                        <th>City</th>
+		                        <th>Manager</th>
+		                        <th>Action</th>
+		                    </tr>
+		                </thead>
+		                <tbody>
+		                    <tr th:each="post : ${posts}">
+				                    <td th:text="${post.postID}"></td>
+				                  	<td th:text="${post.postName}" ></td>		             
+				                    <td th:text="${post.city.cityName}"></td>
+				                    <td th:text="${post.Manager != null ? post.Manager.name : ''}"></td>
+				                    <td>
+					                    <div class="actions">
+		                					<a th:if="${post.Manager != null}" th:href="@{/admin/{adminId}/post/manager/{postId}(adminId=${id}, postId=${post.postID})}">
+									            <button class="accept">Information Manager</button>
+									        </a>
+									        <a th:if="${post.Manager != null}" th:href="@{/admin/{adminId}/post/editmanager/{postId}(adminId=${id}, postId=${post.postID})}">
+									            <button class="add">Edit Manager</button>
+									        </a>
+									        
+										    <a th:if="${post.Manager == null}"  th:href="@{/admin/{id}/post/addmanager/{postid}(id =${id}, postid=${post.postID})}">
+									            <button class="add">Add Manager</button>
+									        </a>
+									        <!-- Chỉ hiển thị nút Cancel nếu orderStatusID == 0 -->
+										    <a th:href="@{/admin/{adminId}/post/delete/{postid}(adminId=${id}, postid=${post.postID})}">
+										        <button class="reject">Delete Post</button>
+										    </a>
+		            					</div>
+						            </td>
+			                </tr>
+			                <tr th:if="${#lists.isEmpty(posts)}">
+			                    <td colspan="7" style="text-align: center;">No Posts</td>
+			                </tr>
+		                </tbody>
+		            </table>
+		        </div>
 	        </div>
-        </div>
-    	<!-- Main content -->
+	    	<!-- Main content -->
+	    </div>
     </div>
     
     <!-- content -->
@@ -113,6 +116,6 @@
             });
         }
     </script>
-	
+	<footer th:replace="~{admin/fragments/footer::footer}"></footer>
 </body>
 </html>
