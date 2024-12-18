@@ -4,6 +4,9 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -129,7 +132,10 @@ public class ManagerControler {
 	    return "redirect:/manager/" + managerID + "/manager-info?status=success";
 	}
 	@GetMapping("/{id}/statistic")
-	public String viewStatistic(Model model) {
-		return "";
+	public String viewStatistic(@PathVariable("id") Integer managerID, Model model) {
+		Manager manager = managerService.findById(managerID).get();
+		model.addAttribute("manager", manager);
+		
+		return "manager/manager-statistic"; // Tên file Thymeleaf
 	}
 }
