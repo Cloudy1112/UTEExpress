@@ -162,7 +162,16 @@ public class ShipperPostToPostController {
 		System.out.println("called");
 
 		// --> sau này lên trạng thái la 5
-		Shipping shipping = shippingService.findByOrderID(orderID);
+		Shipping shipping = shippingService.findLatestShippingByOrderID(orderID);
+		  ///////////Creat old shipping////////
+				Shipping shippingOld = new Shipping();
+				shippingOld.setShipper(shipping.getShipper());
+				shippingOld.setDateUpdate(shipping.getDateUpdate());
+				shippingOld.setStatusOrderID(shipping.getStatusOrderID()); 
+				shippingOld.setTotal(shipping.getTotal());
+				shippingOld.setOrderID(orderID);  //Vừa sửa
+				shippingService.save(shippingOld);
+				///////////////////////////////////
 		shipping.setStatusOrderID(5);
 		shippingService.save(shipping);
 		
@@ -174,7 +183,16 @@ public class ShipperPostToPostController {
 		System.out.println("called");
 		
 		// lên trạng thái 6 xoa shipper
-		Shipping shipping = shippingService.findByOrderID(orderID);
+		Shipping shipping = shippingService.findLatestShippingByOrderID(orderID);
+		  ///////////Creat old shipping////////
+				Shipping shippingOld = new Shipping();
+				shippingOld.setShipper(shipping.getShipper());
+				shippingOld.setDateUpdate(shipping.getDateUpdate());
+				shippingOld.setStatusOrderID(shipping.getStatusOrderID()); 
+				shippingOld.setTotal(shipping.getTotal());
+				shippingOld.setOrderID(orderID);  //Vừa sửa
+				shippingService.save(shippingOld);
+				///////////////////////////////////
 		shipping.setStatusOrderID(6);
 		shipping.setShipper(null);
 		shippingService.save(shipping);
@@ -188,7 +206,16 @@ public class ShipperPostToPostController {
 		
 		// --> lên trạng thái la 9
 //		
-		Shipping shipping = shippingService.findByOrderID(orderID);
+		Shipping shipping = shippingService.findLatestShippingByOrderID(orderID);
+		  ///////////Creat old shipping////////
+				Shipping shippingOld = new Shipping();
+				shippingOld.setShipper(shipping.getShipper());
+				shippingOld.setDateUpdate(shipping.getDateUpdate());
+				shippingOld.setStatusOrderID(shipping.getStatusOrderID()); 
+				shippingOld.setTotal(shipping.getTotal());
+				shippingOld.setOrderID(orderID);  //Vừa sửa
+				shippingService.save(shippingOld);
+				///////////////////////////////////
 		shipping.setStatusOrderID(9);
 		shippingService.save(shipping);
 				

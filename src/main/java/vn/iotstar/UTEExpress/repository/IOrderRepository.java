@@ -21,7 +21,7 @@ public interface IOrderRepository extends JpaRepository<Order, String>{
 	
 	//tìm order pending dưa tren orderstatus và src city
 	@Query("SELECT o FROM Order o " +
-		       "JOIN Shipping s ON o.orderID = s.orderID " +
+		       "JOIN Shipping s ON o.shipping.shippingID = s.shippingID " +
 		       "JOIN StatusOrder so ON s.statusOrderID = so.IDStatusOrder " +
 		       "WHERE so.IDStatusOrder = :statusOrderID " +
 		       "AND o.sourceCity = :sourceCity " +
@@ -31,7 +31,7 @@ public interface IOrderRepository extends JpaRepository<Order, String>{
     
   //tìm order pending dưa tren orderstatus và dest city
 	@Query("SELECT o FROM Order o " +
-		       "JOIN Shipping s ON o.orderID = s.orderID " +
+		       "JOIN Shipping s ON o.shipping.shippingID = s.shippingID " +
 		       "JOIN StatusOrder so ON s.statusOrderID = so.IDStatusOrder " +
 		       "WHERE so.IDStatusOrder = :statusOrderID " +
 		       "AND o.destCity = :destCity " +

@@ -14,7 +14,7 @@ public interface IShippingRepository extends JpaRepository<Shipping, Integer> {
 	@Query("SELECT s FROM Shipping s WHERE s.orderID = :orderID")
     Shipping findByOrderID(@Param("orderID") String orderID);
 	
-	@Query("SELECT s FROM Shipping s WHERE s.orderID = :orderID")
+	@Query("SELECT s FROM Shipping s WHERE s.orderID = :orderID ORDER BY s.statusOrderID ") //vua sua
     List<Shipping> findAllByOrderID(@Param("orderID") String orderID);
 	
 	@Query("SELECT MAX(s.statusOrderID) FROM Shipping s WHERE s.orderID = :orderID")

@@ -3,6 +3,7 @@ package vn.iotstar.UTEExpress.controllers.shipper;
 import java.io.File;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -159,7 +160,16 @@ public class ShipperCusToCusController {
 		//System.out.println("called");
 		
 		// đổi status thành shipper is shipping
-		Shipping shipping = shippingService.findByOrderID(orderID);
+		Shipping shipping = shippingService.findLatestShippingByOrderID(orderID);
+		  ///////////Creat old shipping////////
+				Shipping shippingOld = new Shipping();
+				shippingOld.setShipper(shipping.getShipper());
+				shippingOld.setDateUpdate(shipping.getDateUpdate());
+				shippingOld.setStatusOrderID(shipping.getStatusOrderID()); 
+				shippingOld.setTotal(shipping.getTotal());
+				shippingOld.setOrderID(orderID);  //Vừa sửa
+				shippingService.save(shippingOld);
+				///////////////////////////////////
 		shipping.setStatusOrderID(7);
 		shippingService.save(shipping);
 		
@@ -171,9 +181,20 @@ public class ShipperCusToCusController {
 		//System.out.println("called");
 		
 		// đổi status thành shipper is shipping
-		Shipping shipping = shippingService.findByOrderID(orderID);
+		Shipping shipping = shippingService.findLatestShippingByOrderID(orderID);
+		  ///////////Creat old shipping////////
+				Shipping shippingOld = new Shipping();
+				shippingOld.setShipper(shipping.getShipper());
+				shippingOld.setDateUpdate(shipping.getDateUpdate());
+				shippingOld.setStatusOrderID(shipping.getStatusOrderID()); 
+				shippingOld.setTotal(shipping.getTotal());
+				shippingOld.setOrderID(orderID);  //Vừa sửa
+				shippingService.save(shippingOld);
+				///////////////////////////////////
 		shipping.setStatusOrderID(8);
 		shippingService.save(shipping);
+		
+		
 		
 		return "redirect:/shippercustocus/" + shipperID + "/shipments";
 	}
@@ -183,9 +204,20 @@ public class ShipperCusToCusController {
 		//System.out.println("called");
 		
 		// đổi status thành shipper is shipping
-		Shipping shipping = shippingService.findByOrderID(orderID);
+		Shipping shipping = shippingService.findLatestShippingByOrderID(orderID);
+		  ///////////Creat old shipping////////
+				Shipping shippingOld = new Shipping();
+				shippingOld.setShipper(shipping.getShipper());
+				shippingOld.setDateUpdate(shipping.getDateUpdate());
+				shippingOld.setStatusOrderID(shipping.getStatusOrderID()); 
+				shippingOld.setTotal(shipping.getTotal());
+				shippingOld.setOrderID(orderID);  //Vừa sửa
+				shippingService.save(shippingOld);
+				///////////////////////////////////
 		shipping.setStatusOrderID(9);
 		shippingService.save(shipping);
+		
+		
 		
 		return "redirect:/shippercustocus/" + shipperID + "/shipments";
 	}

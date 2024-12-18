@@ -160,7 +160,7 @@ public class CustomerOrderController {
 		Shipper shipper = new Shipper(); // Shipper này là người phụ trách giao trực tiếp đến người nhận
 
 		for (Shipping shipping2 : shipping) {
-			if (shipping2.getStatusOrderID() == 7) { // Tìm thông tin Shipper khi shipper trạng thái Shipping
+			if (shipping2.getStatusOrderID() == 8) { // Tìm thông tin Shipper khi shipper trạng thái Shipping
 				shipper = shipping2.getShipper(); // gán nó cho shipper
 				break;
 			}
@@ -203,7 +203,7 @@ public class CustomerOrderController {
 				voucherService.save(voucher);
 			}
 			// Ta sẽ xoá Shipping trong SHIPPING
-			Shipping shipping = shippingService.findByOrderID(orderID);
+			Shipping shipping = shippingService.findLatestShippingByOrderID(orderID);
 			shippingService.deleteByShipping(shipping);
 			// Ta sẽ xoá Order trong ORDER
 			orderService.deleteByOrderID(orderID);

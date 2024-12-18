@@ -28,22 +28,22 @@ public class AdminStatistic {
 		return new String();
 	}
 	
-	@GetMapping("")
-	public String amountShipperPost(@PathVariable Integer id, Model model) {
-		List<PostShipperCountDTO> data = shipperService.getShipperCountByPost();
-		 // Chuyển dữ liệu sang Model
-        List<String> postNames = data.stream()
-                                     .map(PostShipperCountDTO::getPostName)
-                                     .toList();
-        List<Long> shipperCounts = data.stream()
-                                       .map(PostShipperCountDTO::getShipperCount)
-                                       .toList();
-        
-        model.addAttribute("postNames", postNames);
-        model.addAttribute("shipperCounts", shipperCounts);
-        
-        return "admin/statistic";
-	}
+//	@GetMapping("")
+//	public String amountShipperPost(@PathVariable Integer id, Model model) {
+//		//List<PostShipperCountDTO> data = shipperService.getShipperCountByPost();
+//		 // Chuyển dữ liệu sang Model
+//        List<String> postNames = data.stream()
+//                                     .map(PostShipperCountDTO::getPostName)
+//                                     .toList();
+//        List<Long> shipperCounts = data.stream()
+//                                       .map(PostShipperCountDTO::getShipperCount)
+//                                       .toList();
+//        
+//        model.addAttribute("postNames", postNames);
+//        model.addAttribute("shipperCounts", shipperCounts);
+//        
+//        return "admin/statistic";
+//	}
 	
 	
 	

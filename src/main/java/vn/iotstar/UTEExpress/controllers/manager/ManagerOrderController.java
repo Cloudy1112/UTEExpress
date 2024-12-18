@@ -106,7 +106,7 @@ public class ManagerOrderController {
 		}
 		
 		// trang thai don
-		Shipping shipping = shippingService.findByOrderID(orderID);
+		Shipping shipping = shippingService.findLatestShippingByOrderID(orderID);
 		if(shipping == null) System.out.println("null");
 		model.addAttribute("shipping", shipping);
 		
@@ -178,12 +178,23 @@ public class ManagerOrderController {
 
 	    // update statusorder
 		// update shipping
-	    Shipping shipping = shippingService.findByOrderID(orderID);
+	    Shipping shipping = shippingService.findLatestShippingByOrderID(orderID);
+	    ///////////Creat old shipping////////
+		Shipping shippingOld = new Shipping();
+		shippingOld.setShipper(shipping.getShipper());
+		shippingOld.setDateUpdate(shipping.getDateUpdate());
+		shippingOld.setStatusOrderID(shipping.getStatusOrderID()); 
+		shippingOld.setTotal(shipping.getTotal());
+		shippingOld.setOrderID(orderID);  //Vừa sửa
+		shippingService.save(shippingOld);
+		///////////////////////////////////
 	    shipping.setStatusOrderID(1);
 	    shipping.setDateUpdate(updateDay);
 	    shipping.setShipper(shipper);
 	    //save
 	    shippingService.save(shipping);
+	    
+	    
 	    
 		/*
 		 * if(shipping != null) { System.out.println("shipping nor null"); //ok }
@@ -293,12 +304,26 @@ public class ManagerOrderController {
 	
 			// update statusorder
 			// update shipping
-		    Shipping shipping = shippingService.findByOrderID(orderID);
+		    Shipping shipping = shippingService.findLatestShippingByOrderID(orderID);
+		    
+		    
+//		    ///////////Creat old shipping////////
+//			Shipping shippingOld = new Shipping();
+//			shippingOld.setShipper(shipping.getShipper());
+//			shippingOld.setDateUpdate(shipping.getDateUpdate());
+//			shippingOld.setStatusOrderID(shipping.getStatusOrderID()); 
+//			shippingOld.setTotal(shipping.getTotal());
+//			shippingOld.setOrderID(orderID);  //Vừa sửa
+//			shippingService.save(shippingOld);
+//			///////////////////////////////////
+			
 		    shipping.setDateUpdate(updateDay);
 		    shipping.setShipper(shipper);
 		    
 		    //save
 		    shippingService.save(shipping);
+		    
+		  
 		    
 			/*
 			 * //order Order order = orderService.findById(orderID).get();
