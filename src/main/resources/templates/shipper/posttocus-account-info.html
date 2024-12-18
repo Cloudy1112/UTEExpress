@@ -65,10 +65,36 @@
 
 		</div>
 		
-		<div class="form-group">
-		    <label for="inputPicture">Picture</label>
-		    <input class="form-control" id="inputPicture" name="picture"
-		           placeholder="Enter picture URL" required type="text" />
+		<div class="row">
+			<div class="col">
+				<div class="form-group">
+			    <!-- Upload new image (if any) -->
+			    <label for="images1">Upload New Image:</label><br> 
+			    <input class="form-control" type="file" id="images1" name="images1"><br> 
+				   <!--  <label for="inputPicture">Picture</label>
+				    <input class="form-control" id="inputPicture" name="picture"
+				           placeholder="Enter picture URL" required type="text" /> -->
+				</div>
+			</div>
+			
+			<div class="col">
+			    <div class="form-group">
+			        <!-- Check if 'manager' is not null before accessing 'picture' -->
+			        <img height="150" width="200"
+			             th:if="${shipper != null and shipper.picture != null and shipper.picture.startsWith('http')}"
+			             th:src="${shipper.picture}" />
+			
+			        <img height="150" width="200"
+			             th:if="${shipper != null and shipper.picture != null and !shipper.picture.startsWith('http')}"
+			             th:src="@{/image/{fname}(fname=${manager.picture})}" />
+			
+			        <!-- Check if 'shipper' is not null before accessing 'picture' -->
+			        <img height="150" width="200"
+			             th:if="${shipper == null or shipper.picture == null}"
+			             th:src="@{/image/{fname}(fname='avatar.jpg')}" />
+			    </div>
+			</div>
+
 		</div>
 		
 		<div class="row">

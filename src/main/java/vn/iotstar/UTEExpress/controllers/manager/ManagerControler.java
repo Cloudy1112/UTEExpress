@@ -1,5 +1,7 @@
 package vn.iotstar.UTEExpress.controllers.manager;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,11 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.Part;
 import vn.iotstar.UTEExpress.entity.Account;
 import vn.iotstar.UTEExpress.entity.Manager;
 import vn.iotstar.UTEExpress.service.IAccountService;
 import vn.iotstar.UTEExpress.service.ICustomerService;
 import vn.iotstar.UTEExpress.service.IManagerService;
+import vn.iotstar.UTEExpress.utils.Constants;
 
 @Controller
 @RequestMapping("/manager")
@@ -79,7 +83,28 @@ public class ManagerControler {
 	    oldManager.setPhone(phone);
 	    oldManager.setCccd(cccd);
 	    
-	 // htem
+	    // Xử lý images
+	    String fname = "";
+	    String uploadPath = Constants.UPLOAD_PATH;
+	    File uploadDir = new File(uploadPath);
+	    if (!uploadDir.exists()) {
+	        uploadDir.mkdir();
+	    }
+
+	    try {
+	        Part part = request.getPart("images1");
+	        if (part.getSize() > 0) {
+	            String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+	            String ext = filename.substring(filename.lastIndexOf(".") + 1);
+	            fname = System.currentTimeMillis() + "." + ext;
+	            part.write(uploadPath + "/" + fname);
+	            oldManager.setPicture(fname);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    
+	    // htem
 	    Account account = oldManager.getAccount();
 	    account.setPassword(confirmPassword);
 	    accountService.save(account);

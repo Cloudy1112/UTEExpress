@@ -21,7 +21,7 @@ public class ImageController {
     public void loadImage(@PathVariable("fname") String fname, HttpServletResponse response) throws IOException, ServletException {
         String fileName = fname;
 
-        File file = new File(ConstantUtils.UPLOAD_PATH + "\\" + fileName);
+        File file = new File(ConstantUtils.UPLOAD_PATH + "/" + fileName);
         response.setContentType("image/jpeg");
         if (file.exists()) {
             IOUtils.copy(new FileInputStream(file), response.getOutputStream());
