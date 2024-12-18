@@ -37,8 +37,8 @@ public class ShipperServiceImpl implements IShipperService{
 	}
 
 	@Override
-	public List<Shipper> findShippersByRoleId(Integer roleID) {
-		return shipperRepository.findShippersByRoleId(roleID);
+	public List<Shipper> findShippersByRoleId(Integer roleID, String cityname) {
+		return shipperRepository.findShippersByRoleId(roleID, cityname);
 	}
 	
 	@Override
@@ -50,6 +50,12 @@ public class ShipperServiceImpl implements IShipperService{
 	@Override
 	public Shipper findShipperByUsername(String username) {
 		return shipperRepository.findShipperByUsername(username);
+	}
+
+	@Override
+	public List<Shipper> findShippersByRoleId(Integer roleID) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

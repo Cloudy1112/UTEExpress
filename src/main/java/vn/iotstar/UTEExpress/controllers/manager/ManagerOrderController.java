@@ -117,15 +117,15 @@ public class ManagerOrderController {
 			// hỏa tốc pending -> confirm -> ....
 			if(order.getTransport().getTransportID() == 3) {
 				//shipper vận thằng - 4
-				shippers = shipperService.findShippersByRoleId(4);
+				shippers = shipperService.findShippersByRoleId(4, order.getSourceCity());
 				model.addAttribute("shippers", shippers);
 			}else {
-				shippers = shipperService.findShippersByRoleId(5);
+				shippers = shipperService.findShippersByRoleId(5,order.getSourceCity());
 				model.addAttribute("shippers", shippers);
 			}
 			// các loại khác pending - confirm ...
 		}else {
-			shippers = shipperService.findShippersByRoleId(5);
+			shippers = shipperService.findShippersByRoleId(5,order.getSourceCity());
 			model.addAttribute("shippers", shippers);
 		}
 		//add shipper vô ciew chọn
@@ -234,6 +234,7 @@ public class ManagerOrderController {
 		Manager manager = managerService.findById(managerID).get();
 		model.addAttribute("manager", manager);
 		
+		
 		//lấy order
 		Order order = orderService.findById(orderID).get();
 		model.addAttribute("order", order);
@@ -245,14 +246,14 @@ public class ManagerOrderController {
 		// lấy shipper
 		// nếu cùng city statusorder = 4 -> giao shipper tu post - client
 		List<Shipper> shippers = null;
-		if(order.getSourceCity().equals(order.getDestCity()) && order.getShipping().getStatusOrderID() == 4 ) {
-			shippers = shipperService.findShippersByRoleId(6);
+		if(order.getSourceCity().equals(order.getDestCity()) && order.getShipping().getStatusOrderID() == 4  ) {
+			shippers = shipperService.findShippersByRoleId(6,order.getSourceCity());
 		}else if((!order.getSourceCity().equals(order.getDestCity())) && order.getShipping().getStatusOrderID() == 4) {
 		// nếu khác city statusorder = 4 -> giao shipper transit post - post
-			shippers = shipperService.findShippersByRoleId(7);
+			shippers = shipperService.findShippersByRoleId(7,order.getSourceCity());
 		}else if((!order.getSourceCity().equals(order.getDestCity())) && order.getShipping().getStatusOrderID() == 6 ) {
 			// nếu khác city statusorder = 6 -> giao shipper tu post - client
-			shippers = shipperService.findShippersByRoleId(6);
+			shippers = shipperService.findShippersByRoleId(6,order.getDestCity());
 		}
 		
 		model.addAttribute("shippers", shippers);

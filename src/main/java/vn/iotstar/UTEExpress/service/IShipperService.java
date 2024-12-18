@@ -21,5 +21,7 @@ public interface IShipperService {
 	<S extends Shipper> S save(S entity);
 
 	List<Shipper> findShippersByIDPost(Integer postID);
+
+	List<Shipper> findShippersByRoleId(Integer roleID, String cityname);
 	
 }

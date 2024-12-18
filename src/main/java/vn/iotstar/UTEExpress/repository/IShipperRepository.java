@@ -18,8 +18,8 @@ public interface IShipperRepository extends JpaRepository<Shipper, Integer>{
 	@Query("SELECT s FROM Shipper s " +
 	           "JOIN s.account a " +
 	           "JOIN a.role r " +
-	           "WHERE r.roleID = :roleID")
-	    List<Shipper> findShippersByRoleId(Integer roleID);
+	           "WHERE r.roleID = :roleID AND s.city = :cityName")
+	    List<Shipper> findShippersByRoleId(Integer roleID, String cityName);
 	
 	// tìm shipper theo userna,e
 	@Query("SELECT s FROM Shipper s WHERE s.account.username = :username")
