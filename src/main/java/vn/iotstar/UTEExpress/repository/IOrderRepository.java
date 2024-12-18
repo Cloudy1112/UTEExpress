@@ -72,4 +72,12 @@ public interface IOrderRepository extends JpaRepository<Order, String>{
 	
 	@Query("select o from Order o where o.customer.customerID = :customerID")
 	List <Order> findAllByCustomerID(@Param("customerID") Integer customerID);
+	
+	@Query("SELECT COUNT(o) " +
+	           "FROM Order o " +
+	           "JOIN o.customer c " +
+	           "JOIN o.shipping s " +
+	           "WHERE c.city = :city AND s.statusOrderID = :statusOrderID")
+    Integer countOrdersByCityAndStatus(@Param("city") String city, 
+                                    @Param("statusOrderID") Integer statusOrderID);
 }

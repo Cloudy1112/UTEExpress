@@ -25,6 +25,7 @@ import vn.iotstar.UTEExpress.entity.Manager;
 import vn.iotstar.UTEExpress.service.IAccountService;
 import vn.iotstar.UTEExpress.service.ICustomerService;
 import vn.iotstar.UTEExpress.service.IManagerService;
+import vn.iotstar.UTEExpress.service.impl.OrderServiceImpl;
 import vn.iotstar.UTEExpress.utils.Constants;
 
 @Controller
@@ -38,6 +39,8 @@ public class ManagerControler {
 	private ICustomerService customerService;
 	@Autowired
 	private PasswordEncoder encoder;
+	@Autowired
+	private OrderServiceImpl orderService;
 	
 	// login xong sẽ về trang này nếu role là manager
 	@GetMapping("/{id}")
@@ -131,11 +134,5 @@ public class ManagerControler {
 		}
 	    return "redirect:/manager/" + managerID + "/manager-info?status=success";
 	}
-	@GetMapping("/{id}/statistic")
-	public String viewStatistic(@PathVariable("id") Integer managerID, Model model) {
-		Manager manager = managerService.findById(managerID).get();
-		model.addAttribute("manager", manager);
-		
-		return "manager/manager-statistic"; // Tên file Thymeleaf
-	}
+	
 }
