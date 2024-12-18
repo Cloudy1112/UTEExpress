@@ -72,10 +72,15 @@ public class OrderServiceImpl implements IOrderService{
 		return orderRepository.findOrdersByShipperIDAndStatus(shipperID, statusOrderID);
 	}
 
+	public Integer countOrdersByCityAndStatus(String city, Integer statusOrderID) {
+		return orderRepository.countOrdersByCityAndStatus(city, statusOrderID);
+	}
+
 	/*
 	 * public Page<Order> findOrdersByShipperIDAndStatus(Integer shipperID, Integer
 	 * statusOrderID, int page, int size) { Pageable pageable = PageRequest.of(page,
 	 * size); return orderRepository.findOrdersByShipperIDAndStatus(shipperID,
 	 * statusOrderID, pageable); }
 	 */
+	
 }
