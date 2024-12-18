@@ -30,6 +30,11 @@
 			<!-- row g-0 -->
 			<div class="row g-0">
 			<h2>Shipping form</h2>
+			<div th:if="${errorMessage}" 
+					     style="color: red; font-weight: bold; text-align: center; margin: 10px;">
+					    <p th:text="${errorMessage}"></p>
+			</div>
+			
 			
 	        <form class="form1" th:action="@{/customer/order/create/{id}(id=${id})}" method="POST">
 	             <!-- Receiver Information -->

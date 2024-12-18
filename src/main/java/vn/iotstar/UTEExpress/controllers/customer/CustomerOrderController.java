@@ -85,7 +85,12 @@ public class CustomerOrderController {
 			@RequestParam("goodsID") Integer goodsID, @RequestParam("transportID") Integer transportID,
 			@RequestParam("voucherID") Integer voucherID, @RequestParam("COD_surcharge") float codSurcharge,
 			@RequestParam("total") float total, Model model) {
-
+		
+		if (customerService.findById(id).getIsActive() !=1)
+		{
+			model.addAttribute("errorMessage", "Need to active account");
+			return "customer/customer-create-order";
+		}
 		Order order = new Order();
 
 		int srccity = cityService.findByCityName(sourceCity).getCityID();
